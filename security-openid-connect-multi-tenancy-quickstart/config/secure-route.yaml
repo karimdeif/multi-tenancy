@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: Route
+metadata:
+  name: secured-oidc
+  namespace: oidc
+spec:
+  to:
+    kind: Service
+    name: ssl-oidc-app
+    weight: 100
+  port:
+    targetPort: 8443
+  tls:
+    termination: passthrough
+    insecureEdgeTerminationPolicy: Redirect
+    wildcardPolicy: None
