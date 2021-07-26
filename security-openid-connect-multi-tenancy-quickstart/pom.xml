@@ -7,7 +7,7 @@
   <version>1.0.0-SNAPSHOT</version>
   <properties>
     <htmlunit.version>2.36.0</htmlunit.version>
-    <keycloak.version>14.0.0</keycloak.version>
+    <keycloak.version>13.0.0</keycloak.version>
     <maven.compiler.source>11</maven.compiler.source>
     <maven.compiler.target>11</maven.compiler.target>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
