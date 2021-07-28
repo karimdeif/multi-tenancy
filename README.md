@@ -33,3 +33,8 @@ See [CONTRIBUTING](CONTRIBUTING.md) for how to build these examples.
 
 There is documentation published at <https://quarkus.io> (docs' [sources are here](https://github.com/quarkusio/quarkus/tree/master/docs/src/main/asciidoc)).
 
+## Architecture
+
+![Architecture Diagram](https://github.com/karimdeif/quarkus-quickstarts/blob/main/diagrams/multi-tenant-app-architecture.png)
+
+
