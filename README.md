@@ -37,4 +37,6 @@ There is documentation published at <https://quarkus.io> (docs' [sources are her
 
 ![Architecture Diagram](https://github.com/karimdeif/quarkus-quickstarts/blob/main/diagrams/multi-tenant-app-architecture.jpg)
 
+## Design Pattern
+[DTO] (https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRNGy9j-cPEE2UAgmRhyhHSOgS4wvsyUWqE8Q&usqp=CAU)
 
