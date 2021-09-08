@@ -55,11 +55,14 @@ export default {
       apiUrlProducts: window.VUE_APP_API_URL_PRODUCTS,
       loadingProducts: false,
       errorLoadingProducts: "",
-      categoryName: window.VUE_APP_CATEGORY_NAME,
+      categoryName: window.VUE_APP_CATEGORY_NANE,
       selectedProductId: ""
     };
   },
-  computed: {    
+  computed: {
+    isAuthenticated() {
+      return this.$store.state.user.isAuthenticated;
+    }    
   },
   created() {   
     let observable = Messaging.getObservable(Messaging.MICRO_FRONTEND_CATALOG);
@@ -80,7 +83,7 @@ export default {
       },
     });
 
-    this.readProducts(2, window.VUE_APP_CATEGORY_NAME);
+    this.readProducts(2, window.VUE_APP_CATEGORY_NANE);
   },
   methods: {
     addButtonClicked() {
@@ -115,7 +118,7 @@ export default {
       this.categoryName = categoryName;
       if (this.loadingProducts == false) {
         this.loadingProducts = true;
-        fetch(this.apiUrlProducts + categoryId + "/products")
+        fetch(this.apiUrlProducts + categoryId)
           .then((r) => r.json())
           .then((json) => {
             this.loadingProducts = false;

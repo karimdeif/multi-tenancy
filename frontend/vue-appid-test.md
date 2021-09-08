@@ -1,23 +1,36 @@
-import Vue from 'vue'
-import App from './App.vue'
+# Using App ID in a Vue.js front end
 
-Vue.config.productionTip = false
+### Add App ID client SDK
 
-import VueMaterial from 'vue-material'
-import 'vue-material/dist/vue-material.min.css'
-import 'vue-material/dist/theme/default.css'
-import store from './store'
-import router from './router';
+* [App ID client SDK for Single WebPage](https://github.com/ibm-cloud-security/appid-clientsdk-js)
+* [How to implement await in JavaScript](https://basarat.gitbook.io/typescript/future-javascript/async-await)
+* [Client SDK JavaScript](https://ibm-cloud-security.github.io/appid-clientsdk-js/AppID.html#getUserInfo)
+
+```sh
+npm install ibmcloud-appid-js
+```
+
+To use refresh token, you need to enable refresh token, as you see in the image below.
+
+![](./images/token-configuration.png)
+
+### Use the App ID client SDK in Vue.js
+
+Relevant code in the `main.js` file. 
+
+The code is structured in :
+
+1. Set variable for authentication
+2. Functions 
+    * Login (`appID.Signin()`)
+    * Renew (`appID.silentSignin()`)
+3. App ID authentication init
+4. Create vue appilcation instance
+5. Renew token in an interval (https://www.unixtimestamp.com/index.php)
+
+```javascript
 import AppID from 'ibmcloud-appid-js';
-
-
-//import { MwcTopAppBarFixed } from 'vue-material/dist/components'
-//Vue.use(MwcTopAppBarFixed)
-//import { MdButton } from 'vue-material/dist/components'
-//Vue.use(MdButton)
-
-Vue.use(VueMaterial)
-
+...
 /**********************************/
 /* Set variable for authentication
 /**********************************/
@@ -65,7 +78,6 @@ async function asyncAppIDrefresh(appID) {
       /******************************/
       /* Authentication
       /******************************/
-      console.log("--> log: goint to update token ");
       
       let tokens = await appID.silentSignin();
       console.log("--> log: silentSignin tokens ", tokens);   
@@ -76,24 +88,13 @@ async function asyncAppIDrefresh(appID) {
         // name : tokens.idTokenPayload.given_name
       }
       store.commit("login", user_info);
-      console.log("--> log: silentSignin tokens ", tokens);
-      console.log("--> log: username : " + store.state.user);   
       return true;
     } catch (e) {
-      console.log("--> log: asyncAppIDrefresh - catch interval error ", e);
-      user_info = {
-        isAuthenticated: false,
-        idToken : " ",
-        accessToken: " ",
-        name : " "
-      }
-      store.commit("login", user_info);
-      console.log("--> log: username : " + store.state.user); 
-      window.location.reload();
+      console.log("--> log: catch interval error ", e);
       return false;
     }
   } else {
-    console.log("--> log: asyncAppIDrefresh - no refresh ");
+    console.log("--> log: no refresh ");
     return false;
   }
 }
@@ -142,20 +143,18 @@ setInterval(() => {
   console.log("--> log: token interval ");
   console.log("--> log: isAuthenticated ", store.state.user.isAuthenticated);
 
-  if (store.state.user.isAuthenticated == true) {
-    console.log("--> log: user logged on : " + store.state.user); 
+  if (store.state.user.isAuthenticated == false) {
     renew_token=asyncAppIDrefresh(appID);
     console.log("--> log: renew_token : " + renew_token);
-  } else {     
+  } else {
+      console.log("--> log: renew_token : " + renew_token); 
       user_info = {
         isAuthenticated: false,
         idToken : " ",
         accessToken: " ",
         name : " "
       }
-      store.commit("login", user_info);
-      console.log("--> log: user logged on username : " + store.state.user);  
+      store.commit("login", user_info);    
   }
-}, 300000);
-
-export { default as Messaging } from "./messaging.js";
+}, 10000);
+```
