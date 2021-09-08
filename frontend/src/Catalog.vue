@@ -52,11 +52,10 @@ import "@material/mwc-top-app-bar-fixed";
 export default {
   data() {
     return {
-      apiUrlProducts:
-        "http://service-catalog-quarkus-reactive-app-mod-tekton-dev.niklas-heidloff-dal12-b-162e406f043e20da9b0ef0731954a894-0000.us-south.containers.appdomain.cloud/CustomerOrderServicesWeb/jaxrs/Product/?categoryId=",
+      apiUrlProducts: window.VUE_APP_API_URL_PRODUCTS,
       loadingProducts: false,
       errorLoadingProducts: "",
-      categoryName: "Movies",
+      categoryName: window.VUE_APP_CATEGORY_NAME,
       selectedProductId: ""
     };
   },
@@ -81,7 +80,7 @@ export default {
       },
     });
 
-    this.readProducts(2, "Movies");
+    this.readProducts(2, window.VUE_APP_CATEGORY_NAME);
   },
   methods: {
     addButtonClicked() {
@@ -116,7 +115,7 @@ export default {
       this.categoryName = categoryName;
       if (this.loadingProducts == false) {
         this.loadingProducts = true;
-        fetch(this.apiUrlProducts + categoryId)
+        fetch(this.apiUrlProducts + categoryId + "/products")
           .then((r) => r.json())
           .then((json) => {
             this.loadingProducts = false;

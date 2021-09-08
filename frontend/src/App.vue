@@ -3,7 +3,7 @@
   <div style="display: flex;flex-direction: row;">
     <div id="app" style="order: 1;flex-grow: 2;max-width: 300px;width:300px">
      <mwc-top-app-bar-fixed>
-      <div slot="title">Electronic and Movie Depot</div>
+      <div slot="title">{{ headline }}</div>
     </mwc-top-app-bar-fixed>
  
     <md-app>
@@ -74,10 +74,9 @@ export default {
       categories: {},
       loadingCategories: false,
       amountLineItems: 0,
-      apiUrlCategories:
-        "http://service-catalog-quarkus-reactive-app-mod-tekton-dev.niklas-heidloff-dal12-b-162e406f043e20da9b0ef0731954a894-0000.us-south.containers.appdomain.cloud/CustomerOrderServicesWeb/jaxrs/Category",
-      apiUrlOrders:
-        "http://localhost/CustomerOrderServicesWeb/jaxrs/Customer/Orders",
+      apiUrlCategories: window.VUE_APP_API_URL_CATEGORIES,
+      apiUrlOrders: window.VUE_APP_API_URL_ORDERS,
+      headline: window.VUE_APP_HEADLINE
     };
   },
   created() {

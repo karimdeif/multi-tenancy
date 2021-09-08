@@ -18,6 +18,17 @@ import router from './router';
 //import { MdButton } from 'vue-material/dist/components'
 //Vue.use(MdButton)
 
+fetch(process.env.BASE_URL + "config.json")
+  .then((response) => response.json())
+  .then((config) => {
+       Vue.prototype.$config = config
+       new Vue({
+         router,
+         store,
+         render: (h) => h(App)
+       }).$mount("#app")
+  })
+  
 Vue.use(VueMaterial)
 
 new Vue({
