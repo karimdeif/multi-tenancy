@@ -21,9 +21,6 @@ more ./generate_env-config.sh
 # Create env-config.js file in the public folder 
 # of the ngnix server, based on the environment variables
 # given by the docker run -e parameter
-# - VUE_APP_ROOT
-# - VUE_APP_KEYCLOAK
-# - VUR_APP_WEBAPI
 ########################################
 echo ""
 echo ""
