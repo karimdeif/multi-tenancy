@@ -55,7 +55,7 @@ export default {
       apiUrlProducts: window.VUE_APP_API_URL_PRODUCTS,
       loadingProducts: false,
       errorLoadingProducts: "",
-      categoryName: window.VUE_APP_CATEGORY_NANE,
+      categoryName: window.VUE_APP_CATEGORY_NAME,
       selectedProductId: ""
     };
   },
@@ -83,7 +83,7 @@ export default {
       },
     });
 
-    this.readProducts(2, window.VUE_APP_CATEGORY_NANE);
+    this.readProducts(2, window.VUE_APP_CATEGORY_NAME);
   },
   methods: {
     addButtonClicked() {
