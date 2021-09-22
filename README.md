@@ -2,7 +2,7 @@
 
 |   | Objectives |  Status | Priority |  Notes | 
 |---|---|---|---|---|
-| 1 | **Running simple ecommerce application including Quarkus on Code Engine** |  in progress | high |Running example: [tenant b](https://frontend-oidc-b.ceqctuyxg6m.us-south.codeengine.appdomain.cloud/), [tenant b](https://frontend-oidc-a.ceqctuyxg6m.us-south.codeengine.appdomain.cloud/)  |
+| 1 | **Running simple ecommerce application including Quarkus on Code Engine** |  in progress | high |Running example: [tenant b](https://frontend-oidc-b.ceqctuyxg6m.us-south.codeengine.appdomain.cloud/), [tenant a](https://frontend-oidc-a.ceqctuyxg6m.us-south.codeengine.appdomain.cloud/)  |
 | 1.1 | - AppID setup |  done | high |  |
 | 1.2 | - AppID integation to frontend |  done | high |  |
 | 1.3 | - AppID integration to Backend |  open | high |  |
