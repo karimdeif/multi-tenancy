@@ -1,42 +1,25 @@
-# QuickStarts for Getting Started Guides
+# Objectives for week 41
 
-This repository contains a set of Quickstarts for the Quarkus framework. Each of them have a Getting started guide.
-
-## Requirements
-
-To compile and run these demos you will need:
-
-- JDK 8 or 11+
-- GraalVM
-
-See the [Building a Native Executable guide](https://quarkus.io/guides/building-native-image) for help setting up your environment.
-
-## Use alternative platforms
-
-These quickstart by default currently uses the Quarkus core BOM.
-
-If you want to use an alternative BOM when building the quickstart you can override the `quarkus.platform.*` properties. The following example shows how to set `quarkus.platform.artifact-id` to use the universe-bom.
-
-```
-mvn -Dquarkus.platform.artifact-id=quarkus-universe-bom clean install
-```
-
-## Contributions
-
-See [CONTRIBUTING](CONTRIBUTING.md) for how to build these examples.
-
-## Quick Start list
-
-* [Hibernate ORM Multitenancy](./hibernate-orm-multi-tenancy-quickstart): Multitenant CRUD service over REST using Hibernate ORM to connect to a PostgreSQL database (schema or database approach)
-* [Supporting Multi-Tenancy in OpenID Connect Applications](./security-openid-connect-multi-tenancy-quickstart): How to use OpenId Connect and [Keycloak](https://www.keycloak.org)
+| Objectives |  Status |  Priority |  Notes | 
+| --- | --- | --- | --- | --- |
+| 1 | Running simple ecommerce application including Quarkus on Code Engine |  open | high |   |
+| 1.1 | - AppID setup |  done | high |  |
+| 1.2 | - AppID integation to frontend |  done | high |  |
+| 1.3 | - AppID integration to Backend |  open | high |  |
+| 1.4 | - Backend database postgres integration |  open | high |  |
+| 1.5 | - Deploy to Code Engine |  open | high |  |
+| 2 | Automation of the deployment | open | high |  |
+| 2.1 | - Create containers and save them in a public container registry | open | high |  |
+| 2.2 | - Create a bash automation for the creation and configuration of AppID | open | high |  |
+| 2.3 | - Create a bash automation for the creation and configuration of postgres | open | high |  |
+| 2.4 | - Create a bash automation for deployment to Code Engine | open | high |  |
+| 2.5 | - Setup tekton using the IBM Cloud toolchain | open | high |  |
+| 2.6 | - Integrate exiting bash automationto tektion | open | high |  |
+| 2.7 | - Add an admin UI for onboarding of new tenant roberts application | open | low |  |
+| 3 | Documenation of the setup | open | high | We should use **mkdocs** |  
+| 3.1 | - Manual setup | open | high |  |  
+| 3.2 | - Automation setup | open | high |  |
+| 3.3 | - Workshop  | open | low |  |
 
 
-There is documentation published at <https://quarkus.io> (docs' [sources are here](https://github.com/quarkusio/quarkus/tree/master/docs/src/main/asciidoc)).
-
-## Architecture
-
-![Architecture Diagram](https://github.com/karimdeif/multi-tenancy-partner-play/raw/main/diagrams/multi-tenant-app-architecture.jpg)
-
-## Design Pattern
-[DTO] (https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRNGy9j-cPEE2UAgmRhyhHSOgS4wvsyUWqE8Q&usqp=CAU)
 
