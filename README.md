@@ -8,7 +8,7 @@
 | 1.3 | - AppID integration to Backend |  open | high |  |
 | 1.4 | - Backend database postgres integration |  done | high |  |
 | 1.5 | - Deploy to Code Engine |  in progress | high | the intergrated appid frontend and postgress backend is deployed |
-| 2 | **Automation of the deployment** | in progresss | high |  |
+| 2 | **Automation of the deployment** | in progress | high |  |
 | 2.1 | - Create containers and save them in a public container registry | open | high |  |
 | 2.2 | - Create a bash automation for the creation and configuration of AppID | open | high |  |
 | 2.3 | - Create a bash automation for the creation and configuration of postgres | open | high |  |
