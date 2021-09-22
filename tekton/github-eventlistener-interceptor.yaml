@@ -1,4 +1,3 @@
----
 apiVersion: triggers.tekton.dev/v1beta1
 kind: EventListener
 metadata:
