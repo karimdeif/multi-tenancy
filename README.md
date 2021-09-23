@@ -39,17 +39,20 @@ The example ecommerce mircorservices application is build on following `technolo
 
   * [Microservices architecture](https://en.wikipedia.org/wiki/Microservices)
   * [OpenID Connect](https://openid.net/connect/)
+  * [Jakarta EE](https://jakarta.ee/)
+  * [MicroProfile](https://microprofile.io/)
+
   * [IBM Cloud Code Engine](https://cloud.ibm.com/docs/codeengine?topic=codeengine-about)
   * [Postgres](https://cloud.ibm.com/databases/databases-for-postgresql/create)
   * [AppID](https://www.ibm.com/de-de/cloud/app-id)
-  * [Jakarta EE](https://jakarta.ee/)
-  * [MicroProfile](https://microprofile.io/)
   * [Quarkus](https://quarkus.io/ingress)
   * [Vue.js](https://vuejs.org/)
+  
   * [NGINX](https://www.nginx.com/)
   * [git 2.24.1 or higher](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git)
   * [yarn 1.22.4 or higher](https://yarnpkg.com)
   * [Node.js v14.6.0 or higher](https://nodejs.org/en/)
   * [Apache Maven 3.6.3](https://maven.apache.org/ref/3.6.3/maven-embedder/cli.html)
+  * [Quay](https://quay.io/)
 
 
