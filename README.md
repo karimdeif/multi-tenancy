@@ -8,7 +8,7 @@
 
 One frontend per tenant, one business logic per tenant.
 
-[](documentation/images/Mulit-Tenancy-architecture-codeengine-serverless.jpg)
+![](documentation/images/Mulit-Tenancy-architecture-codeengine-serverless.jpg)
 
 ### Objectives for week 41
 
