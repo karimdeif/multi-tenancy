@@ -8,7 +8,7 @@
 
 One frontend per tenant, one business logic per tenant.
 
-[](images/Mulit-Tenancy-architecture-codeengine-serverless.jpg)
+[](documentation/images/Mulit-Tenancy-architecture-codeengine-serverless.jpg)
 
 ### Objectives for week 41
 
@@ -35,7 +35,7 @@ One frontend per tenant, one business logic per tenant.
 
 ### Technology Used
 
-The example mircorservices application example is build with following `technologies/tools/frameworks`.
+The example ecommerce mircorservices application is build on following `technologies/tools/frameworks`.
 
   * [Microservices architecture](https://en.wikipedia.org/wiki/Microservices)
   * [OpenID Connect](https://openid.net/connect/)
