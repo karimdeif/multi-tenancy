@@ -11,8 +11,9 @@ echo "REGISTRY_URL=${REGISTRY_URL}"
 echo "REGISTRY_NAMESPACE=${REGISTRY_NAMESPACE}"
 echo "IMAGE_NAME=${IMAGE_NAME}"
 echo "ARCHIVE_DIR=${ARCHIVE_DIR}"
-echo "DOCKER_ROOT=${DOCKER_ROOT}"
-echo "DOCKER_FILE=${DOCKER_FILE}"
+#echo "DOCKER_ROOT=${DOCKER_ROOT}"
+echo "DOCKER_ROOT="hibernate-orm-multi-tenancy-quickstart/src/main/docker"
+echo "DOCKER_FILE="Dockerfile.jvm"
 
 # View build properties
 #if [ -f build.properties ]; then 
