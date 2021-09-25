@@ -15,12 +15,12 @@ echo "DOCKER_ROOT=${DOCKER_ROOT}"
 echo "DOCKER_FILE=${DOCKER_FILE}"
 
 # View build properties
-if [ -f build.properties ]; then 
-  echo "build.properties:"
-  cat build.properties
-else 
-  echo "build.properties : not found"
-fi 
+#if [ -f build.properties ]; then 
+#  echo "build.properties:"
+#  cat build.properties
+#else 
+#  echo "build.properties : not found"
+#fi 
 # also run 'env' command to find all available env variables
 # or learn more about the available environment variables at:
 # https://console.bluemix.net/docs/services/ContinuousDelivery/pipeline_deploy_var.html#deliverypipeline_environment
