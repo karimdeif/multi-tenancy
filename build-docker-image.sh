@@ -56,7 +56,7 @@ set -x
 
 cd hibernate-orm-multi-tenancy-quickstart/
 
-./mvnw install
+./mvnw package
 ls -l
 
 cd src/main/docker/
