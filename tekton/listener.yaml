@@ -71,9 +71,9 @@ metadata:
 spec:
   params:
     - name: repository
-      value: "https://github.com/open-toolchain/hello-tekton"
+      value: "https://github.com/karimdeif/multi-tenancy"
     - name: revision
-      value: "master"
+      value: "main"
 ---
 apiVersion: tekton.dev/v1beta1
 kind: EventListener
