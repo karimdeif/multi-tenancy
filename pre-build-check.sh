@@ -41,21 +41,21 @@ echo "DOCKER_FILE="Dockerfile.jvm"
 #dockerlint -f ${DOCKER_ROOT}/${DOCKER_FILE}
 
 echo "=========================================================="
-echo "Checking registry current plan and quota"
-bx cr plan
-bx cr quota
-echo "If needed, discard older images using: bx cr image-rm"
-echo "Checking registry namespace: ${REGISTRY_NAMESPACE}"
-NS=$( bx cr namespaces | grep ${REGISTRY_NAMESPACE} ||: )
-if [ -z "${NS}" ]; then
-    echo "Registry namespace ${REGISTRY_NAMESPACE} not found, creating it."
-    bx cr namespace-add ${REGISTRY_NAMESPACE}
-    echo "Registry namespace ${REGISTRY_NAMESPACE} created."
-else 
-    echo "Registry namespace ${REGISTRY_NAMESPACE} found."
-fi
-echo -e "Existing images in registry"
-bx cr images --restrict ${REGISTRY_NAMESPACE}
+#echo "Checking registry current plan and quota"
+#bx cr plan
+#bx cr quota
+#echo "If needed, discard older images using: bx cr image-rm"
+#echo "Checking registry namespace: ${REGISTRY_NAMESPACE}"
+#NS=$( bx cr namespaces | grep ${REGISTRY_NAMESPACE} ||: )
+#if [ -z "${NS}" ]; then
+#    echo "Registry namespace ${REGISTRY_NAMESPACE} not found, creating it."
+#    bx cr namespace-add ${REGISTRY_NAMESPACE}
+#    echo "Registry namespace ${REGISTRY_NAMESPACE} created."
+#else 
+#    echo "Registry namespace ${REGISTRY_NAMESPACE} found."
+#fi
+#echo -e "Existing images in registry"
+#bx cr images --restrict ${REGISTRY_NAMESPACE}
 # echo "=========================================================="
 # KEEP=1
 # echo -e "PURGING REGISTRY, only keeping last ${KEEP} image(s) based on image digests"
