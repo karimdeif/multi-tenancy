@@ -58,7 +58,7 @@ cd hibernate-orm-multi-tenancy-quickstart/
 
 ./mvnw package
 
-ibmcloud cr build --file Dockerfile.jvm --tag ${REGISTRY_URL}/${REGISTRY_NAMESPACE}/${IMAGE_NAME}:${IMAGE_TAG} .
+ibmcloud cr build --file Dockerfile --tag ${REGISTRY_URL}/${REGISTRY_NAMESPACE}/${IMAGE_NAME}:${IMAGE_TAG} .
 set +x
 
 ibmcloud cr image-inspect ${REGISTRY_URL}/${REGISTRY_NAMESPACE}/${IMAGE_NAME}:${IMAGE_TAG}
