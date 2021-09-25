@@ -53,10 +53,9 @@ echo -e "BUILDING CONTAINER IMAGE: ${IMAGE_NAME}:${IMAGE_TAG}"
 #if [ -z "${DOCKER_ROOT}" ]; then DOCKER_ROOT=. ; fi
 #if [ -z "${DOCKER_FILE}" ]; then DOCKER_FILE=${DOCKER_ROOT}/Dockerfile ; fi
 set -x
+cd hibernate-orm-multi-tenancy-quickstart/src/main/docker/
 ls -l
-#cd hibernate-orm-multi-tenancy-quickstart/src/main/docker/
-
-ibmcloud cr build --file Dockerfile.jvm --tag ${REGISTRY_URL}/${REGISTRY_NAMESPACE}/${IMAGE_NAME}:${IMAGE_TAG} hibernate-orm-multi-tenancy-quickstart/src/main/docker/
+ibmcloud cr build --file Dockerfile.jvm --tag ${REGISTRY_URL}/${REGISTRY_NAMESPACE}/${IMAGE_NAME}:${IMAGE_TAG} 
 set +x
 
 ibmcloud cr image-inspect ${REGISTRY_URL}/${REGISTRY_NAMESPACE}/${IMAGE_NAME}:${IMAGE_TAG}
