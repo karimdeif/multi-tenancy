@@ -26,19 +26,19 @@ echo "DOCKER_FILE="Dockerfile.jvm"
 # or learn more about the available environment variables at:
 # https://console.bluemix.net/docs/services/ContinuousDelivery/pipeline_deploy_var.html#deliverypipeline_environment
 
-echo "=========================================================="
-echo "Checking for Dockerfile at the repository root"
-if [ -z "${DOCKER_ROOT}" ]; then DOCKER_ROOT=. ; fi
-if [ -z "${DOCKER_FILE}" ]; then DOCKER_FILE=Dockerfile ; fi
-if [ -f ${DOCKER_ROOT}/${DOCKER_FILE} ]; then 
-echo -e "Dockerfile found at: ${DOCKER_FILE}"
-else
-    echo "Dockerfile not found at: ${DOCKER_FILE}"
-    exit 1
-fi
-echo "Linting Dockerfile"
-npm install -g dockerlint
-dockerlint -f ${DOCKER_ROOT}/${DOCKER_FILE}
+#echo "=========================================================="
+#echo "Checking for Dockerfile at the repository root"
+#if [ -z "${DOCKER_ROOT}" ]; then DOCKER_ROOT=. ; fi
+#if [ -z "${DOCKER_FILE}" ]; then DOCKER_FILE=Dockerfile ; fi
+#if [ -f ${DOCKER_ROOT}/${DOCKER_FILE} ]; then 
+#echo -e "Dockerfile found at: ${DOCKER_FILE}"
+#else
+#    echo "Dockerfile not found at: ${DOCKER_FILE}"
+#    exit 1
+#fi
+#echo "Linting Dockerfile"
+#npm install -g dockerlint
+#dockerlint -f ${DOCKER_ROOT}/${DOCKER_FILE}
 
 echo "=========================================================="
 echo "Checking registry current plan and quota"
