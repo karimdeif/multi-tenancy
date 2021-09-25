@@ -8,7 +8,7 @@ spec:
       description: the git repo
     - name: revision
       description: the revision
-      default: master
+      default: main
     - name: apikey
       description: the ibmcloud api key
     - name: api
