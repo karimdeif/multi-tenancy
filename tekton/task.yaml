@@ -18,7 +18,7 @@ spec:
       description: the ibmcloud registry namespace
     - name: imageName
       description: the base image name
-      default: "hello-containers-tekton"
+      default: "service-catalog"
     - name: registryRegion
       description: the ibmcloud registry region
   workspaces:
