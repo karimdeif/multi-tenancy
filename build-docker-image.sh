@@ -57,9 +57,9 @@ set -x
 cd hibernate-orm-multi-tenancy-quickstart/
 
 ./mvnw install
+ls -l
 
 cd src/main/docker/
-ls -l
 ibmcloud cr build --file Dockerfile.jvm --tag ${REGISTRY_URL}/${REGISTRY_NAMESPACE}/${IMAGE_NAME}:${IMAGE_TAG} .
 set +x
 
