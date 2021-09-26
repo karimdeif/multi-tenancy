@@ -45,7 +45,7 @@ ibmcloud target -g Default
 ibmcloud ce project select --name multi-tenant
 #ibmcloud ce registry create --name ibm-container-registry --server us.icr.io --username iamapikey --password $API
 
-ibmcloud ce application create --name service-catalog-a --image us.icr.io/multi-tenancy-cr/service-catalog --port 8081 
+ibmcloud ce application create --name service-catalog-a --image us.icr.io/multi-tenancy-cr/service-catalog --port 8081 --rs ibm-cr
 set +x
 
 echo ""
