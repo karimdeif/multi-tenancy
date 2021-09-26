@@ -87,6 +87,9 @@ echo "=========================================================="
 #echo -e "Namespace ${CLUSTER_NAMESPACE} authorizing with private image registry using patched default serviceAccount"
 
 ibmcloud plugin install code-engine
+ibmcloud resource groups
+ibmcloud target -g default
+
 ibmcloud ce project select --name multi-tenant
 #ibmcloud ce application create --name APP_NAME --image IMAGE_REF 
 
