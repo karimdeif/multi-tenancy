@@ -38,6 +38,7 @@ echo "DEPLOYMENT_FILE=${DEPLOYMENT_FILE}"
 #fi    
 set -x
 #kubectl apply --namespace ${CLUSTER_NAMESPACE} -f ${DEPLOYMENT_FILE} 
+ibmcloud login -a $API -r $REGION;
 ibmcloud plugin install code-engine
 ibmcloud resource groups
 ibmcloud target -g Default
@@ -111,7 +112,7 @@ echo "DEPLOYMENT SUCCEEDED"
 #cat > test-route.json << EOF
 #{"apiVersion":"route.openshift.io/v1","kind":"Route","metadata":{"name":"${APP_SERVICE}"},"spec":{"to":{"kind":"Service","name":"${APP_SERVICE}"}}}
 #EOF
-      echo ""
+#      echo ""
 #      cat test-route.json
 #      kubectl apply -f test-route.json --validate=false --namespace ${CLUSTER_NAMESPACE}
 #      kubectl get routes --namespace ${CLUSTER_NAMESPACE}
