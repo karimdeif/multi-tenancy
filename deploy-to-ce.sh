@@ -38,6 +38,9 @@ echo "DEPLOYMENT_FILE=${DEPLOYMENT_FILE}"
 #fi    
 set -x
 #kubectl apply --namespace ${CLUSTER_NAMESPACE} -f ${DEPLOYMENT_FILE} 
+ibmcloud plugin install code-engine
+ibmcloud resource groups
+ibmcloud target -g Default
 ibmcloud ce project select --name multi-tenant
 ibmcloud ce application create --name service-catalog-a --image us.icr.io/multi-tenancy-cr/service-catalog --port 8081 
 set +x
