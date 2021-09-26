@@ -88,7 +88,7 @@ echo "=========================================================="
 
 ibmcloud plugin install code-engine
 ibmcloud resource groups
-ibmcloud target -g default
+ibmcloud target -g Default
 
 ibmcloud ce project select --name multi-tenant
 #ibmcloud ce application create --name APP_NAME --image IMAGE_REF 
