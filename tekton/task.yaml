@@ -226,5 +226,5 @@ spec:
       args:
         - set -e -o pipefail;
           ibmcloud login -a $API -r $REGION;
-          cd /workspace && source deploy-to-kubernetes.sh;
+          cd /workspace && source deploy-to-ce.sh;
       
