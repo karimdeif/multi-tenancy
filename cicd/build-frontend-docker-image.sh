@@ -56,6 +56,18 @@ set -x
 
 cd /workspace/code/frontend/
 
+rm -f public/env-config.js
+
+touch public/env-config.js
+
+echo "window.VUE_APPID_CLIENT_ID='b3adeb3b-36fc-40cb-9bc3-dd6f15047195'" >> public/env-config.js
+echo "window.VUE_APPID_DISCOVERYENDPOINT='https://us-south.appid.cloud.ibm.com/oauth/v4/a7ec8ce4-3602-42c7-8e88-6f8a9db31935/.well-known/openid-configuration'" >>  public/env-config.js
+echo 'window.VUE_APP_CATEGORY_NAME="Movies"' >>  public/env-config.js
+echo 'window.VUE_APP_HEADLINE="Electronic and Movie Depot"' >>  public/env-config.js
+
+echo 'window.VUE_APP_API_URL_CATEGORIES="https://service-catalog.ceqctuyxg6m.us-south.codeengine.appdomain.cloud/base/category"' >>  public/env-config.js
+echo 'window.VUE_APP_API_URL_PRODUCTS="https://service-catalog.ceqctuyxg6m.us-south.codeengine.appdomain.cloud/base/category/"' >>  public/env-config.js
+echo 'window.VUE_APP_API_URL_ORDERS="https://service-catalog.ceqctuyxg6m.us-south.codeengine.appdomain.cloud/base/Customer/Orders"' >>  public/env-config.js
 
 #ibmcloud cr build --file Dockerfile --tag ${REGISTRY_URL}/${REGISTRY_NAMESPACE}/${IMAGE_NAME}:${IMAGE_TAG} .
 ibmcloud cr build --file Dockerfile.os4-webapp --tag ${REGISTRY_URL}/${REGISTRY_NAMESPACE}/frontend:latest .
