@@ -58,7 +58,7 @@ cd /workspace/code/frontend/
 
 
 #ibmcloud cr build --file Dockerfile --tag ${REGISTRY_URL}/${REGISTRY_NAMESPACE}/${IMAGE_NAME}:${IMAGE_TAG} .
-ibmcloud cr build --file Dockerfile --tag ${REGISTRY_URL}/${REGISTRY_NAMESPACE}/frontend:latest Dockerfile.os4-webapp
+ibmcloud cr build --file Dockerfile.os4-webapp --tag ${REGISTRY_URL}/${REGISTRY_NAMESPACE}/frontend:latest .
 set +x
 
 ibmcloud cr image-inspect ${REGISTRY_URL}/${REGISTRY_NAMESPACE}/frontend:latest
