@@ -237,7 +237,7 @@ function deployServiceCatalog(){
 
 function deployFrontend(){
 
-    ibmcloud ce application create --name frontend \
+    ibmcloud ce application create --name frontend-a \
                                    --image "$FRONTEND_IMAGE" \
                                    --cpu "1" \
                                    --memory "2G" \
@@ -249,26 +249,10 @@ function deployFrontend(){
                                    --min-scale 1 \
                                    --port 8080 
 
-    ibmcloud ce application get --name frontend
-    FRONTEND_URL=$(ibmcloud ce application get --name frontend | grep "https://frontend." |  awk '/frontend/ {print $2}')
+    ibmcloud ce application get --name frontend-a
+    FRONTEND_URL=$(ibmcloud ce application get --name frontend-a | grep "https://frontend-a." |  awk '/frontend-a/ {print $2}')
     echo "Set FRONTEND URL: $FRONTEND_URL"
 
-    # checkKubernetesPod "web-app"
-}
-
-function updateWebApp(){
-
-    ibmcloud ce application update --name web-app \
-                                   --env VUE_APP_ROOT="/" \
-                                   --env VUE_APP_WEBAPI="$WEBAPI_URL/articlesA" \
-                                   --env VUE_APPID_CLIENT_ID="$APPLICATION_CLIENTID" \
-                                   --env VUE_APPID_DISCOVERYENDPOINT="$APPLICATION_DISCOVERYENDPOINT" \
-
-    ibmcloud ce application get --name web-app
-    WEBAPP_URL=$(ibmcloud ce application get --name web-app | grep "https://web-app." |  awk '/web-app/ {print $2}')
-    echo "Set WEBAPP URL: $WEBAPP_URL"
-    
-    # checkKubernetesPod "web-app-00002"
 }
 
 # **** Kubernetes CLI ****
@@ -288,31 +272,22 @@ function kubeDeploymentVerification(){
 function getKubeContainerLogs(){
 
     echo "************************************"
-    echo " web-api log"
+    echo " frontend-a log"
     echo "************************************"
 
-    FIND=web-api
-    WEBAPI_LOG=$(kubectl get pod -n $NAMESPACE | grep $FIND | awk '{print $1}')
-    echo $WEBAPI_LOG
-    kubectl logs $WEBAPI_LOG user-container
+    FIND=frontend-a
+    FRONTEND_LOG=$(kubectl get pod -n $NAMESPACE | grep $FIND | awk '{print $1}')
+    echo $FRONTEND_LOG
+    kubectl logs $FRONTEND_LOG user-container
 
     echo "************************************"
-    echo " articles logs"
+    echo " service-catalog-a logs"
     echo "************************************"
 
-    FIND=articles
-    ARTICLES_LOG=$(kubectl get pod -n $NAMESPACE | grep $FIND | awk '{print $1}')
-    echo $ARTICLES_LOG
-    kubectl logs $ARTICLES_LOG user-container
-
-    echo "************************************"
-    echo " web-app logs"
-    echo "************************************"
-
-    FIND=web-app-00002
-    WEBAPP_LOG=$(kubectl get pod -n $NAMESPACE | grep $FIND | awk '{print $1}')
-    echo $WEBAPP_LOG
-    kubectl logs $WEBAPP_LOG user-container
+    FIND=service-catalog-a
+    SERVICE_CATALOG_LOG=$(kubectl get pod -n $NAMESPACE | grep $FIND | awk '{print $1}')
+    echo $SERVICE_CATALOG_LOG
+    kubectl logs $SERVICE_CATALOG_LOG user-container
 
 }
 
@@ -366,14 +341,14 @@ echo "************************************"
 configureAppIDInformation
 
 echo "************************************"
-echo " articles"
+echo " service catalog"
 echo "************************************"
 
 deployArticles
 ibmcloud ce application events --application articles
 
 echo "************************************"
-echo " web-api"
+echo " frontend"
 echo "************************************"
 
 deployWebAPI
