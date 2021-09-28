@@ -219,7 +219,8 @@ addRedirectURIAppIDInformation(){
 
 function deployServiceCatalog(){
 
-    ibmcloud ce application create --name service-catalog-a --image "$SERVICE_CATALOG_IMAGE" \
+    ibmcloud ce application create --name service-catalog-a \
+                                   --image "$SERVICE_CATALOG_IMAGE" \
                                    --cpu "1" \
                                    --memory "2G" \
                                    --port 8081 \
@@ -231,8 +232,6 @@ function deployServiceCatalog(){
 
     SERVICE_CATALOG_URL=$(ibmcloud ce application get --name service-catalog-a | grep "https://service-catalog-a." |  awk '/service-catalog-a/ {print $2}')
     echo "Set SERVICE CATALOG URL: $SERVICE_CATALOG_URL"
-
-    # checkKubernetesPod "articles"
 }
 
 function deployFrontend(){
@@ -256,7 +255,6 @@ function deployFrontend(){
     ibmcloud ce application get --name frontend-a
     FRONTEND_URL=$(ibmcloud ce application get --name frontend-a | grep "https://frontend-a." |  awk '/frontend-a/ {print $2}')
     echo "Set FRONTEND URL: $FRONTEND_URL"
-
 }
 
 # **** Kubernetes CLI ****
