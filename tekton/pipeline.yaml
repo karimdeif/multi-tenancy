@@ -98,7 +98,7 @@ spec:
       - name: task-frontend-pvc
         workspace: pipeline-pvc          
     - name: pipeline-validate-frontend-task
-      runAfter: [pipeline-build-frontent-task]
+      runAfter: [pipeline-build-frontend-task]
       taskRef:
         name: validate-frontend-task
       params:
