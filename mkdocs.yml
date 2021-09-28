@@ -1,11 +1,11 @@
 # Project information
 site_name: Multi tenancy CodeEngine/Serverless
-site_url: https://TBD
+site_url: https://karimdeif.github.io/multi-tenancy
 site_author: TBD
 
 # Repository
 repo_name: Multi tenancy CodeEngine/Serverless
-repo_url: https://TDB
+repo_url: https://github.com/karimdeif/multi-tenancy
 edit_uri: edit/master/documentation
 docs_dir: documentation
 
@@ -35,8 +35,8 @@ theme:
     code: IBM Plex Mono
   icon:
     # .svg automatically appended
-    logo: ibm_8bar_reverse_2
-    #logo: material/library
+    #logo: ibm_8bar_reverse_2
+    logo: material/library
   features:
     # - navigation.tabs
     - navigation.instant
