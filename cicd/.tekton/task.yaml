@@ -287,7 +287,7 @@ spec:
         - set -e -o pipefail;
           ibmcloud login -a $API -r $REGION;
           export NVM_DIR="$HOME/.nvm" && [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh";
-          cd /workspace/cicd && source pre-build-check.sh;
+          cd /workspace/cicd && source pre-build-frontend-check.sh;
     - name: build-docker-image
       image: ibmcom/pipeline-base-image
       env:
@@ -318,7 +318,7 @@ spec:
           export GIT_COMMIT=$(git rev-parse HEAD);
           cd ..;
           export REGISTRY_URL=$(ibmcloud cr info | grep -m1 -i '^Container Registry' | awk '{print $3;}');
-          cd /workspace/cicd && source build-docker-image.sh;
+          cd /workspace/cicd && source build-frontend-docker-image.sh;
 ---
 apiVersion: tekton.dev/v1beta1
 kind: Task
@@ -371,7 +371,7 @@ spec:
           ibmcloud login -a $API -r $REGION;
           while read line; do export $line; done < /artifacts/build.properties;
           cp /artifacts/build.properties .;
-          cd /workspace/cicd && source check-vulnerabilities.sh || true;
+          cd /workspace/cicd && source check-frontend-vulnerabilities.sh || true;
 ---
 apiVersion: tekton.dev/v1beta1
 kind: Task
@@ -434,7 +434,7 @@ spec:
       args:
         - set -e -o pipefail;
           ibmcloud login -a $API -r $REGION;
-          cd /workspace/cicd && source pre-deploy-check.sh;
+          cd /workspace/cicd && source pre-deploy-frontend-check.sh;
     - name: deploy-to-ce
       image: ibmcom/pipeline-base-image
       env:
@@ -456,4 +456,4 @@ spec:
       args:
         - set -e -o pipefail;
           ibmcloud login -a $API -r $REGION;
-          cd /workspace/cicd && source deploy-to-ce.sh;
+          cd /workspace/cicd && source deploy-frontend-to-ce.sh;
