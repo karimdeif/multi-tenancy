@@ -216,18 +216,21 @@ addRedirectURIAppIDInformation(){
 
 # **** application and microservices ****
 
-function deployArticles(){
+function deployServiceCatalog(){
 
-    ibmcloud ce application create --name articles --image "quay.io/$REPOSITORY/articles-ce-appid:v1" \
+    ibmcloud ce application create --name service-catalog-a --image "$SERVICE_CATALOG_IMAGE" \
                                    --cpu "1" \
                                    --memory "2G" \
-                                   --env APPID_AUTH_SERVER_URL_TENANT_A="$APPLICATION_OAUTHSERVERURL" \
-                                   --env APPID_CLIENT_ID_TENANT_A="$APPLICATION_CLIENTID" \
+                                   --port 8081 \
+                                   --rs test \
                                    --max-scale 1 \
                                    --min-scale 1 \
-                                   --cluster-local                                        
+                                     
     
-    ibmcloud ce application get --name articles
+    ibmcloud ce application get --name service-catalog-a
+
+    SERVICE_CATALOG_URL=$(ibmcloud ce application get --name service-catalog-a | grep "https://service-catalog-a." |  awk '/service-catalog-a/ {print $2}')
+    echo "Set SERVICE CATALOG URL: $SERVICE_CATALOG_URL"
 
     # checkKubernetesPod "articles"
 }
