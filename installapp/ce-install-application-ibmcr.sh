@@ -12,6 +12,8 @@ export RESOURCE_GROUP=default
 export REGION="us-south"
 export NAMESPACE=""
 export STATUS="Running"
+export SECRET_NAME="multi.tenancy.cr.sec"
+export EMAIL=thomas.suedbroecker@de.ibm.com
 
 # ecommerce application container registry
 export SERVICE_CATALOG_IMAGE="us.icr.io/multi-tenancy-cr/service-catalog:latest"
@@ -59,7 +61,7 @@ function setupCLIenvCE() {
   ibmcloud target -r $REGION
 
   # Login to IBM Cloud Container Registry
-  ibmcloud cr login
+  #ibmcloud cr login
 
   ibmcloud ce project get --name $PROJECT_NAME
   ibmcloud ce project select -n $PROJECT_NAME
@@ -92,18 +94,18 @@ function setupCRenvCE() {
    IBMCLOUDCLI_KEY_DESCRIPTION="CLI APIkey cliapikey_for_multi_tenant"
    CLIKEY_FILE="cli_key.json"
    CR_SERVER="us.icr.io"
-   CR_NAMESPACE_NAME="multi-tenancy-cr"
+   USERNAME="iamapikey"
 
    ibmcloud iam api-key-create $IBMCLOUDCLI_KEY_NAME -d "My CLI APIkey" --file $CLIKEY_FILE
-   CLIKEY=$(cat $CLIKEY_FILE | grep '"apikey":' | awk '{print $2;}' | sed 's/"//g' | sed 's/,//g' )
-   echo $CLIKEY
+   CLIAPIKEY=$(cat $CLIKEY_FILE | grep '"apikey":' | awk '{print $2;}' | sed 's/"//g' | sed 's/,//g' )
+   #echo $CLIKEY
    rm -f $CLIKEY_FILE
 
-   ibmcloud ce registry create --name $CR_NAMESPACE_NAME \
+   ibmcloud ce registry create --name $SECRET_NAME \
                                --server $CR_SERVER \
-                               --username $IBMCLOUDCLI_KEY_NAME \
-                               --password $CLIKEY
-
+                               --username $USERNAME \
+                               --password $CLIAPIKEY \
+                               --email $EMAIL
 }
 
 # **** AppID ****
@@ -249,7 +251,7 @@ function deployServiceCatalog(){
                                    --cpu "1" \
                                    --memory "2G" \
                                    --port 8081 \
-                                   --registry-secret test \
+                                   --registry-secret "$SECRET_NAME" \
                                    --max-scale 1 \
                                    --min-scale 1 \
                                        
@@ -273,6 +275,7 @@ function deployFrontend(){
                                    --env  VUE_APP_CATEGORY_NAME='Movies' \
                                    --env  VUE_APP_HEADLINE='Frontend A' \
                                    --env  VUE_APP_ROOT="/" \
+                                   --registry-secret "$SECRET_NAME" \
                                    --max-scale 1 \
                                    --min-scale 1 \
                                    --port 8080 
@@ -354,6 +357,12 @@ echo " CLI config"
 echo "************************************"
 
 setupCLIenvCE
+
+echo "************************************"
+echo " Configure container registry access"
+echo "************************************"
+
+setupCRenvCE
 
 echo "************************************"
 echo " AppID creation"
