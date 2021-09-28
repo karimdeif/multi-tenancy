@@ -54,7 +54,7 @@ echo -e "BUILDING CONTAINER IMAGE: ${IMAGE_NAME}:${IMAGE_TAG}"
 #if [ -z "${DOCKER_FILE}" ]; then DOCKER_FILE=${DOCKER_ROOT}/Dockerfile ; fi
 set -x
 
-cd hibernate-orm-multi-tenancy-quickstart/
+cd code/service-catalog/
 
 ./mvnw package
 
