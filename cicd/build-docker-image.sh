@@ -54,7 +54,7 @@ echo -e "BUILDING CONTAINER IMAGE: ${IMAGE_NAME}:${IMAGE_TAG}"
 #if [ -z "${DOCKER_FILE}" ]; then DOCKER_FILE=${DOCKER_ROOT}/Dockerfile ; fi
 set -x
 
-cd code/service-catalog/
+cd /workspace/code/service-catalog/
 
 ./mvnw package
 
