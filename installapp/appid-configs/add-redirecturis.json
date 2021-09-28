@@ -1,0 +1,7 @@
+{
+    "redirectUris": [
+      "http://localhost:8080/*",
+      "https://frontend-a.exsvmsl9j8g.us-south.codeengine.appdomain.cloud/*"
+    ],
+    "additionalProp1": {}
+}

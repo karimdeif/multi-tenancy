@@ -1,0 +1,12 @@
+{
+  "name": "tenant_a_user_access",
+  "description": "This is an example role.",
+  "access": [
+    {
+      "application_id": "aee195b0-a93c-4d3d-a30a-b6d213e94123",
+      "scopes": [
+        "tenant_a_scope"
+      ]
+    }
+  ]
+}

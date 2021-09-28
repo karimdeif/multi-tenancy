@@ -13,7 +13,7 @@ export REGION="us-south"
 export NAMESPACE=""
 export STATUS="Running"
 
-# ecommerce application container registry
+# ecommerce application container
 export SERVICE_CATALOG_IMAGE="us.icr.io/multi-tenancy-cr/service-catalog:latest"
 export FRONTEND_IMAGE="us.icr.io/multi-tenancy-cr/frontend:latest"
 
@@ -57,6 +57,7 @@ function setupCLIenvCE() {
   
   ibmcloud target -g $RESOURCE_GROUP
   ibmcloud target -r $REGION
+
   ibmcloud ce project get --name $PROJECT_NAME
   ibmcloud ce project select -n $PROJECT_NAME
   
@@ -80,12 +81,11 @@ function setupCLIenvCE() {
     echo "The script exits here!"
     exit 1
   fi
- 
 }
 
 # **** AppID ****
 
-createAppIDService() {
+function createAppIDService() {
     ibmcloud target -g $RESOURCE_GROUP
     ibmcloud target -r $REGION
     # Create AppID service
@@ -100,7 +100,7 @@ createAppIDService() {
     echo "Management URL: $MANAGEMENTURL"
 }
 
-configureAppIDInformation(){
+function configureAppIDInformation(){
 
     #****** Set identity providers
     echo ""
@@ -197,7 +197,7 @@ configureAppIDInformation(){
     echo ""
 }
 
-addRedirectURIAppIDInformation(){
+function addRedirectURIAppIDInformation(){
 
     #****** Add redirect uris ******
     echo ""
@@ -224,7 +224,7 @@ function deployServiceCatalog(){
                                    --cpu "1" \
                                    --memory "2G" \
                                    --port 8081 \
-                                   --rs test \
+                                   --registry-secret test \
                                    --max-scale 1 \
                                    --min-scale 1 \
                                        
