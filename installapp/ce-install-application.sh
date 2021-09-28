@@ -344,22 +344,15 @@ echo "************************************"
 echo " service catalog"
 echo "************************************"
 
-deployArticles
-ibmcloud ce application events --application articles
+deployServiceCatalog
+ibmcloud ce application events --application service-catalog-a
 
 echo "************************************"
 echo " frontend"
 echo "************************************"
 
-deployWebAPI
-ibmcloud ce application events --application web-api
-
-echo "************************************"
-echo " web-app"
-echo "************************************"
-
-deployWebApp
-ibmcloud ce application events --application web-app
+deployFrontend
+ibmcloud ce application events --application frontend-a
 
 echo "************************************"
 echo " AppID add redirect URI"
@@ -384,6 +377,6 @@ echo " URLs"
 echo "************************************"
 echo " - oAuthServerUrl   : $APPLICATION_OAUTHSERVERURL"
 echo " - discoveryEndpoint: $APPLICATION_DISCOVERYENDPOINT"
-echo " - Web-API          : $WEBAPI_URL"
-echo " - Articles         : http://articles.$NAMESPACE.svc.cluster.local/articles"
-echo " - Web-App          : $WEBAPP_URL"
+echo " - Frontend         : $FRONTEND_URL"
+echo " - ServiceCatalog   : $SERVICE_CATALOG_URL"
+
