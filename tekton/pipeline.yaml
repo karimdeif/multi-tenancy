@@ -26,9 +26,9 @@ spec:
   workspaces:
   - name: pipeline-pvc
   tasks:
-    - name: pipeline-build-task
+    - name: pipeline-build-service-catalog-task
       taskRef:
-        name: build-task
+        name: build-service-catalog-task
       params:
         - name: repository
           value: $(params.repository)
@@ -43,10 +43,10 @@ spec:
       workspaces:
       - name: task-pvc
         workspace: pipeline-pvc          
-    - name: pipeline-validate-task
-      runAfter: [pipeline-build-task]
+    - name: pipeline-validate-service-catalog-task
+      runAfter: [pipeline-build-service-catalog-task]
       taskRef:
-        name: validate-task
+        name: validate-service-catalog-task
       params:
         - name: repository
           value: $(params.repository)
@@ -57,12 +57,12 @@ spec:
         - name: registryRegion
           value: $(params.registryRegion)
       workspaces:
-      - name: task-pvc
-        workspace: pipeline-pvc            
-    - name: pipeline-deploy-task
-      runAfter: [pipeline-validate-task]
+      - name: service-catalog-task-pvc
+        workspace: pipeline-service-catalog-pvc            
+    - name: pipeline-deploy-service-catalog-task
+      runAfter: [pipeline-validate-service-catalog-task]
       taskRef:
-        name: deploy-task
+        name: deploy-service-catalog-task
       params:
         - name: repository
           value: $(params.repository)
@@ -77,5 +77,5 @@ spec:
         - name: clusterNamespace
           value: $(params.clusterNamespace)
       workspaces:
-      - name: task-pvc
-        workspace: pipeline-pvc  
+      - name: task-service-catalog-pvc
+        workspace: pipeline-service-catalog-pvc  
