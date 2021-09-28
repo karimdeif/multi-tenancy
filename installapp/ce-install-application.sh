@@ -9,16 +9,17 @@
 #export PROJECT_NAME=$MYPROJECT
 export PROJECT_NAME=multi-tenancy-serverless
 export RESOURCE_GROUP=default
-export REPOSITORY=tsuedbroecker
 export REGION="us-south"
 export NAMESPACE=""
-export WEBAPI_URL="http://localhost:8083"
-export WEBAPP_URL="http://localhost:8080"
-export ARTICEL_URL="http://articles.$NAMESPACE.svc.cluster.local/articlesA"
 export STATUS="Running"
 
 # ecommerce application container registry
 export SERVICE_CATALOG_IMAGE="us.icr.io/multi-tenancy-cr/service-catalog:latest"
+export FRONTEND_IMAGE="us.icr.io/multi-tenancy-cr/frontend:latest"
+
+# URLs
+export FRONTEND_URL=""
+export SERVICE_CATALOG_URL=""
 
 # AppID Service
 export SERVICE_PLAN="graduated-tier"
@@ -225,8 +226,7 @@ function deployServiceCatalog(){
                                    --rs test \
                                    --max-scale 1 \
                                    --min-scale 1 \
-                                     
-    
+                                       
     ibmcloud ce application get --name service-catalog-a
 
     SERVICE_CATALOG_URL=$(ibmcloud ce application get --name service-catalog-a | grep "https://service-catalog-a." |  awk '/service-catalog-a/ {print $2}')
@@ -235,33 +235,10 @@ function deployServiceCatalog(){
     # checkKubernetesPod "articles"
 }
 
-function deployWebAPI(){
+function deployFrontend(){
 
-    echo "Articles URL: http://articles.$NAMESPACE.svc.cluster.local/articlesA"
-    
-    # Valid vCPU and memory combinations: https://cloud.ibm.com/docs/codeengine?topic=codeengine-mem-cpu-combo
-    ibmcloud ce application create --name web-api \
-                                --image "quay.io/$REPOSITORY/web-api-ce-appid:v1" \
-                                --cpu "1" \
-                                --memory "2G" \
-                                --env APPID_AUTH_SERVER_URL_TENANT_A="$APPLICATION_OAUTHSERVERURL" \
-                                --env APPID_CLIENT_ID_TENANT_A="$APPLICATION_CLIENTID" \
-                                --env CNS_ARTICLES_URL_TENANT_A="http://articles.$NAMESPACE.svc.cluster.local/articlesA" \
-                                --max-scale 1 \
-                                --min-scale 1 \
-                                --port 8080 
-
-    ibmcloud ce application get --name web-api
-    WEBAPI_URL=$(ibmcloud ce application get --name web-api | grep "https://web-api." |  awk '/web-api/ {print $2}')
-    echo "Set WEBAPI URL: $WEBAPI_URL"
-
-    # checkKubernetesPod "web-api"
-}
-
-function deployWebApp(){
-
-    ibmcloud ce application create --name web-app \
-                                   --image "quay.io/$REPOSITORY/web-app-ce-appid:v1" \
+    ibmcloud ce application create --name frontend \
+                                   --image "$FRONTEND_IMAGE" \
                                    --cpu "1" \
                                    --memory "2G" \
                                    --env VUE_APP_ROOT="/" \
@@ -272,9 +249,9 @@ function deployWebApp(){
                                    --min-scale 1 \
                                    --port 8080 
 
-    ibmcloud ce application get --name web-app
-    WEBAPP_URL=$(ibmcloud ce application get --name web-app | grep "https://web-app." |  awk '/web-app/ {print $2}')
-    echo "Set WEBAPP URL: $WEBAPP_URL"
+    ibmcloud ce application get --name frontend
+    FRONTEND_URL=$(ibmcloud ce application get --name frontend | grep "https://frontend." |  awk '/frontend/ {print $2}')
+    echo "Set FRONTEND URL: $FRONTEND_URL"
 
     # checkKubernetesPod "web-app"
 }
