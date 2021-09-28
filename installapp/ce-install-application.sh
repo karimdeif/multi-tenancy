@@ -17,6 +17,9 @@ export WEBAPP_URL="http://localhost:8080"
 export ARTICEL_URL="http://articles.$NAMESPACE.svc.cluster.local/articlesA"
 export STATUS="Running"
 
+# ecommerce application container registry
+export SERVICE_CATALOG_IMAGE="us.icr.io/multi-tenancy-cr/service-catalog:latest"
+
 # AppID Service
 export SERVICE_PLAN="graduated-tier"
 export APPID_SERVICE_NAME="appid"
@@ -28,16 +31,16 @@ export TENANTID=""
 export MANAGEMENTURL=""
 export APPLICATION_DISCOVERYENDPOINT=""
 
-# User
-export USER_IMPORT_FILE="user-import.json"
-export USER_EXPORT_FILE="user-export.json"
+# AppID User
+export USER_IMPORT_FILE="appid-configs/user-import.json"
+export USER_EXPORT_FILE="appid-configs/user-export.json"
 export ENCRYPTION_SECRET="12345678"
 
-# Application
-export ADD_APPLICATION="add-application.json"
-export ADD_SCOPE="add-scope.json"
-export ADD_ROLE="add-roles.json"
-export ADD_REDIRECT_URIS="add-redirecturis.json"
+# AppID Application configuration
+export ADD_APPLICATION="appid-configs/add-application.json"
+export ADD_SCOPE="appid-configs/add-scope.json"
+export ADD_ROLE="appid-configs/add-roles.json"
+export ADD_REDIRECT_URIS="appid-configs/add-redirecturis.json"
 export APPLICATION_CLIENTID=""
 export APPLICATION_TENANTID=""
 export APPLICATION_OAUTHSERVERURL=""
@@ -105,28 +108,28 @@ configureAppIDInformation(){
     echo "-------------------------"
     echo ""
     OAUTHTOKEN=$(ibmcloud iam oauth-tokens | awk '{print $4;}')
-    result=$(curl -d @./idps-custom.json -X PUT -H "Content-Type: application/json" -H "Authorization: Bearer $OAUTHTOKEN" $MANAGEMENTURL/config/idps/custom)
+    result=$(curl -d @./appid-configs/idps-custom.json -X PUT -H "Content-Type: application/json" -H "Authorization: Bearer $OAUTHTOKEN" $MANAGEMENTURL/config/idps/custom)
     echo ""
     echo "-------------------------"
     echo "Result custom: $result"
     echo "-------------------------"
     echo ""
     OAUTHTOKEN=$(ibmcloud iam oauth-tokens | awk '{print $4;}')
-    result=$(curl -d @./idps-facebook.json -X PUT -H "Content-Type: application/json" -H "Authorization: Bearer $OAUTHTOKEN" $MANAGEMENTURL/config/idps/facebook)
+    result=$(curl -d @./appid-configs/idps-facebook.json -X PUT -H "Content-Type: application/json" -H "Authorization: Bearer $OAUTHTOKEN" $MANAGEMENTURL/config/idps/facebook)
     echo ""
     echo "-------------------------"
     echo "Result facebook: $result"
     echo "-------------------------"
     echo ""
     OAUTHTOKEN=$(ibmcloud iam oauth-tokens | awk '{print $4;}')
-    result=$(curl -d @./idps-google.json -X PUT -H "Content-Type: application/json" -H "Authorization: Bearer $OAUTHTOKEN" $MANAGEMENTURL/config/idps/google)
+    result=$(curl -d @./appid-configs/idps-google.json -X PUT -H "Content-Type: application/json" -H "Authorization: Bearer $OAUTHTOKEN" $MANAGEMENTURL/config/idps/google)
     echo ""
     echo "-------------------------"
     echo "Result google: $result"
     echo "-------------------------"
     echo ""
     OAUTHTOKEN=$(ibmcloud iam oauth-tokens | awk '{print $4;}')
-    result=$(curl -d @./idps-clouddirectory.json -X PUT -H "Content-Type: application/json" -H "Authorization: Bearer $OAUTHTOKEN" $MANAGEMENTURL/config/idps/cloud_directory)
+    result=$(curl -d @./appid-configs/idps-clouddirectory.json -X PUT -H "Content-Type: application/json" -H "Authorization: Bearer $OAUTHTOKEN" $MANAGEMENTURL/config/idps/cloud_directory)
     echo ""
     echo "-------------------------"
     echo "Result cloud directory: $result"
@@ -170,7 +173,7 @@ configureAppIDInformation(){
     echo " Add role"
     echo "-------------------------"
     #Create file from template
-    sed "s+APPLICATIONID+$APPLICATION_CLIENTID+g" ./add-roles-template.json > ./$ADD_ROLE
+    sed "s+APPLICATIONID+$APPLICATION_CLIENTID+g" ./appid-configs/add-roles-template.json > ./$ADD_ROLE
     OAUTHTOKEN=$(ibmcloud iam oauth-tokens | awk '{print $4;}')
     #echo $OAUTHTOKEN
     result=$(curl -d @./$ADD_ROLE -H "Content-Type: application/json" -X POST -H "Authorization: Bearer $OAUTHTOKEN" $MANAGEMENTURL/roles)
@@ -203,7 +206,7 @@ addRedirectURIAppIDInformation(){
     echo ""
     OAUTHTOKEN=$(ibmcloud iam oauth-tokens | awk '{print $4;}')
     #Create file from template
-    sed "s+APPLICATION_REDIRECT_URL+$WEBAPP_URL+g" ./add-redirecturis-template.json > ./$ADD_REDIRECT_URIS
+    sed "s+APPLICATION_REDIRECT_URL+$WEBAPP_URL+g" ./appid-configs/add-redirecturis-template.json > ./$ADD_REDIRECT_URIS
     result=$(curl -d @./$ADD_REDIRECT_URIS -H "Content-Type: application/json" -X PUT -H "Authorization: Bearer $OAUTHTOKEN" $MANAGEMENTURL/config/redirect_uris)
     echo "-------------------------"
     echo "Result redirect uris: $result"
