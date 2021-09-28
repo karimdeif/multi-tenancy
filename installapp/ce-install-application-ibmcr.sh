@@ -86,21 +86,23 @@ function setupCLIenvCE() {
   fi
 }
 
-function setupConnectToIBMCR() {
+function setupCRenvCE() {
    
    IBMCLOUDCLI_KEY_NAME=cliapikey_for_multi_tenant
    IBMCLOUDCLI_KEY_DESCRIPTION="CLI APIkey cliapikey_for_multi_tenant"
    CLIKEY_FILE="cli_key.json"
+   CR_SERVER="us.icr.io"
+   CR_NAMESPACE_NAME="multi-tenancy-cr"
 
-   ibmcloud iam api-key-create cliapikey -d "My CLI APIkey" --file $CLIKEY_FILE
+   ibmcloud iam api-key-create $IBMCLOUDCLI_KEY_NAME -d "My CLI APIkey" --file $CLIKEY_FILE
    CLIKEY=$(cat $CLIKEY_FILE | grep '"apikey":' | awk '{print $2;}' | sed 's/"//g' | sed 's/,//g' )
    echo $CLIKEY
    rm -f $CLIKEY_FILE
 
-   ibmcloud ce registry create --name myregistry \
-                               --server us.icr.io \
-                               --username iamapikey \
-                               --password APIKEY
+   ibmcloud ce registry create --name $CR_NAMESPACE_NAME \
+                               --server $CR_SERVER \
+                               --username $IBMCLOUDCLI_KEY_NAME \
+                               --password $CLIKEY
 
 }
 
@@ -199,6 +201,7 @@ function configureAppIDInformation(){
     OAUTHTOKEN=$(ibmcloud iam oauth-tokens | awk '{print $4;}')
     #echo $OAUTHTOKEN
     result=$(curl -d @./$ADD_ROLE -H "Content-Type: application/json" -X POST -H "Authorization: Bearer $OAUTHTOKEN" $MANAGEMENTURL/roles)
+    rm -f ./$ADD_ROLE
     echo "-------------------------"
     echo "Result role: $result"
     echo "-------------------------"
@@ -230,6 +233,7 @@ function addRedirectURIAppIDInformation(){
     #Create file from template
     sed "s+APPLICATION_REDIRECT_URL+$FRONTEND_URL+g" ./appid-configs/add-redirecturis-template.json > ./$ADD_REDIRECT_URIS
     result=$(curl -d @./$ADD_REDIRECT_URIS -H "Content-Type: application/json" -X PUT -H "Authorization: Bearer $OAUTHTOKEN" $MANAGEMENTURL/config/redirect_uris)
+    rm -f ./$ADD_REDIRECT_URIS
     echo "-------------------------"
     echo "Result redirect uris: $result"
     echo "-------------------------"
