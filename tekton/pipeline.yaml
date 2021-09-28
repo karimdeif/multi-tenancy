@@ -41,7 +41,7 @@ spec:
         - name: registryRegion
           value: $(params.registryRegion)
       workspaces:
-      - name: task-pvc
+      - name: task-service-catalog-pvc
         workspace: pipeline-pvc          
     - name: pipeline-validate-service-catalog-task
       runAfter: [pipeline-build-service-catalog-task]
@@ -58,7 +58,7 @@ spec:
           value: $(params.registryRegion)
       workspaces:
       - name: service-catalog-task-pvc
-        workspace: pipeline-service-catalog-pvc            
+        workspace: pipeline-pvc            
     - name: pipeline-deploy-service-catalog-task
       runAfter: [pipeline-validate-service-catalog-task]
       taskRef:
@@ -78,4 +78,58 @@ spec:
           value: $(params.clusterNamespace)
       workspaces:
       - name: task-service-catalog-pvc
-        workspace: pipeline-service-catalog-pvc  
+        workspace: pipeline-pvc  
+    - name: pipeline-build-frontend-task
+      runAfter: [pipeline-deploy-service-catalog-task]
+      taskRef:
+        name: build-frontend-task
+      params:
+        - name: repository
+          value: $(params.repository)
+        - name: revision
+          value: $(params.revision)
+        - name: apikey
+          value: $(params.apikey)
+        - name: registryNamespace
+          value: $(params.registryNamespace)
+        - name: registryRegion
+          value: $(params.registryRegion)
+      workspaces:
+      - name: task-frontend-pvc
+        workspace: pipeline-pvc          
+    - name: pipeline-validate-frontend-task
+      runAfter: [pipeline-build-frontent-task]
+      taskRef:
+        name: validate-frontend-task
+      params:
+        - name: repository
+          value: $(params.repository)
+        - name: revision
+          value: $(params.revision)
+        - name: apikey
+          value: $(params.apikey)
+        - name: registryRegion
+          value: $(params.registryRegion)
+      workspaces:
+      - name: frontend-pvc
+        workspace: pipeline-pvc            
+    - name: pipeline-deploy-frontend-task
+      runAfter: [pipeline-validate-frontend-task]
+      taskRef:
+        name: deploy-frontend-task
+      params:
+        - name: repository
+          value: $(params.repository)
+        - name: revision
+          value: $(params.revision)
+        - name: apikey
+          value: $(params.apikey)
+        - name: cluster
+          value: $(params.cluster)
+        - name: clusterRegion
+          value: $(params.clusterRegion)
+        - name: clusterNamespace
+          value: $(params.clusterNamespace)
+      workspaces:
+      - name: task-frontend-pvc
+        workspace: pipeline-pvc  
