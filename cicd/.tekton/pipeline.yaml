@@ -43,24 +43,8 @@ spec:
       workspaces:
       - name: task-pvc
         workspace: pipeline-pvc          
-    - name: pipeline-validate-service-catalog-task
-      runAfter: [pipeline-build-service-catalog-task]
-      taskRef:
-        name: validate-service-catalog-task
-      params:
-        - name: repository
-          value: $(params.repository)
-        - name: revision
-          value: $(params.revision)
-        - name: apikey
-          value: $(params.apikey)
-        - name: registryRegion
-          value: $(params.registryRegion)
-      workspaces:
-      - name: task-pvc
-        workspace: pipeline-pvc            
     - name: pipeline-deploy-service-catalog-task
-      runAfter: [pipeline-validate-service-catalog-task]
+      runAfter: [pipeline-build-service-catalog-task]
       taskRef:
         name: deploy-service-catalog-task
       params:
@@ -97,24 +81,8 @@ spec:
       workspaces:
       - name: task-pvc
         workspace: pipeline-pvc          
-    - name: pipeline-validate-frontend-task
-      runAfter: [pipeline-build-frontend-task]
-      taskRef:
-        name: validate-frontend-task
-      params:
-        - name: repository
-          value: $(params.repository)
-        - name: revision
-          value: $(params.revision)
-        - name: apikey
-          value: $(params.apikey)
-        - name: registryRegion
-          value: $(params.registryRegion)
-      workspaces:
-      - name: task-pvc
-        workspace: pipeline-pvc            
     - name: pipeline-deploy-frontend-task
-      runAfter: [pipeline-validate-frontend-task]
+      runAfter: [pipeline-deploy-service-catalog-task]
       taskRef:
         name: deploy-frontend-task
       params:
