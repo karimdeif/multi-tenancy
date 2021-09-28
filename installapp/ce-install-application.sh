@@ -207,7 +207,7 @@ addRedirectURIAppIDInformation(){
     echo ""
     OAUTHTOKEN=$(ibmcloud iam oauth-tokens | awk '{print $4;}')
     #Create file from template
-    sed "s+APPLICATION_REDIRECT_URL+$WEBAPP_URL+g" ./appid-configs/add-redirecturis-template.json > ./$ADD_REDIRECT_URIS
+    sed "s+APPLICATION_REDIRECT_URL+$FRONTEND_URL+g" ./appid-configs/add-redirecturis-template.json > ./$ADD_REDIRECT_URIS
     result=$(curl -d @./$ADD_REDIRECT_URIS -H "Content-Type: application/json" -X PUT -H "Authorization: Bearer $OAUTHTOKEN" $MANAGEMENTURL/config/redirect_uris)
     echo "-------------------------"
     echo "Result redirect uris: $result"
@@ -241,10 +241,14 @@ function deployFrontend(){
                                    --image "$FRONTEND_IMAGE" \
                                    --cpu "1" \
                                    --memory "2G" \
-                                   --env VUE_APP_ROOT="/" \
-                                   --env VUE_APP_WEBAPI="$WEBAPI_URL/articlesA" \
-                                   --env VUE_APPID_CLIENT_ID="$APPLICATION_CLIENTID" \
-                                   --env VUE_APPID_DISCOVERYENDPOINT="$APPLICATION_DISCOVERYENDPOINT" \
+                                   --env  VUE_APPID_CLIENT_ID='$APPLICATION_CLIENTID' \
+                                   --env  VUE_APPID_DISCOVERYENDPOINT='$APPLICATION_DISCOVERYENDPOINT' \
+                                   --env  VUE_APP_API_URL_PRODUCTS='$SERVICE_CATALOG_URL/base/category/' \
+                                   --env  VUE_APP_API_URL_ORDERS='$SERVICE_CATALOG_URL/base/Customer/Orders' \
+                                   --env  VUE_APP_API_URL_CATEGORIES='$SERVICE_CATALOG_URL/base/category' \
+                                   --env  VUE_APP_CATEGORY_NAME='Movies' \
+                                   --env  VUE_APP_HEADLINE='Frontend A' \
+                                   --env  VUE_APP_ROOT="/" \
                                    --max-scale 1 \
                                    --min-scale 1 \
                                    --port 8080 
