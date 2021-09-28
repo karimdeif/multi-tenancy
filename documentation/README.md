@@ -12,6 +12,8 @@ One frontend per tenant, one business logic per tenant.
 
 ### Objectives for week 41
 
+* [ZenHub link](https://github.com/karimdeif/multi-tenancy#workspaces/serverless-6152c725095153001243b1aa/board?repos=388999110)
+
 |   | Objectives |  Status | Priority |  Notes | 
 |---|---|---|---|---|
 | 1 | **Running simple ecommerce application including Quarkus on Code Engine** |  in progress | high |Running example: [tenant b](https://frontend-oidc-b.ceqctuyxg6m.us-south.codeengine.appdomain.cloud/), [tenant a](https://frontend-oidc-a.ceqctuyxg6m.us-south.codeengine.appdomain.cloud/)  |
