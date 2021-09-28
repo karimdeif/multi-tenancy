@@ -19,6 +19,10 @@ echo "GIT_BRANCH=${GIT_BRANCH}"
 echo "GIT_COMMIT=${GIT_COMMIT}"
 echo "DOCKER_ROOT=${DOCKER_ROOT}"
 echo "DOCKER_FILE=${DOCKER_FILE}"
+echo "CLIENT_ID=${CLIENT_ID}"
+echo "DISCOVERYENDPOINT=${DISCOVERYENDPOINT}"
+echo "CATEGORY_NAME=${CATEGORY_NAME}"
+echo "HEADLINE=${HEADLINE}"
 
 # View build properties
 if [ -f build.properties ]; then 
