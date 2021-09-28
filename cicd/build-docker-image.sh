@@ -56,6 +56,7 @@ set -x
 
 cd /workspace/code/service-catalog/
 
+chmod 777 *
 ./mvnw package
 
 #ibmcloud cr build --file Dockerfile --tag ${REGISTRY_URL}/${REGISTRY_NAMESPACE}/${IMAGE_NAME}:${IMAGE_TAG} .
