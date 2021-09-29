@@ -19,6 +19,25 @@ export YOUR_SERVICE_FOR_QUAY_APPID="multi-tenancy-AppID-quay-automated-serverles
 # Functions definition
 # **********************************************************************************
 
+function setupCLIenvCE() {
+  echo "**********************************"
+  echo " Using following project: $PROJECT_NAME" 
+  echo "**********************************"
+  
+  ibmcloud target -g $RESOURCE_GROUP
+  ibmcloud target -r $REGION
+
+  ibmcloud ce project get --name $PROJECT_NAME
+  ibmcloud ce project select -n $PROJECT_NAME
+  
+  #to use the kubectl commands
+  ibmcloud ce project select -n $PROJECT_NAME --kubecfg
+  
+  NAMESPACE=$(ibmcloud ce project get --name $PROJECT_NAME --output json | grep "namespace" | awk '{print $2;}' | sed 's/"//g' | sed 's/,//g')
+  echo "Namespace: $NAMESPACE"
+  kubectl get pods -n $NAMESPACE
+}
+
 cleanCEapplications () {
     ibmcloud ce application delete --name articles  --force
     ibmcloud ce application delete --name articles  --force
