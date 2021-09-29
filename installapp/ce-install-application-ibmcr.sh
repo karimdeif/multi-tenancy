@@ -278,7 +278,7 @@ function deployFrontend(){
                                    --registry-secret "$SECRET_NAME" \
                                    --max-scale 1 \
                                    --min-scale 1 \
-                                   --port 8080 
+                                   --port 8081 
 
     ibmcloud ce application get --name frontend-a
     FRONTEND_URL=$(ibmcloud ce application get --name frontend-a | grep "https://frontend-a." |  awk '/frontend-a/ {print $2}')
