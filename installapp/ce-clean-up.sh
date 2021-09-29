@@ -64,7 +64,7 @@ cleanKEYS () {
    #ibmcr
    ibmcloud resource service-keys | grep $APPID_SERVICE_IBMCR_KEY_NAME
    ibmcloud resource service-keys --instance-name $YOUR_SERVICE_FOR_IBMCR_APPID
-   ibmcloud resource service-key-delete $APPID_SERVICE_IBMCR_KEY_NAME
+   ibmcloud resource service-key-delete $APPID_SERVICE_IBMCR_KEY_NAME -f
 
    #quay
    ibmcloud resource service-keys | grep $APPID_SERVICE_QUAY_KEY_NAME

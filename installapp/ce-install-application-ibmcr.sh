@@ -249,7 +249,7 @@ function deployServiceCatalog(){
     ibmcloud ce application create --name service-catalog-a \
                                    --image "$SERVICE_CATALOG_IMAGE" \
                                    --cpu "1" \
-                                   --memory "2G" \
+                                   --memory "4G" \
                                    --port 8081 \
                                    --registry-secret "$SECRET_NAME" \
                                    --max-scale 1 \
@@ -266,7 +266,7 @@ function deployFrontend(){
     ibmcloud ce application create --name frontend-a \
                                    --image "$FRONTEND_IMAGE" \
                                    --cpu "1" \
-                                   --memory "4G" \
+                                   --memory "8G" \
                                    --env VUE_APPID_CLIENT_ID="$APPLICATION_CLIENTID" \
                                    --env VUE_APPID_DISCOVERYENDPOINT="$APPLICATION_DISCOVERYENDPOINT" \
                                    --env VUE_APP_API_URL_PRODUCTS="$SERVICE_CATALOG_URL/base/category/" \
