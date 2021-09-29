@@ -267,14 +267,14 @@ function deployFrontend(){
                                    --image "$FRONTEND_IMAGE" \
                                    --cpu "1" \
                                    --memory "2G" \
-                                   --env  VUE_APPID_CLIENT_ID='$APPLICATION_CLIENTID' \
-                                   --env  VUE_APPID_DISCOVERYENDPOINT='$APPLICATION_DISCOVERYENDPOINT' \
-                                   --env  VUE_APP_API_URL_PRODUCTS='$SERVICE_CATALOG_URL/base/category/' \
-                                   --env  VUE_APP_API_URL_ORDERS='$SERVICE_CATALOG_URL/base/Customer/Orders' \
-                                   --env  VUE_APP_API_URL_CATEGORIES='$SERVICE_CATALOG_URL/base/category' \
-                                   --env  VUE_APP_CATEGORY_NAME='Movies' \
-                                   --env  VUE_APP_HEADLINE='Frontend A' \
-                                   --env  VUE_APP_ROOT="/" \
+                                   --env VUE_APPID_CLIENT_ID='$APPLICATION_CLIENTID' \
+                                   --env VUE_APPID_DISCOVERYENDPOINT='$APPLICATION_DISCOVERYENDPOINT' \
+                                   --env VUE_APP_API_URL_PRODUCTS='$SERVICE_CATALOG_URL/base/category/' \
+                                   --env VUE_APP_API_URL_ORDERS='$SERVICE_CATALOG_URL/base/Customer/Orders' \
+                                   --env VUE_APP_API_URL_CATEGORIES='$SERVICE_CATALOG_URL/base/category' \
+                                   --env VUE_APP_CATEGORY_NAME='Movies' \
+                                   --env VUE_APP_HEADLINE='Frontend A' \
+                                   --env VUE_APP_ROOT="/" \
                                    --registry-secret "$SECRET_NAME" \
                                    --max-scale 1 \
                                    --min-scale 1 \

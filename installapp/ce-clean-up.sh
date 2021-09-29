@@ -42,8 +42,10 @@ function setupCLIenvCE() {
 }
 
 cleanCEapplications () {
-    ibmcloud ce application delete --name articles  --force
-    ibmcloud ce application delete --name articles  --force
+    ibmcloud ce application delete --name frontend-a  --force
+    ibmcloud ce application delete --name frontend  --force
+    ibmcloud ce application delete --name service-catalog-a  --force
+    ibmcloud ce application delete --name service-catalog  --force
 }
 
 cleanCEregistry(){
@@ -56,13 +58,28 @@ cleanKEYS () {
    ibmcloud iam api-keys | grep $IBMCLOUDCLI_KEY_NAME
    #Delete api-key
    ibmcloud iam api-key-delete $IBMCLOUDCLI_KEY_NAME -f
-   #List api-keys
-   ibmcloud resource service-keys | grep $APPID_SERVICE_QUAY_KEY_NAME
+   
+   #List service-keys
+   
+   #ibmcr
    ibmcloud resource service-keys | grep $APPID_SERVICE_IBMCR_KEY_NAME
+   ibmcloud resource service-keys --instance-name $YOUR_SERVICE_FOR_IBMCR_APPID
+   ibmcloud resource service-key-delete $APPID_SERVICE_IBMCR_KEY_NAME
+
+   #quay
+   ibmcloud resource service-keys | grep $APPID_SERVICE_QUAY_KEY_NAME
+   ibmcloud resource service-keys --instance-name $YOUR_SERVICE_FOR_QUAY_APPID
+   ibmcloud resource service-key-delete $APPID_SERVICE_QUAY_KEY_NAME -f
 }
 
 cleanAppIDservice (){
+    
+    #ibmcr
+    ibmcloud resource service-instance $YOUR_SERVICE_FOR_IBMCR_APPID -f
     ibmcloud resource service-instance-delete $YOUR_SERVICE_FOR_IBMCR_APPID -f
+ 
+    #quay
+    ibmcloud resource service-instance $YOUR_SERVICE_FOR_QUAY_APPID
     ibmcloud resource service-instance-delete $YOUR_SERVICE_FOR_QUAY_APPID -f
 }
 
@@ -97,3 +114,5 @@ cleanKEYS
 echo "************************************"
 echo " Clean AppID service"
 echo "************************************"
+
+cleanAppIDservice

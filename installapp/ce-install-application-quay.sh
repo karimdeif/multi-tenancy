@@ -239,14 +239,14 @@ function deployFrontend(){
                                    --image "$FRONTEND_IMAGE" \
                                    --cpu "1" \
                                    --memory "4G" \                              
-                                   --env  APPLICATION_CLIENTID='$APPLICATION_CLIENTID' \
-                                   --env  APPLICATION_DISCOVERYENDPOINT='$APPLICATION_DISCOVERYENDPOINT' \
-                                   --env  VUE_APP_API_URL_PRODUCTS='$SERVICE_CATALOG_URL/base/category/' \
-                                   --env  VUE_APP_API_URL_ORDERS='$SERVICE_CATALOG_URL/base/Customer/Orders' \
-                                   --env  VUE_APP_API_URL_CATEGORIES='$SERVICE_CATALOG_URL/base/category' \
-                                   --env  VUE_APP_CATEGORY_NAME='Movies' \
-                                   --env  VUE_APP_HEADLINE='Frontend A' \
-                                   --env  VUE_APP_ROOT="/" \
+                                   --env APPLICATION_CLIENTID='$APPLICATION_CLIENTID' \
+                                   --env APPLICATION_DISCOVERYENDPOINT='$APPLICATION_DISCOVERYENDPOINT' \
+                                   --env VUE_APP_API_URL_PRODUCTS='$SERVICE_CATALOG_URL/base/category/' \
+                                   --env VUE_APP_API_URL_ORDERS='$SERVICE_CATALOG_URL/base/Customer/Orders' \
+                                   --env VUE_APP_API_URL_CATEGORIES='$SERVICE_CATALOG_URL/base/category' \
+                                   --env VUE_APP_CATEGORY_NAME='Movies' \
+                                   --env VUE_APP_HEADLINE='Frontend A' \
+                                   --env VUE_APP_ROOT="/" \
                                    --max-scale 1 \
                                    --min-scale 1 \
                                    --port 8081 
