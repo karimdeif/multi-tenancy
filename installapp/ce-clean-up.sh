@@ -14,6 +14,9 @@ export IBMCLOUDCLI_KEY_NAME=cliapikey_for_multi_tenant
 export SECRET_NAME="multi.tenancy.cr.sec"
 export YOUR_SERVICE_FOR_IBMCR_APPID="multi-tenancy-AppID-ibmcr-automated-serverless"
 export YOUR_SERVICE_FOR_QUAY_APPID="multi-tenancy-AppID-quay-automated-serverless"
+export APPID_SERVICE_QUAY_KEY_NAME="multi-tenancy-AppID-quay-automated-serverless-service-key"
+export APPID_SERVICE_IBMCR_KEY_NAME="multi-tenancy-AppID-ibmcr-automated-serverless-service-key"
+
 
 # **********************************************************************************
 # Functions definition
@@ -52,7 +55,10 @@ cleanKEYS () {
    #List api-keys
    ibmcloud iam api-keys | grep $IBMCLOUDCLI_KEY_NAME
    #Delete api-key
-   ibmcloud iam api-key-delete $IBMCLOUDCLI_KEY_NAME -f 
+   ibmcloud iam api-key-delete $IBMCLOUDCLI_KEY_NAME -f
+   #List api-keys
+   ibmcloud resource service-keys | grep $APPID_SERVICE_QUAY_KEY_NAME
+   ibmcloud resource service-keys | grep $APPID_SERVICE_IBMCR_KEY_NAME
 }
 
 cleanAppIDservice (){
