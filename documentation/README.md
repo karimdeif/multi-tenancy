@@ -31,7 +31,8 @@ One frontend per tenant, one business logic per tenant.
 | 2.4 | - Create a bash automation for deployment to Code Engine | in progress | high |  |
 | 2.5 | - Setup tekton using the IBM Cloud toolchain | in progress | high |  |
 | 2.6 | - Integrate exiting bash automations to tekton pipeline | open | high |  |
-| 2.7 | - Add an admin UI for onboarding of new tenant roberts application | open | low |  |
+| 2.7 | - Add an admin UI for onboarding of new tenant roberts application |  open | low |  |
+| 2.7 | - Problem to start the frontend container in code engine |  open | high |  |
 | 3 | **Documenation of the setup** | open | high | We should use **mkdocs** |  
 | 3.1 | - Manual setup | open | high |  |  
 | 3.2 | - Automation setup | open | high |  |
