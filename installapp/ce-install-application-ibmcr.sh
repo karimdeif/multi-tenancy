@@ -266,9 +266,9 @@ function deployFrontend(){
     ibmcloud ce application create --name frontend-a \
                                    --image "$FRONTEND_IMAGE" \
                                    --cpu "1" \
-                                   --memory "2G" \
-                                   --env CLIENT_ID="$APPLICATION_CLIENTID" \
-                                   --env DISCOVERYENDPOINT="$APPLICATION_DISCOVERYENDPOINT" \
+                                   --memory "4G" \
+                                   --env VUE_APPID_CLIENT_ID="$APPLICATION_CLIENTID" \
+                                   --env VUE_APPID_DISCOVERYENDPOINT="$APPLICATION_DISCOVERYENDPOINT" \
                                    --env VUE_APP_API_URL_PRODUCTS="$SERVICE_CATALOG_URL/base/category/" \
                                    --env VUE_APP_API_URL_ORDERS="$SERVICE_CATALOG_URL/base/Customer/Orders" \
                                    --env VUE_APP_API_URL_CATEGORIES="$SERVICE_CATALOG_URL/base/category" \
