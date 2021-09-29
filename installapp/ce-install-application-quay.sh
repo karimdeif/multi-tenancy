@@ -14,8 +14,8 @@ export NAMESPACE=""
 export STATUS="Running"
 
 # ecommerce application container
-export SERVICE_CATALOG_IMAGE="us.icr.io/multi-tenancy-cr/service-catalog:latest"
-export FRONTEND_IMAGE="us.icr.io/multi-tenancy-cr/frontend:latest"
+export SERVICE_CATALOG_IMAGE="docker.io/karimdeif/service-catalog-quarkus-reactive:1.0.0-SNAPSHOT"
+export FRONTEND_IMAGE="quay.io/kdeif/frontend:v0.0"
 
 # URLs
 export FRONTEND_URL=""
@@ -222,9 +222,8 @@ function deployServiceCatalog(){
     ibmcloud ce application create --name service-catalog-a \
                                    --image "$SERVICE_CATALOG_IMAGE" \
                                    --cpu "1" \
-                                   --memory "2G" \
+                                   --memory "4G" \
                                    --port 8081 \
-                                   --registry-secret test \
                                    --max-scale 1 \
                                    --min-scale 1 \
                                        
@@ -239,9 +238,9 @@ function deployFrontend(){
     ibmcloud ce application create --name frontend-a \
                                    --image "$FRONTEND_IMAGE" \
                                    --cpu "1" \
-                                   --memory "2G" \
-                                   --env  VUE_APPID_CLIENT_ID='$APPLICATION_CLIENTID' \
-                                   --env  VUE_APPID_DISCOVERYENDPOINT='$APPLICATION_DISCOVERYENDPOINT' \
+                                   --memory "4G" \                              
+                                   --env  APPLICATION_CLIENTID='$APPLICATION_CLIENTID' \
+                                   --env  APPLICATION_DISCOVERYENDPOINT='$APPLICATION_DISCOVERYENDPOINT' \
                                    --env  VUE_APP_API_URL_PRODUCTS='$SERVICE_CATALOG_URL/base/category/' \
                                    --env  VUE_APP_API_URL_ORDERS='$SERVICE_CATALOG_URL/base/Customer/Orders' \
                                    --env  VUE_APP_API_URL_CATEGORIES='$SERVICE_CATALOG_URL/base/category' \
@@ -250,7 +249,7 @@ function deployFrontend(){
                                    --env  VUE_APP_ROOT="/" \
                                    --max-scale 1 \
                                    --min-scale 1 \
-                                   --port 8080 
+                                   --port 8081 
 
     ibmcloud ce application get --name frontend-a
     FRONTEND_URL=$(ibmcloud ce application get --name frontend-a | grep "https://frontend-a." |  awk '/frontend-a/ {print $2}')
