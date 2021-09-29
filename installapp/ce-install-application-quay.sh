@@ -238,14 +238,14 @@ function deployFrontend(){
     ibmcloud ce application create --name frontend-a \
                                    --image "$FRONTEND_IMAGE" \
                                    --cpu "1" \
-                                   --memory "4G" \                              
-                                   --env APPLICATION_CLIENTID='$APPLICATION_CLIENTID' \
-                                   --env APPLICATION_DISCOVERYENDPOINT='$APPLICATION_DISCOVERYENDPOINT' \
-                                   --env VUE_APP_API_URL_PRODUCTS='$SERVICE_CATALOG_URL/base/category/' \
-                                   --env VUE_APP_API_URL_ORDERS='$SERVICE_CATALOG_URL/base/Customer/Orders' \
-                                   --env VUE_APP_API_URL_CATEGORIES='$SERVICE_CATALOG_URL/base/category' \
-                                   --env VUE_APP_CATEGORY_NAME='Movies' \
-                                   --env VUE_APP_HEADLINE='Frontend A' \
+                                   --memory "4G" \
+                                   --env APPLICATION_CLIENTID="$APPLICATION_CLIENTID" \
+                                   --env APPLICATION_DISCOVERYENDPOINT="$APPLICATION_DISCOVERYENDPOINT" \
+                                   --env VUE_APP_API_URL_PRODUCTS="$SERVICE_CATALOG_URL/base/category/" \
+                                   --env VUE_APP_API_URL_ORDERS="$SERVICE_CATALOG_URL/base/Customer/Orders" \
+                                   --env VUE_APP_API_URL_CATEGORIES="$SERVICE_CATALOG_URL/base/category" \
+                                   --env VUE_APP_CATEGORY_NAME="Movies" \
+                                   --env VUE_APP_HEADLINE="Frontend A" \
                                    --env VUE_APP_ROOT="/" \
                                    --max-scale 1 \
                                    --min-scale 1 \
@@ -333,19 +333,19 @@ echo "************************************"
 echo " AppID creation"
 echo "************************************"
 
-createAppIDService
+# createAppIDService
 
 echo "************************************"
 echo " AppID configuration"
 echo "************************************"
 
-configureAppIDInformation
+# configureAppIDInformation
 
 echo "************************************"
 echo " service catalog"
 echo "************************************"
 
-deployServiceCatalog
+# deployServiceCatalog
 ibmcloud ce application events --application service-catalog-a
 
 echo "************************************"
@@ -359,19 +359,19 @@ echo "************************************"
 echo " AppID add redirect URI"
 echo "************************************"
 
-addRedirectURIAppIDInformation
+# addRedirectURIAppIDInformation
 
 echo "************************************"
 echo " Verify deployments"
 echo "************************************"
 
-kubeDeploymentVerification
+# kubeDeploymentVerification
 
 echo "************************************"
 echo " Container logs"
 echo "************************************"
 
-getKubeContainerLogs
+# getKubeContainerLogs
 
 echo "************************************"
 echo " URLs"
