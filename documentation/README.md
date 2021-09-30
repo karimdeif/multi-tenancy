@@ -22,16 +22,16 @@ These are the main objectives for this sprint.
 
 #### 1 **Running simple ecommerce application on Code Engine**
 
-  * App ID is configured
-  * Frontend is integrated with AppID
-  * Backend is integrated with AppID
-  * Backend is integrated postgres
-  * Postgres is setup
+  * App ID is configured **(DONE)**
+  * Frontend is integrated with AppID **(DONE)**
+  * Backend is integrated with AppID **(PENDING)**
+  * Backend is integrated postgres **(DONE)**
+  * Postgres is setup **(DONE)**
 
 #### 2  **Automation of the deployment**
       
-  * Installation and setup is about **creation**
-  * CI/CD is about **update**
+  * Installation and setup is about **creation** **(IN PROGRESS)**
+  * CI/CD is about **update** **(IN PROGRESS)**
 
   * Differences creation and update
 
