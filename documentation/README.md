@@ -10,9 +10,17 @@ One frontend per tenant, one business logic per tenant.
 
 ![](documentation/images/Mulit-Tenancy-architecture-codeengine-serverless.jpg)
 
-### Objectives for week 41
+### Objectives for sprint in week 41 serverless
 
-* [ZenHub link](https://github.com/karimdeif/multi-tenancy#workspaces/serverless-6152c725095153001243b1aa/board?repos=388999110)
+* Project activities in [ZenHub link](https://github.com/karimdeif/multi-tenancy#workspaces/serverless-6152c725095153001243b1aa/board?repos=388999110)
+
+* Objectives
+
+These are the main objectives for this spring.
+
+* **Running simple ecommerce application including Quarkus on Code Engine** 
+* **Automation of the deployment**
+* **Documenation of the setup**
 
 |   | Objectives |  Status | Priority |  Notes | 
 |---|---|---|---|---|

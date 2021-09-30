@@ -75,7 +75,7 @@ cleanKEYS () {
 cleanAppIDservice (){
     
     #ibmcr
-    ibmcloud resource service-instance $YOUR_SERVICE_FOR_IBMCR_APPID -f
+    ibmcloud resource service-instance $YOUR_SERVICE_FOR_IBMCR_APPID
     ibmcloud resource service-instance-delete $YOUR_SERVICE_FOR_IBMCR_APPID -f
  
     #quay
