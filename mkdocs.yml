@@ -14,7 +14,9 @@ nav:
   - Introduction:
      - overview: ./README.md
   - Labs: 
-    - 1. TBD: ./TBD.md
+    - 1. Setup e-commerce example application on IBM Cloud: ./setup_application.md
+    - 2. Setup continuous delivery: ./TBD.md
+    - 3. TBD: ./TBD.md
   - Optional Labs: 
     - 1. TBD: ./TBD.md
   - Additional Resources:
