@@ -23,6 +23,12 @@ nav:
     - IBM Cloud Code Engine:
        - Examples on GitHub: https://github.com/IBM/CodeEngine
        - Code Engine CLI reference: https://cloud.ibm.com/docs/codeengine?topic=codeengine-cli
+    - IBM Cloud:
+       - IBM Cloud CLI: https://cloud.ibm.com/docs/cli?topic=cli-getting-started
+    - Postgres: 
+       - IBM Cloud "Cloud databases" CLI: https://cloud.ibm.com/docs/databases-cli-plugin?topic=databases-cli-plugin-cdb-reference
+    - IBM Cloud App ID:
+       - AppID REST API: https://us-south.appid.cloud.ibm.com/swagger-ui
 
 ## DO NOT CHANGE BELOW THIS LINE
 
