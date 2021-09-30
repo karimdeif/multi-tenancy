@@ -4,6 +4,12 @@
 **UNDER CONSTRUCTION**
 **------------------**
 
+### Multi-tenancy projects
+
+* [Serverless](https://github.com/karimdeif/multi-tenancy)
+* [OpenShift](https://github.com/kleniu/openshift-multi-tenancy)
+* [Satellite]()
+
 ### Target architecture `serverless`:
 
 One frontend per tenant, one business logic per tenant.
