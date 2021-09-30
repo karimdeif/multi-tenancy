@@ -12,15 +12,35 @@ One frontend per tenant, one business logic per tenant.
 
 ### Objectives for sprint in week 41 `serverless`
 
-* Project activities in [ZenHub link](https://github.com/karimdeif/multi-tenancy#workspaces/serverless-6152c725095153001243b1aa/board?repos=388999110)
+These are the main objectives for this sprint.
 
-* Objectives
+#### 1 **Running simple ecommerce application on Code Engine**
 
-These are the main objectives for this spring.
+  * App ID is configured
+  * Frontend is integrated with AppID
+  * Backend is integrated with AppID
+  * Backend is integrated postgres
+  * Postgres is setup
 
-* **Running simple ecommerce application including Quarkus on Code Engine** 
-* **Automation of the deployment**
-* **Documenation of the setup**
+#### 2  **Automation of the deployment**
+    
+  * Installation and setup is about **creation**
+  * CI/CD is about **update**
+
+  * Differences creation and update
+
+  ![](images/Mulit-Tenancy-installation-cicd.png)
+
+  * Dependencies creation and update
+
+  ![](images/Mulit-Tenancy-installation-cicd-02.png)
+
+#### 3  **Documenation of the setup**
+
+
+### Table of tasks
+
+* Project tasks/activities in [ZenHub link](https://github.com/karimdeif/multi-tenancy#workspaces/serverless-6152c725095153001243b1aa/board?repos=388999110)
 
 |   | Objectives |  Status | Priority |  Notes | 
 |---|---|---|---|---|
