@@ -41,7 +41,7 @@ These are the main objectives for this sprint.
 
   ![](images/Mulit-Tenancy-installation-cicd.png)
 
-  * Dependencies creation and update
+  * Dependencies creation and update [Toolchain](https://cloud.ibm.com/devops/toolchains/92bb1c04-7f8a-4984-ab8a-2da143a96476?env_id=ibm:yp:us-south)
 
   ![](images/Mulit-Tenancy-installation-cicd-02.png)
 
@@ -89,19 +89,27 @@ These are the main objectives for this sprint.
 
 ### Technology Used
 
-The example ecommerce mircorservices application is build on following `technologies/tools/frameworks`.
+The example ecommerce mircorservices application is build on following `technologies/services/tools/frameworks`.
 
   * [Microservices architecture](https://en.wikipedia.org/wiki/Microservices)
   * [OpenID Connect](https://openid.net/connect/)
   * [Jakarta EE](https://jakarta.ee/)
   * [MicroProfile](https://microprofile.io/)
 
+---
+
   * [IBM Cloud Code Engine](https://cloud.ibm.com/docs/codeengine?topic=codeengine-about)
   * [Postgres](https://cloud.ibm.com/databases/databases-for-postgresql/create)
   * [AppID](https://www.ibm.com/de-de/cloud/app-id)
+  * [Toolchain](https://cloud.ibm.com/docs/ContinuousDelivery?topic=ContinuousDelivery-toolchains_getting_started)
+
+---
+
   * [Quarkus](https://quarkus.io/ingress)
   * [Vue.js](https://vuejs.org/)
-  
+
+---
+
   * [NGINX](https://www.nginx.com/)
   * [git 2.24.1 or higher](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git)
   * [yarn 1.22.4 or higher](https://yarnpkg.com)
@@ -109,3 +117,4 @@ The example ecommerce mircorservices application is build on following `technolo
   * [Apache Maven 3.6.3](https://maven.apache.org/ref/3.6.3/maven-embedder/cli.html)
   * [Quay](https://quay.io/)
   * [Tekton](https://tekton.dev/)
+  
