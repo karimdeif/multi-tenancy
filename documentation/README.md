@@ -50,6 +50,10 @@ These are the main objectives for this sprint.
 
 #### 3  **Documenation of the setup**
 
+   * Manual setup **(pending)**
+   * Automation setup **(in progress)**
+   * Workshop **(pending)**
+
 
 ### Table of tasks
 
