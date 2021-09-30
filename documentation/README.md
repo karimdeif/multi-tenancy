@@ -29,7 +29,7 @@ These are the main objectives for this sprint.
   * Postgres is setup
 
 #### 2  **Automation of the deployment**
-    
+      
   * Installation and setup is about **creation**
   * CI/CD is about **update**
 
@@ -40,6 +40,13 @@ These are the main objectives for this sprint.
   * Dependencies creation and update
 
   ![](images/Mulit-Tenancy-installation-cicd-02.png)
+
+  * Used CLIs and APIs
+
+    * [AppID REST API](https://us-south.appid.cloud.ibm.com/swagger-ui)
+    * [IBM Cloud CLI](https://cloud.ibm.com/docs/cli?topic=cli-getting-started)
+    * [Code Engine CLI](https://cloud.ibm.com/docs/codeengine?topic=codeengine-cli)
+    * [Cloud databases CLI](https://cloud.ibm.com/docs/databases-cli-plugin?topic=databases-cli-plugin-cdb-reference)
 
 #### 3  **Documenation of the setup**
 

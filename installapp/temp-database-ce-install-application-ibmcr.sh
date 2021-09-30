@@ -6,7 +6,7 @@
 
 # Needed plugins
 # =============
-# - ce
+# - code engine 
 # - cloud databases (ibmcloud plugin install cloud-databases)
 
 # **************** Global variables
