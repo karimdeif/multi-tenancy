@@ -119,19 +119,23 @@ function setupCRenvCE() {
 
 function setupPostgres () {
 
-    
+    POSTGRES_SERVICE_NAME=databases-for-postgresql
+    POSTGRES_SERVICE_INSTANCE=multi-tenant-a-pg
+    POSTGRES_PLAN=standard
+    POSTGRES_USER=tenant#
+    POSTGRES_PASSWORD=testPostgres998
     
     echo "Create postgres service"
-    ibmcloud resource service-instance-create multi-tenant-a-pg databases-for-postgresql standard us-south \
-                                              -g default
+    ibmcloud resource service-instance-create $POSTGRES_SERVICE_INSTANCE $POSTGRES_SERVICE_NAME $POSTGRES_PLAN $REGION \
+                                              -g $RESOURCE_GROUP
     
     #Loop
-    echo "Wait for postgres instance"
+    echo "Wait for postgres instance, it can take up to 10 minutes"
     export STATUS_POSTGRES="succeeded"
     while :
         do
             FIND="Postgres database"
-            STATUS_CHECK=$(ibmcloud resource service-instance multi-tenant-a-pg --output json | grep '"state":' | awk '{print $2;}' | sed 's/"//g' | sed 's/,//g')
+            STATUS_CHECK=$(ibmcloud resource service-instance multi-tenant-a-pg --output json | grep '"state":' | awk '{print $2;}' | sed 's/"//g' | sed 's/,//g' | tail -1)
             echo "Status: $STATUS_CHECK"
             if [ "$STATUS_POSTGRES" = "$STATUS_CHECK" ]; then
                 echo "$(date +'%F %H:%M:%S') Status: $FIND is Ready"
@@ -145,11 +149,11 @@ function setupPostgres () {
         done
     
     echo "Create user postgres instance"
-    ibmcloud cdb deployment-user-create multi-tenant-a-pg tenant testPostgres998 
+    ibmcloud cdb deployment-user-create $POSTGRES_SERVICE_INSTANCE $POSTGRES_USER $POSTGRES_PASSWORD 
     
     echo "Create a cert"
-    ibmcloud cdb deployment-cacert multi-tenant-a-pg \
-                                    --user tenant \
+    ibmcloud cdb deployment-cacert $POSTGRES_SERVICE_INSTANCE \
+                                    --user $POSTGRES_USER \
                                     --save \
                                     --certroot .
     
