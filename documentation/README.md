@@ -4,13 +4,13 @@
 **UNDER CONSTRUCTION**
 **------------------**
 
-### Target architecture:
+### Target architecture `serverless`:
 
 One frontend per tenant, one business logic per tenant.
 
 ![](documentation/images/Mulit-Tenancy-architecture-codeengine-serverless.jpg)
 
-### Objectives for sprint in week 41 serverless
+### Objectives for sprint in week 41 `serverless`
 
 * Project activities in [ZenHub link](https://github.com/karimdeif/multi-tenancy#workspaces/serverless-6152c725095153001243b1aa/board?repos=388999110)
 
