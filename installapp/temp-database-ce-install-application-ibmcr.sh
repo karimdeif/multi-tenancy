@@ -54,6 +54,7 @@ export APPLICATION_TENANTID=""
 export APPLICATION_OAUTHSERVERURL=""
 
 # Postgres database configuration
+export POSTGRES_SERVICE_INSTANCE=multi-tenant-a-pg-temp
 
 # **********************************************************************************
 # Functions definition
@@ -120,9 +121,8 @@ function setupCRenvCE() {
 function setupPostgres () {
 
     POSTGRES_SERVICE_NAME=databases-for-postgresql
-    POSTGRES_SERVICE_INSTANCE=multi-tenant-a-pg
     POSTGRES_PLAN=standard
-    POSTGRES_USER=tenant#
+    POSTGRES_USER=tenant
     POSTGRES_PASSWORD=testPostgres998
     
     echo "Create postgres service"
@@ -135,9 +135,10 @@ function setupPostgres () {
     while :
         do
             FIND="Postgres database"
-            STATUS_CHECK=$(ibmcloud resource service-instance multi-tenant-a-pg --output json | grep '"state":' | awk '{print $2;}' | sed 's/"//g' | sed 's/,//g' | tail -1)
-            echo "Status: $STATUS_CHECK"
-            if [ "$STATUS_POSTGRES" = "$STATUS_CHECK" ]; then
+            STATUS_CHECK=$(ibmcloud resource service-instance $POSTGRES_SERVICE_INSTANCE --output json | grep '"state":' | awk '{print $2;}' | sed 's/"//g' | sed 's/,//g')
+            echo "Status: $STATUS_CHECK" 
+            STATUS_VERIFICATION=$(echo  "$STATUS_CHECK" | grep "succeeded")
+            if [ "$STATUS_POSTGRES" = "$STATUS_VERIFICATION" ]; then
                 echo "$(date +'%F %H:%M:%S') Status: $FIND is Ready"
                 echo "------------------------------------------------------------------------"
                 break
@@ -148,9 +149,10 @@ function setupPostgres () {
             sleep 5
         done
     
-    echo "Create user postgres instance"
-    ibmcloud cdb deployment-user-create $POSTGRES_SERVICE_INSTANCE $POSTGRES_USER $POSTGRES_PASSWORD 
-    
+    echo "Create user for postgres instance"
+    POSTGRES_USER=$(ibmcloud cdb deployment-user-create $POSTGRES_SERVICE_INSTANCE $POSTGRES_USER $POSTGRES_PASSWORD) 
+    echo "Postgres user: $POSTGRES_USER"
+
     echo "Create a cert"
     ibmcloud cdb deployment-cacert $POSTGRES_SERVICE_INSTANCE \
                                     --user $POSTGRES_USER \
