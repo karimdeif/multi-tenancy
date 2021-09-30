@@ -8,15 +8,31 @@ export RESOURCE_GROUP=default
 export REGION="us-south"
 export NAMESPACE=""
 export STATUS="Running"
+
+# CE IBM Cloud CR
 export SECRET_NAME="multi.tenancy.cr.sec"
 export EMAIL=thomas.suedbroecker@de.ibm.com
 export IBMCLOUDCLI_KEY_NAME=cliapikey_for_multi_tenant
 export SECRET_NAME="multi.tenancy.cr.sec"
+
+# CE applications
+
+export FRONTEND_A=frontend-a
+export FRONTEND_B=frontend
+export SERVICE_CATALOG_A=service-catalog-a
+
+# AppID
+
+# IBM Cloud CR option
 export YOUR_SERVICE_FOR_IBMCR_APPID="multi-tenancy-AppID-ibmcr-automated-serverless"
-export YOUR_SERVICE_FOR_QUAY_APPID="multi-tenancy-AppID-quay-automated-serverless"
-export APPID_SERVICE_QUAY_KEY_NAME="multi-tenancy-AppID-quay-automated-serverless-service-key"
 export APPID_SERVICE_IBMCR_KEY_NAME="multi-tenancy-AppID-ibmcr-automated-serverless-service-key"
 
+# IBM Quay / Docker option
+export YOUR_SERVICE_FOR_QUAY_APPID="multi-tenancy-AppID-quay-automated-serverless"
+export APPID_SERVICE_QUAY_KEY_NAME="multi-tenancy-AppID-quay-automated-serverless-service-key"
+
+# Postgres
+export POSTGRES_SERVICE_INSTANCE=multi-tenant-a-pg-temp
 
 # **********************************************************************************
 # Functions definition
@@ -42,10 +58,10 @@ function setupCLIenvCE() {
 }
 
 cleanCEapplications () {
-    ibmcloud ce application delete --name frontend-a  --force
-    ibmcloud ce application delete --name frontend  --force
-    ibmcloud ce application delete --name service-catalog-a  --force
-    ibmcloud ce application delete --name service-catalog  --force
+    ibmcloud ce application delete --name $FRONTEND_A  --force
+    ibmcloud ce application delete --name $FRONTEND_B  --force
+    ibmcloud ce application delete --name $SERVICE_CATALOG_A  --force
+    ibmcloud ce application delete --name $SERVICE_CATALOG_B  --force
 }
 
 cleanCEregistry(){
@@ -72,8 +88,7 @@ cleanKEYS () {
    ibmcloud resource service-key-delete $APPID_SERVICE_QUAY_KEY_NAME -f
 }
 
-cleanAppIDservice (){
-    
+cleanAppIDservice (){ 
     #ibmcr
     ibmcloud resource service-instance $YOUR_SERVICE_FOR_IBMCR_APPID
     ibmcloud resource service-instance-delete $YOUR_SERVICE_FOR_IBMCR_APPID -f
@@ -81,6 +96,13 @@ cleanAppIDservice (){
     #quay
     ibmcloud resource service-instance $YOUR_SERVICE_FOR_QUAY_APPID
     ibmcloud resource service-instance-delete $YOUR_SERVICE_FOR_QUAY_APPID -f
+}
+
+cleanPostgresService (){
+    
+    ibmcloud resource service-instance $POSTGRES_SERVICE_INSTANCE
+    ibmcloud resource service-instance-delete $POSTGRES_SERVICE_INSTANCE -f
+
 }
 
 # **********************************************************************************
@@ -116,3 +138,9 @@ echo " Clean AppID service"
 echo "************************************"
 
 cleanAppIDservice
+
+echo "************************************"
+echo " Clean Postgres service"
+echo "************************************"
+
+cleanPostgresService
