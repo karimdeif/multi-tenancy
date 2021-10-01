@@ -7,8 +7,16 @@
 # **************** Global variables
 
 # Code Engine
-export PROJECT_NAME_A=multi-tenancy-serverless-a
+#export PROJECT_NAME_A=multi-tenancy-serverless-a
+export PROJECT_NAME_A=multi-tenancy-serverless-tmp
 export PROJECT_NAME_B=multi-tenancy-serverless-b
+
+# Applications
+export SERVICE_CATALOG_NAME_A="service-catalog-a"
+export FRONTEND_NAME_A="frontend-a"
+
+export SERVICE_CATALOG_NAME_B="service-catalog-b"
+export FRONTEND_NAME_B="frontend-b"
 
 # App ID
 export APPID_SERVICE_INSTANCE_NAME_A="multi-tenancy-serverless-appid-a"
@@ -21,9 +29,12 @@ export APPID_SERVICE_KEY_NAME_B="multi-tenancy-serverless-appid-key-b"
 export POSTGRES_SERVICE_INSTANCE_A=multi-tenant-pg-a
 export POSTGRES_SERVICE_INSTANCE_B=multi-tenant-pg-b
 
+
 # **********************************************************************************
 # Functions definition
 # **********************************************************************************
+
+#TBD
 
 # **********************************************************************************
 # Execution
@@ -33,7 +44,7 @@ echo "************************************"
 echo " Tenant A"
 echo "************************************"
 
-bash ./temp-database-ce-install-application-ibmcr.sh $PROJECT_NAME_A
+bash ./temp-database-ce-install-application-ibmcr.sh $PROJECT_NAME_A $APPID_SERVICE_INSTANCE_NAME_A $APPID_SERVICE_KEY_NAME_A $SERVICE_CATALOG_NAME_A $FRONTEND_NAME_A
 
 echo "************************************"
 echo " Tenant B"

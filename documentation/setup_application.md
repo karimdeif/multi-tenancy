@@ -80,24 +80,25 @@ export MYPROJECT=multi-tenancy-[YOUR-EXTENTION]
 
 ```sh
 cd $ROOT_FOLDER/installapp
-bash ce-install-application-ibmcr.sh
+bash ce-create-two-tenantcies.sh
 ```
 
-* Use of Quay and Docker registries
+The `ce-create-two-tenantcies.sh` invokes twice the bash scipt `ce-install-application-ibmcr.sh` with the needed parameter to create two seperated tenant applications.
 
-```sh
-cd $ROOT_FOLDER/installapp
-bash ce-install-application-quay.sh
-```
+For a better understanding here are the simplified steps that are carried out in the script `ce-install-application-ibmcr.sh` does:
 
-For a better understanding here are the simplified steps that are carried out in the script using the IBM Cloud `Code Engine CLI`:
+ 1. Configure CLI config and create an [Code Engine CLI](https://cloud.ibm.com/docs/codeengine?topic=codeengine-cli) project
+ 2. Configure container the IBM Cloud container registry access in the Code Engine project
+ 3. Create Postgres instance and database
+ 4. Create an [`App ID`](https://cloud.ibm.com/docs/appid) service instance
+ 5. Configure the AppID service instance and use the [App ID REST API](https://cloud.ibm.com/apidocs/app-id/management#introduction) to configure: **application**, **scope**, **roles**, **users** and **login**
+ 6. Create `service catalog` application in the Code Engine project
+ 7. Create `frontend` application in the Code Engine project
+ 8. Add redirect URI for the Frontend to AppID
+ 9. Verifing deployments
+ 10. Show container logs of the applications
+ 11. Showing the URLs
 
-1. Connect to the `Code Engine project` with the  [Code Engine CLI](https://cloud.ibm.com/docs/codeengine?topic=codeengine-cli)
-2. Create and configure the needed [`App ID`](https://cloud.ibm.com/docs/appid) instances on IBM Cloud using the [IBM Cloud CLI](https://cloud.ibm.com/docs/cli?topic=cli-getting-started)
-3. Configure  [`App ID`](https://cloud.ibm.com/docs/appid) instances using the [App ID API](https://cloud.ibm.com/apidocs/app-id/management#introduction) to configure: application, scope, roles and users
-4. Deploy the `service catalog` applications
-5. Deploy the `frontend` applications.
-6. Add the redirect URI from the `frontend`'s to the App ID instances.
 
 
 

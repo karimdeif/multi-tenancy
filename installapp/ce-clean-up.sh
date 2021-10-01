@@ -3,7 +3,7 @@
 # **************** Global variables
 
 #export PROJECT_NAME=$MYPROJECT
-export PROJECT_NAME=multi-tenancy-serverless
+export PROJECT_NAME=multi-tenancy-serverless-tmp
 export RESOURCE_GROUP=default
 export REGION="us-south"
 export NAMESPACE=""

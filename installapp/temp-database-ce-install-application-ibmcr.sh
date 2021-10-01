@@ -30,21 +30,25 @@ echo "Application Frontend name       : $5"
 echo "---------------------------------"
 echo ""
 
-# **************** Global variables
+# **************** Global variables set by parameters
 
-#export PROJECT_NAME=$MYPROJECT
-export PARAMETER_TEST=$1
-export PROJECT_NAME=multi-tenancy-serverless
+# Code Engine
+export PROJECT_NAME=$1
+# App
+export YOUR_SERVICE_FOR_APPID=$2
+export APPID_SERVICE_KEY_NAME=$3
+# ecommerce application names
+export SERVICE_CATALOG_NAME=$4
+export FRONTEND_NAME=$5
+
+# **************** Global variables set as default values
+
 export RESOURCE_GROUP=default
 export REGION="us-south"
 export NAMESPACE=""
 export STATUS="Running"
 export SECRET_NAME="multi.tenancy.cr.sec"
-export EMAIL=thomas.suedbroecker@de.ibm.com
-
-# ecommerce application names
-export SERVICE_CATALOG_NAME="service-catalog-a"
-export FRONTEND_NAME="frontend-a"
+export EMAIL=thomas@example.com
 
 # ecommerce application container registry
 export SERVICE_CATALOG_IMAGE="us.icr.io/multi-tenancy-cr/service-catalog:latest"
@@ -57,9 +61,6 @@ export SERVICE_CATALOG_URL=""
 # AppID Service
 export SERVICE_PLAN="graduated-tier"
 export APPID_SERVICE_NAME="appid"
-#export YOUR_SERVICE_FOR_APPID="appID-multi-tenancy-example-tsuedbro"
-export YOUR_SERVICE_FOR_APPID="multi-tenancy-AppID-ibmcr-automated-serverless"
-export APPID_SERVICE_KEY_NAME="multi-tenancy-AppID-ibmcr-automated-serverless-service-key"
 export APPID_SERVICE_KEY_ROLE="Manager"
 export TENANTID=""
 export MANAGEMENTURL=""
@@ -415,7 +416,7 @@ function kubeDeploymentVerification(){
 function getKubeContainerLogs(){
 
     echo "************************************"
-    echo " frontend-a log"
+    echo " $FRONTEND_NAME log"
     echo "************************************"
 
     FIND="$FRONTEND_NAME"
@@ -424,7 +425,7 @@ function getKubeContainerLogs(){
     kubectl logs $FRONTEND_LOG user-container
 
     echo "************************************"
-    echo " service-catalog-a logs"
+    echo " $SERVICE_CATALOG_NAME logs"
     echo "************************************"
 
     FIND=$SERVICE_CATALOG_NAME
