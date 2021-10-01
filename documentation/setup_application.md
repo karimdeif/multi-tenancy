@@ -74,6 +74,7 @@ export MYPROJECT=multi-tenancy-[YOUR-EXTENTION]
 
 #### Step 3: Execute following bash automation
 
+> Prerequiste the container images for the applications need to be 
 > Don't worry, this script may take several minutes (10 - 15 min).
 
 * Use of IBM Cloud container registry 

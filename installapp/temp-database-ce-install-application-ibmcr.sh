@@ -51,8 +51,10 @@ export SECRET_NAME="multi.tenancy.cr.sec"
 export EMAIL=thomas@example.com
 
 # ecommerce application container registry
-export SERVICE_CATALOG_IMAGE="us.icr.io/multi-tenancy-cr/service-catalog:latest"
-export FRONTEND_IMAGE="us.icr.io/multi-tenancy-cr/frontend:latest"
+#export SERVICE_CATALOG_IMAGE="us.icr.io/multi-tenancy-cr/service-catalog:latest"
+export SERVICE_CATALOG_IMAGE="docker.io/karimdeif/service-catalog-quarkus-reactive:1.0.0-SNAPSHOT"
+#export FRONTEND_IMAGE="us.icr.io/multi-tenancy-cr/frontend:latest"
+export FRONTEND_IMAGE="quay.io/kdeif/frontend:v0.0"
 
 # ecommerce application URLs
 export FRONTEND_URL=""
@@ -266,7 +268,7 @@ function configureAppIDInformation(){
     echo " Create application"
     echo "-------------------------"
     echo ""
-    sed "s+FRONTENDNAME+$FRONTEND_NAME+g" ./appid-configs/application-template.json > ./$ADD_APPLICATION
+    sed "s+FRONTENDNAME+$FRONTEND_NAME+g" ./appid-configs/add-application-template.json > ./$ADD_APPLICATION
     result=$(curl -d @./$ADD_APPLICATION -H "Content-Type: application/json" -H "Authorization: Bearer $OAUTHTOKEN" $MANAGEMENTURL/applications)
     echo "-------------------------"
     echo "Result application: $result"
@@ -470,13 +472,13 @@ echo "************************************"
 echo " CLI config"
 echo "************************************"
 
-#setupCLIenvCE
+setupCLIenvCE
 
 echo "************************************"
 echo " Configure container registry access"
 echo "************************************"
 
-# setupCRenvCE
+setupCRenvCE
 
 echo "************************************"
 echo " Create Postgres instance and database"
@@ -488,45 +490,45 @@ echo "************************************"
 echo " AppID creation"
 echo "************************************"
 
-# createAppIDService
+createAppIDService
 
 echo "************************************"
 echo " AppID configuration"
 echo "************************************"
 
-# configureAppIDInformation
+configureAppIDInformation
 
 echo "************************************"
 echo " service catalog"
 echo "************************************"
 
-# deployServiceCatalog
-# ibmcloud ce application events --application $SERVICE_CATALOG_NAME
+deployServiceCatalog
+ibmcloud ce application events --application $SERVICE_CATALOG_NAME
 
 echo "************************************"
 echo " frontend"
 echo "************************************"
 
-# deployFrontend
-# ibmcloud ce application events --application $FRONTEND_NAME
+deployFrontend
+ibmcloud ce application events --application $FRONTEND_NAME
 
 echo "************************************"
 echo " AppID add redirect URI"
 echo "************************************"
 
-# addRedirectURIAppIDInformation
+addRedirectURIAppIDInformation
 
 echo "************************************"
 echo " Verify deployments"
 echo "************************************"
 
-# kubeDeploymentVerification
+kubeDeploymentVerification
 
 echo "************************************"
 echo " Container logs"
 echo "************************************"
 
-# getKubeContainerLogs
+getKubeContainerLogs
 
 echo "************************************"
 echo " URLs"
