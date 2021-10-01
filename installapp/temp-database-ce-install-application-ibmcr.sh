@@ -393,7 +393,7 @@ function deployFrontend(){
                                    --min-scale 1 \
                                    --port 8081 
 
-    ibmcloud ce application get --name frontend-a
+    ibmcloud ce application get --name $FRONTEND_NAME
     FRONTEND_URL=$(ibmcloud ce application get --name "$FRONTEND_NAME" | grep "https://$FRONTEND_NAME." |  awk '/$FRONTEND_NAME/ {print $2}')
     echo "Set FRONTEND URL: $FRONTEND_URL"
 }
