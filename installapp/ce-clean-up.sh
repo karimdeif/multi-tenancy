@@ -33,6 +33,7 @@ export APPID_SERVICE_QUAY_KEY_NAME="multi-tenancy-AppID-quay-automated-serverles
 
 # Postgres
 export POSTGRES_SERVICE_INSTANCE=multi-tenant-a-pg-temp
+export POSTGRES_USER=tenant
 
 # **********************************************************************************
 # Functions definition
@@ -99,10 +100,11 @@ cleanAppIDservice (){
 }
 
 cleanPostgresService (){
-    
-    ibmcloud resource service-instance $POSTGRES_SERVICE_INSTANCE
-    ibmcloud resource service-instance-delete $POSTGRES_SERVICE_INSTANCE -f
 
+    ibmcloud resource service-instance $POSTGRES_SERVICE_INSTANCE
+
+    ibmcloud cdb deployment-user-delete $POSTGRES_SERVICE_INSTANCE $POSTGRES_USER
+    ibmcloud resource service-instance-delete $POSTGRES_SERVICE_INSTANCE -f
 }
 
 # **********************************************************************************

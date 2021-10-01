@@ -64,12 +64,11 @@ function setupCLIenvCE() {
   echo "**********************************"
   echo " Using following project: $PROJECT_NAME" 
   echo "**********************************"
-  
+
   ibmcloud target -g $RESOURCE_GROUP
   ibmcloud target -r $REGION
 
-  # Login to IBM Cloud Container Registry
-  #ibmcloud cr login
+  #ibmcloud ce project create --name $PROJECT_NAME 
 
   ibmcloud ce project get --name $PROJECT_NAME
   ibmcloud ce project select -n $PROJECT_NAME
@@ -77,8 +76,6 @@ function setupCLIenvCE() {
   #to use the kubectl commands
   ibmcloud ce project select -n $PROJECT_NAME --kubecfg
   
-  # NAMESPACE=$(kubectl get namespaces | awk '/NAME/ { getline; print $0;}' | awk '{print $1;}')
-  # NAMESPACE=$(ibmcloud ce project get --name $PROJECT_NAME --output json | sed -n 's|.*"namespace":"\([^"]*\)".*|\1|p')
   NAMESPACE=$(ibmcloud ce project get --name $PROJECT_NAME --output json | grep "namespace" | awk '{print $2;}' | sed 's/"//g' | sed 's/,//g')
   echo "Namespace: $NAMESPACE"
   kubectl get pods -n $NAMESPACE
@@ -125,12 +122,20 @@ function setupPostgres () {
     POSTGRES_USER=tenant
     POSTGRES_PASSWORD=testPostgres998
     
-    echo "Create postgres service"
+    echo ""
+    echo "-------------------------"
+    echo "Create postgres service $POSTGRES_SERVICE_INSTANCE"
+    echo "-------------------------"
+    echo "" 
     ibmcloud resource service-instance-create $POSTGRES_SERVICE_INSTANCE $POSTGRES_SERVICE_NAME $POSTGRES_PLAN $REGION \
                                               -g $RESOURCE_GROUP
     
     #Loop
+    echo ""
+    echo "-------------------------"
     echo "Wait for postgres instance, it can take up to 10 minutes"
+    echo "-------------------------"
+    echo ""
     export STATUS_POSTGRES="succeeded"
     while :
         do
@@ -146,14 +151,22 @@ function setupPostgres () {
                 echo "$(date +'%F %H:%M:%S') Status: $FIND($STATUS_CHECK)"
                 echo "------------------------------------------------------------------------"
             fi
-            sleep 5
+            sleep 10
         done
     
+    echo ""
+    echo "-------------------------"
     echo "Create user for postgres instance"
+    echo "-------------------------"
+    echo ""
     POSTGRES_USER=$(ibmcloud cdb deployment-user-create $POSTGRES_SERVICE_INSTANCE $POSTGRES_USER $POSTGRES_PASSWORD) 
     echo "Postgres user: $POSTGRES_USER"
 
-    echo "Create a cert"
+    echo ""
+    echo "-------------------------"
+    echo "Create cert"
+    echo "-------------------------"
+    echo ""
     ibmcloud cdb deployment-cacert $POSTGRES_SERVICE_INSTANCE \
                                     --user $POSTGRES_USER \
                                     --save \
