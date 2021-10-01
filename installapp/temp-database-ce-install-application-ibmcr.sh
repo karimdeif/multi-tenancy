@@ -386,7 +386,7 @@ function deployFrontend(){
                                    --env VUE_APP_API_URL_ORDERS="$SERVICE_CATALOG_URL/base/Customer/Orders" \
                                    --env VUE_APP_API_URL_CATEGORIES="$SERVICE_CATALOG_URL/base/category" \
                                    --env VUE_APP_CATEGORY_NAME="Movies" \
-                                   --env VUE_APP_HEADLINE="Frontend A" \
+                                   --env VUE_APP_HEADLINE="$FRONTEND_NAME" \
                                    --env VUE_APP_ROOT="/" \
                                    --registry-secret "$SECRET_NAME" \
                                    --max-scale 1 \
