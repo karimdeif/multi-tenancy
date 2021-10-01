@@ -7,12 +7,14 @@ COPY pom.xml /usr/src/app
 WORKDIR /usr/src/app
 RUN mvn clean package
 
-
 ##############################
 #           PRODUCTION
 ##############################
 #FROM docker.io/adoptopenjdk/openjdk11-openj9:ubi-minimal
-FROM docker.io/adoptopenjdk/openjdk11-openj9:ubi-minimal
+#FROM docker.io/adoptopenjdk/openjdk11-openj9
+#FROM docker.io/adoptopenjdk/openjdk12-openj9
+#FROM "quay.io/quarkus/ubi-quarkus-native-image:20.3.3-java11"
+FROM "docker.io/adoptopenjdk:openj9"
 ENV JAVA_OPTIONS="-Dquarkus.http.host=0.0.0.0 -Djava.util.logging.manager=org.jboss.logmanager.LogManager"
 ENV AB_ENABLED=jmx_exporter
 RUN mkdir /opt/shareclasses
