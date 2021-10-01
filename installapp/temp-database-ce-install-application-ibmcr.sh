@@ -326,7 +326,7 @@ function configureAppIDInformation(){
     echo " Configure ui text"
     echo "-------------------------"
     echo ""
-    sed "s+FRONTENDNAME+$FRONTEND_NAME+g" ./appid-configs/add-roles-template.json > ./$ADD_UI_TEXT
+    sed "s+FRONTENDNAME+$FRONTEND_NAME+g" ./appid-configs/add-ui-text-template.json > ./$ADD_UI_TEXT
     OAUTHTOKEN=$(ibmcloud iam oauth-tokens | awk '{print $4;}')
     result=$(curl -d @./$ADD_UI_TEXT -H "Content-Type: application/json" -X PUT -H "Authorization: Bearer $OAUTHTOKEN" $MANAGEMENTURL/config/ui/theme_txt)
     rm -f $ADD_UI_TEXT
