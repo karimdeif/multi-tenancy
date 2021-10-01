@@ -9,9 +9,18 @@
 # - code engine 
 # - cloud databases (ibmcloud plugin install cloud-databases)
 
+# **********************************************************************************
+# Set global variables using parameters
+# **********************************************************************************
+
+echo "Parameter count : $@"
+echo "Parameter zero 'name of the script': $0"
+echo "Parameter one : $1"
+
 # **************** Global variables
 
 #export PROJECT_NAME=$MYPROJECT
+export PARAMETER_TEST=$0
 export PROJECT_NAME=multi-tenancy-serverless
 export RESOURCE_GROUP=default
 export REGION="us-south"
@@ -423,10 +432,16 @@ function checkKubernetesPod (){
 # **********************************************************************************
 
 echo "************************************"
+echo " Parameter dispaly"
+echo "************************************"
+
+parameterDisplay
+
+echo "************************************"
 echo " CLI config"
 echo "************************************"
 
-setupCLIenvCE
+#setupCLIenvCE
 
 echo "************************************"
 echo " Configure container registry access"
@@ -438,7 +453,7 @@ echo "************************************"
 echo " Create Postgres instance and database"
 echo "************************************"
 
-setupPostgres
+#setupPostgres
 
 echo "************************************"
 echo " AppID creation"
