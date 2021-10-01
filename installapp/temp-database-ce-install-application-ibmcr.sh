@@ -13,14 +13,20 @@
 # Set global variables using parameters
 # **********************************************************************************
 
+echo "************************************"
+echo " Display parameter"
+echo "************************************"
+echo ""
 echo "Parameter count : $@"
 echo "Parameter zero 'name of the script': $0"
-echo "Parameter one : $1"
+echo "Code Engine project name    : $1"
+echo "App ID service instance name: $2"
+echo "App ID service key name     : $3"
 
 # **************** Global variables
 
 #export PROJECT_NAME=$MYPROJECT
-export PARAMETER_TEST=$0
+export PARAMETER_TEST=$1
 export PROJECT_NAME=multi-tenancy-serverless
 export RESOURCE_GROUP=default
 export REGION="us-south"
@@ -29,11 +35,15 @@ export STATUS="Running"
 export SECRET_NAME="multi.tenancy.cr.sec"
 export EMAIL=thomas.suedbroecker@de.ibm.com
 
+# ecommerce application names
+export SERVICE_CATALOG_NAME="service-catalog-a"
+export FRONTEND_NAME="frontend-a"
+
 # ecommerce application container registry
 export SERVICE_CATALOG_IMAGE="us.icr.io/multi-tenancy-cr/service-catalog:latest"
 export FRONTEND_IMAGE="us.icr.io/multi-tenancy-cr/frontend:latest"
 
-# URLs
+# ecommerce application URLs
 export FRONTEND_URL=""
 export SERVICE_CATALOG_URL=""
 
@@ -77,7 +87,7 @@ function setupCLIenvCE() {
   ibmcloud target -g $RESOURCE_GROUP
   ibmcloud target -r $REGION
 
-  #ibmcloud ce project create --name $PROJECT_NAME 
+  ibmcloud ce project create --name $PROJECT_NAME 
 
   ibmcloud ce project get --name $PROJECT_NAME
   ibmcloud ce project select -n $PROJECT_NAME
@@ -110,7 +120,7 @@ function setupCRenvCE() {
    CR_SERVER="us.icr.io"
    USERNAME="iamapikey"
 
-   ibmcloud iam api-key-create $IBMCLOUDCLI_KEY_NAME -d "My CLI APIkey" --file $CLIKEY_FILE
+   ibmcloud iam api-key-create $IBMCLOUDCLI_KEY_NAME -d "My IBM CLoud CLI API key for project $PROJECT_NAME" --file $CLIKEY_FILE
    CLIAPIKEY=$(cat $CLIKEY_FILE | grep '"apikey":' | awk '{print $2;}' | sed 's/"//g' | sed 's/,//g' )
    #echo $CLIKEY
    rm -f $CLIKEY_FILE
@@ -247,6 +257,7 @@ function configureAppIDInformation(){
     echo " Create application"
     echo "-------------------------"
     echo ""
+    sed "s+FRONTENDNAME+$FRONTEND_NAME+g" ./appid-configs/application-template.json > ./$ADD_APPLICATION
     result=$(curl -d @./$ADD_APPLICATION -H "Content-Type: application/json" -H "Authorization: Bearer $OAUTHTOKEN" $MANAGEMENTURL/applications)
     echo "-------------------------"
     echo "Result application: $result"
@@ -325,7 +336,7 @@ function addRedirectURIAppIDInformation(){
 
 function deployServiceCatalog(){
 
-    ibmcloud ce application create --name service-catalog-a \
+    ibmcloud ce application create --name "$SERVICE_CATALOG_NAME" \
                                    --image "$SERVICE_CATALOG_IMAGE" \
                                    --cpu "1" \
                                    --memory "4G" \
@@ -334,15 +345,15 @@ function deployServiceCatalog(){
                                    --max-scale 1 \
                                    --min-scale 1 \
                                        
-    ibmcloud ce application get --name service-catalog-a
+    ibmcloud ce application get --name "$SERVICE_CATALOG_NAME"
 
-    SERVICE_CATALOG_URL=$(ibmcloud ce application get --name service-catalog-a | grep "https://service-catalog-a." |  awk '/service-catalog-a/ {print $2}')
+    SERVICE_CATALOG_URL=$(ibmcloud ce application get --name "$SERVICE_CATALOG_NAME" | grep "https://"$SERVICE_CATALOG_NAME"." |  awk '/"$SERVICE_CATALOG_NAME"/ {print $2}')
     echo "Set SERVICE CATALOG URL: $SERVICE_CATALOG_URL"
 }
 
 function deployFrontend(){
 
-    ibmcloud ce application create --name frontend-a \
+    ibmcloud ce application create --name "$FRONTEND_NAME" \
                                    --image "$FRONTEND_IMAGE" \
                                    --cpu "1" \
                                    --memory "8G" \
@@ -360,7 +371,7 @@ function deployFrontend(){
                                    --port 8081 
 
     ibmcloud ce application get --name frontend-a
-    FRONTEND_URL=$(ibmcloud ce application get --name frontend-a | grep "https://frontend-a." |  awk '/frontend-a/ {print $2}')
+    FRONTEND_URL=$(ibmcloud ce application get --name "$FRONTEND_NAME" | grep "https://$FRONTEND_NAME." |  awk '/$FRONTEND_NAME/ {print $2}')
     echo "Set FRONTEND URL: $FRONTEND_URL"
 }
 
@@ -384,7 +395,7 @@ function getKubeContainerLogs(){
     echo " frontend-a log"
     echo "************************************"
 
-    FIND=frontend-a
+    FIND="$FRONTEND_NAME"
     FRONTEND_LOG=$(kubectl get pod -n $NAMESPACE | grep $FIND | awk '{print $1}')
     echo $FRONTEND_LOG
     kubectl logs $FRONTEND_LOG user-container
@@ -393,7 +404,7 @@ function getKubeContainerLogs(){
     echo " service-catalog-a logs"
     echo "************************************"
 
-    FIND=service-catalog-a
+    FIND=$SERVICE_CATALOG_NAME
     SERVICE_CATALOG_LOG=$(kubectl get pod -n $NAMESPACE | grep $FIND | awk '{print $1}')
     echo $SERVICE_CATALOG_LOG
     kubectl logs $SERVICE_CATALOG_LOG user-container
@@ -430,12 +441,6 @@ function checkKubernetesPod (){
 # **********************************************************************************
 # Execution
 # **********************************************************************************
-
-echo "************************************"
-echo " Parameter dispaly"
-echo "************************************"
-
-parameterDisplay
 
 echo "************************************"
 echo " CLI config"
