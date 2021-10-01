@@ -19,9 +19,16 @@ echo "************************************"
 echo ""
 echo "Parameter count : $@"
 echo "Parameter zero 'name of the script': $0"
-echo "Code Engine project name    : $1"
-echo "App ID service instance name: $2"
-echo "App ID service key name     : $3"
+echo "---------------------------------"
+echo "Code Engine project name        : $1"
+echo "---------------------------------"
+echo "App ID service instance name    : $2"
+echo "App ID service key name         : $3"
+echo "---------------------------------"
+echo "Application Service Catalog name: $4"
+echo "Application Frontend name       : $5"
+echo "---------------------------------"
+echo ""
 
 # **************** Global variables
 
@@ -68,6 +75,7 @@ export ADD_APPLICATION="appid-configs/add-application.json"
 export ADD_SCOPE="appid-configs/add-scope.json"
 export ADD_ROLE="appid-configs/add-roles.json"
 export ADD_REDIRECT_URIS="appid-configs/add-redirecturis.json"
+export ADD_UI_TEXT="appid-configs/add-ui-text.json"
 export APPLICATION_CLIENTID=""
 export APPLICATION_TENANTID=""
 export APPLICATION_OAUTHSERVERURL=""
@@ -311,6 +319,21 @@ function configureAppIDInformation(){
     echo "Result import: $result"
     echo "-------------------------"
     echo ""
+
+    #******* Configure ui text  ******
+    echo ""
+    echo "-------------------------"
+    echo " Configure ui text"
+    echo "-------------------------"
+    echo ""
+    sed "s+FRONTENDNAME+$FRONTEND_NAME+g" ./appid-configs/add-roles-template.json > ./$ADD_UI_TEXT
+    OAUTHTOKEN=$(ibmcloud iam oauth-tokens | awk '{print $4;}')
+    result=$(curl -d @./$ADD_UI_TEXT -H "Content-Type: application/json" -X PUT -H "Authorization: Bearer $OAUTHTOKEN" $MANAGEMENTURL/config/ui/theme_txt)
+    rm -f $ADD_UI_TEXT
+    echo "-------------------------"
+    echo "Result import: $result"
+    echo "-------------------------"
+    echo ""
 }
 
 function addRedirectURIAppIDInformation(){
@@ -477,14 +500,14 @@ echo " service catalog"
 echo "************************************"
 
 # deployServiceCatalog
-# ibmcloud ce application events --application service-catalog-a
+# ibmcloud ce application events --application $SERVICE_CATALOG_NAME
 
 echo "************************************"
 echo " frontend"
 echo "************************************"
 
 # deployFrontend
-# ibmcloud ce application events --application frontend-a
+# ibmcloud ce application events --application $FRONTEND_NAME
 
 echo "************************************"
 echo " AppID add redirect URI"
