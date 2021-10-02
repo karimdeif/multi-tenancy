@@ -20,13 +20,15 @@ echo ""
 echo "Parameter count : $@"
 echo "Parameter zero 'name of the script': $0"
 echo "---------------------------------"
-echo "Code Engine project name        : $1"
+echo "Code Engine project name         : $1"
 echo "---------------------------------"
-echo "App ID service instance name    : $2"
-echo "App ID service key name         : $3"
+echo "App ID service instance name     : $2"
+echo "App ID service key name          : $3"
 echo "---------------------------------"
-echo "Application Service Catalog name: $4"
-echo "Application Frontend name       : $5"
+echo "Application Service Catalog name : $4"
+echo "Application Frontend name        : $5"
+echo "Application Service Catalog image: $6"
+echo "Application Frontend image       : $7"
 echo "---------------------------------"
 echo ""
 
@@ -51,15 +53,8 @@ export SECRET_NAME="multi.tenancy.cr.sec"
 export EMAIL=thomas@example.com
 
 # ecommerce application container registry
-# IBM CLoud CR
-#export SERVICE_CATALOG_IMAGE="us.icr.io/multi-tenancy-cr/service-catalog:latest"
-#export FRONTEND_IMAGE="us.icr.io/multi-tenancy-cr/frontend:latest"
-
-# Quay and Docker
-#export SERVICE_CATALOG_IMAGE="docker.io/karimdeif/service-catalog-quarkus-reactive:1.0.0-SNAPSHOT"
-#export FRONTEND_IMAGE="quay.io/kdeif/frontend:v0.0"
-export FRONTEND_IMAGE="quay.io/kdeif/frontend:v0.0"
-export SERVICE_CATALOG_IMAGE="docker.io/karimdeif/service-catalog-quarkus-reactive:1.0.0-SNAPSHOT"
+export FRONTEND_IMAGE=$7
+export SERVICE_CATALOG_IMAGE=$6
 
 # ecommerce application URLs
 export FRONTEND_URL=""
