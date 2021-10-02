@@ -4,7 +4,7 @@
 export REPOSITORY=tsuedbroecker
 export SERVICE_CATALOG="multi-tenancy-service-catalog:v1"
 export FRONTEND="multi-tenancy-frontend:v1"
-
+#quay.io/tsuedbroecker/multi-tenancy-service-catalog:v1
 # **********************************************************************************
 # Execution
 # **********************************************************************************
@@ -20,7 +20,8 @@ podman image list
 podman container list
 #podman container stop -f  "TBD"
 #podman container rm -f "TBD"
-#podman image prune -a -f
+podman image prune -a -f
+podman version
 podman image rm -f "$SERVICE_CATALOG"
 podman image rm -f "$FRONTEND"
 # rm -rf ~/var/home/core/.local/share/containers/storage/overlay/* f
@@ -34,7 +35,7 @@ echo "************************************"
 cd $ROOT_PATH/code/service-catalog-tmp
 pwd
 podman login quay.io
-podman build -t "quay.io/$REPOSITORY/$SERVICE_CATALOG" -f Dockerfile.simple .
+podman build -t "quay.io/$REPOSITORY/$SERVICE_CATALOG" -f Dockerfile.simple-v1 .
 # podman push "quay.io/$REPOSITORY/$SERVICE_CATALOG"
 
 echo ""
