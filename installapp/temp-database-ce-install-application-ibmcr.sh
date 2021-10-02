@@ -51,10 +51,15 @@ export SECRET_NAME="multi.tenancy.cr.sec"
 export EMAIL=thomas@example.com
 
 # ecommerce application container registry
+# IBM CLoud CR
 #export SERVICE_CATALOG_IMAGE="us.icr.io/multi-tenancy-cr/service-catalog:latest"
-export SERVICE_CATALOG_IMAGE="docker.io/karimdeif/service-catalog-quarkus-reactive:1.0.0-SNAPSHOT"
 #export FRONTEND_IMAGE="us.icr.io/multi-tenancy-cr/frontend:latest"
+
+# Quay and Docker
+#export SERVICE_CATALOG_IMAGE="docker.io/karimdeif/service-catalog-quarkus-reactive:1.0.0-SNAPSHOT"
+#export FRONTEND_IMAGE="quay.io/kdeif/frontend:v0.0"
 export FRONTEND_IMAGE="quay.io/kdeif/frontend:v0.0"
+export SERVICE_CATALOG_IMAGE="docker.io/karimdeif/service-catalog-quarkus-reactive:1.0.0-SNAPSHOT"
 
 # ecommerce application URLs
 export FRONTEND_URL=""
