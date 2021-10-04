@@ -58,7 +58,6 @@ These are the main objectives for this sprint.
    * Automation setup **(in progress)**
    * Workshop **(pending)**
 
-
 ### Table of tasks
 
 * Project tasks/activities in [ZenHub link](https://github.com/karimdeif/multi-tenancy#workspaces/serverless-6152c725095153001243b1aa/board?repos=388999110)
@@ -117,4 +116,11 @@ The example ecommerce mircorservices application is build on following `technolo
   * [Apache Maven 3.6.3](https://maven.apache.org/ref/3.6.3/maven-embedder/cli.html)
   * [Quay](https://quay.io/)
   * [Tekton](https://tekton.dev/)
+
+---
+
+  * [Bash](https://en.wikipedia.org/wiki/Bash_(Unix_shell))
+  * [jq](https://lzone.de/cheat-sheet/jq)
+  * [sed](https://en.wikipedia.org/wiki/Sed)
+  * [grep](https://en.wikipedia.org/wiki/Grep)
   

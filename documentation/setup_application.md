@@ -88,7 +88,7 @@ export POSTGRES_SERVICE_INSTANCE_A=multi-tenant-pg-a
 export POSTGRES_SERVICE_INSTANCE_B=multi-tenant-pg-b
 ```
 
-> Don't worry, this script may take several minutes (10 - 15 min).
+> Don't worry, this script may take several minutes (10 - 15 min) without portgres. With postgres it will take up 30 mins.
 
 Execute following bash script:
 
@@ -97,26 +97,24 @@ cd $ROOT_FOLDER/installapp
 bash ce-create-two-tenantcies.sh
 ```
 
-The `ce-create-two-tenantcies.sh` invokes **twice** the bash scipt `ce-install-application.sh` with the needed parameter to create two seperated tenant applications.
-
-For a better understanding here are the simplified steps that are carried out in the script `ce-install-application-ibmcr.sh` does:
+The bash script `ce-create-two-tenantcies.sh` invokes **twice** the bash script `ce-install-application.sh` with the needed parameter to create two seperated tenant applications. Here is a short simplified discription which steps are carried out in the script `ce-install-application-ibmcr.sh`:
 
  1. Configure CLI config and create an [Code Engine CLI](https://cloud.ibm.com/docs/codeengine?topic=codeengine-cli) project
  2. Configure container the IBM Cloud container registry access in the Code Engine project
  3. Create Postgres instance and database
  4. Create an [`App ID`](https://cloud.ibm.com/docs/appid) service instance
  5. Configure the AppID service instance and use the [App ID REST API](https://cloud.ibm.com/apidocs/app-id/management#introduction) to configure: **application**, **scope**, **roles**, **users**, **login** and **logo**.
- 6. Create `service catalog` application in the Code Engine project
- 7. Create `frontend` application in the Code Engine project
- 8. Add redirect URI for the Frontend to AppID
- 9. Verifing deployments
+ 6. Create `service catalog` application in the **Code Engine** project
+ 7. Create `frontend` application in the **Code Engine** project
+ 8. Add `redirect URI` for the Frontend to **AppID**
+ 9. Verify **Code Engine** application deployments
  10. Show container logs of the applications
  11. Showing the URLs
 
- After the exection of the script you find:
+ After the exection of the script you find your IBM Cloud account:
 
  - Two **App ID service instances** which do include an user with the **username** `thomas@example.com` and **password** `thomas4appid`
- - Two **Code Engine projects** with a fontend and a backend application and an configure access to IBM Cloud container registry of your account.
+ - Two **Code Engine projects** with a fontend and a backend application and an configured access for the IBM Cloud container registry of your account.
 
 ### Verify the setup
 
