@@ -186,7 +186,8 @@ function setupPostgres () {
             fi
             sleep 10
         done
-    
+
+    # ***** create user 
     echo ""
     echo "-------------------------"
     echo "Create user for postgres instance"
@@ -194,6 +195,28 @@ function setupPostgres () {
     echo ""
     POSTGRES_USER=$(ibmcloud cdb deployment-user-create $POSTGRES_SERVICE_INSTANCE $POSTGRES_USER $POSTGRES_PASSWORD) 
     echo "Postgres user: $POSTGRES_USER"
+
+    # **** Create Service Credentials
+    # NEED OF SERVICE INSTANCE
+    # https://cloud.ibm.com/docs/databases-for-postgresql?topic=databases-for-postgresql-user-management#adding-users-to-_service-credentials_
+    curl -X POST 'https://api.$REGION.databases.cloud.ibm.com/v4/ibm/deployments/{id}/users' \
+                        -H "Authorization: Bearer $APIKEY" \
+                        -H "Content-Type: application/json" \
+                        -d '{"existing_credentials":{"username":"$POSTGRES_USER","password":"$POSTGRES_PASSWORD"}}'
+
+
+# Get cert
+ibmcloud cdb deployment-cacert multi-tenant-b-pg --user tenant --save --certroot .
+
+
+# Get connection
+ibmcloud cdb deployment-connections multi-tenant-a-pg --user tenant --password tenant --certroot .
+
+# run create-pg.sql to create tables and insert data
+
+CLI          PGPASSWORD=$PASSWORD PGSSLROOTCERT=./2b11af40-8aa6-4b13-a424-1a9109624264 psql 'host=5e6b66a4-70b6-4caf-be8b-23cd2d1ed26b.c00no9sd0hobi6kj68i0.dn.cloud port=30266 dbname=ibmclouddb user=admin sslmode=verify-full -f -a create-populate-tenant-a.sql' 
+
+
 
     echo ""
     echo "-------------------------"
@@ -498,7 +521,7 @@ echo "************************************"
 echo " Configure container registry access"
 echo "************************************"
 
-setupCRenvCE
+#setupCRenvCE
 
 echo "************************************"
 echo " Create Postgres instance and database"
@@ -510,45 +533,45 @@ echo "************************************"
 echo " AppID creation"
 echo "************************************"
 
-createAppIDService
+#createAppIDService
 
 echo "************************************"
 echo " AppID configuration"
 echo "************************************"
 
-configureAppIDInformation
+#configureAppIDInformation
 
 echo "************************************"
 echo " service catalog"
 echo "************************************"
 
-deployServiceCatalog
-ibmcloud ce application events --application $SERVICE_CATALOG_NAME
+#deployServiceCatalog
+#ibmcloud ce application events --application $SERVICE_CATALOG_NAME
 
 echo "************************************"
 echo " frontend"
 echo "************************************"
 
-deployFrontend
-ibmcloud ce application events --application $FRONTEND_NAME
+#deployFrontend
+#ibmcloud ce application events --application $FRONTEND_NAME
 
-echo "************************************"
-echo " AppID add redirect URI"
-echo "************************************"
+#echo "************************************"
+#echo " AppID add redirect URI"
+#echo "************************************"
 
-addRedirectURIAppIDInformation
+#addRedirectURIAppIDInformation
 
 echo "************************************"
 echo " Verify deployments"
 echo "************************************"
 
-kubeDeploymentVerification
+#kubeDeploymentVerification
 
 echo "************************************"
 echo " Container logs"
 echo "************************************"
 
-getKubeContainerLogs
+#getKubeContainerLogs
 
 echo "************************************"
 echo " URLs"
