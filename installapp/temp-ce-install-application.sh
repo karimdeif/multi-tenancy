@@ -244,30 +244,14 @@ function setupPostgres () {
     echo "-------------------------"
     echo ""
     ibmcloud cdb deployment-connections $POSTGRES_SERVICE_INSTANCE \
-                                        --certroot .
-    
-    echo "-------------------------"
-    echo "Get connection to db with cert"
-    echo "-------------------------"    
-    # Copy need sql script
+                                        --certroot . 
+    # **** Copy need sql script
     cp "../../postgres-config/create-populate-tenant-a.sql" "create-populate-tenant-a.sql"
-    # Create bash script
+    # **** Create bash script
     sed "s+COMMAND_INSERT+$POSTGRES_CONNECTION+g" "../../postgres-config/insert-template.sh" > ./insert.sh
     bash insert.sh
     cd ..
     rm -f -r ./postgres_cert
-}
-
-function databaseSetupPostgres () {
-    
-    # *** run create-pg.sql to create tables and insert data
-
-    echo "hello"
-    psql 
-    # PGPASSWORD=$PASSWORD 
-    # PGSSLROOTCERT=./2b11af40-8aa6-4b13-a424-1a9109624264 
-    # psql 'host=5e6b66a4-70b6-4caf-be8b-23cd2d1ed26b.c00no9sd0hobi6kj68i0.dn.cloud port=30266 dbname=ibmclouddb user=admin sslmode=verify-full -f -a create-populate-tenant-a.sql' 
-
 }
 
 # **** AppID ****
