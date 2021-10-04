@@ -37,7 +37,7 @@ export FRONTEND_IMAGE="quay.io/tsuedbroecker/multi-tenancy-frontend:v1"
 
 # App ID
 export APPID_SERVICE_INSTANCE_NAME_A="multi-tenancy-serverless-appid-a"
-export APPID_SERVICE_KEY_NAME_A="multi-tenancy-serverless-appid-key-a"
+export APPID_SERVICE_KEY_NAME_A="multi-tenancy-serverless-appid-key-b"
 
 export APPID_SERVICE_INSTANCE_NAME_B="multi-tenancy-serverless-appid-b"
 export APPID_SERVICE_KEY_NAME_B="multi-tenancy-serverless-appid-key-b"

@@ -128,7 +128,7 @@ function setupCLIenvCE() {
 function setupCRenvCE() {
    
    IBMCLOUDCLI_KEY_NAME=cliapikey_for_multi_tenant
-   IBMCLOUDCLI_KEY_DESCRIPTION="CLI APIkey cliapikey_for_multi_tenant"
+   IBMCLOUDCLI_KEY_DESCRIPTION="CLI APIkey $cliapikey_for_multi_tenant"
    CLIKEY_FILE="cli_key.json"
    CR_SERVER="us.icr.io"
    USERNAME="iamapikey"
@@ -306,7 +306,7 @@ function configureAppIDInformation(){
     OAUTHTOKEN=$(ibmcloud iam oauth-tokens | awk '{print $4;}')
     #echo $OAUTHTOKEN
     result=$(curl -d @./$ADD_ROLE -H "Content-Type: application/json" -X POST -H "Authorization: Bearer $OAUTHTOKEN" $MANAGEMENTURL/roles)
-    #rm -f ./$ADD_ROLE
+    rm -f ./$ADD_ROLE
     echo "-------------------------"
     echo "Result role: $result"
     echo "-------------------------"
@@ -335,7 +335,7 @@ function configureAppIDInformation(){
     OAUTHTOKEN=$(ibmcloud iam oauth-tokens | awk '{print $4;}')
     echo "PUT url: $MANAGEMENTURL/config/ui/theme_txt"
     result=$(curl -d @./$ADD_UI_TEXT -H "Content-Type: application/json" -X PUT -v -H "Authorization: Bearer $OAUTHTOKEN" $MANAGEMENTURL/config/ui/theme_text)
-    #rm -f $ADD_UI_TEXT
+    rm -f $ADD_UI_TEXT
     echo "-------------------------"
     echo "Result import: $result"
     echo "-------------------------"
@@ -355,7 +355,7 @@ function addRedirectURIAppIDInformation(){
     #Create file from template
     sed "s+APPLICATION_REDIRECT_URL+$FRONTEND_URL+g" ./appid-configs/add-redirecturis-template.json > ./$ADD_REDIRECT_URIS
     result=$(curl -d @./$ADD_REDIRECT_URIS -H "Content-Type: application/json" -X PUT -H "Authorization: Bearer $OAUTHTOKEN" $MANAGEMENTURL/config/redirect_uris)
-    # rm -f ./$ADD_REDIRECT_URIS
+    rm -f ./$ADD_REDIRECT_URIS
     echo "-------------------------"
     echo "Result redirect uris: $result"
     echo "-------------------------"
