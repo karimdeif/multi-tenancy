@@ -37,7 +37,7 @@ export FRONTEND_IMAGE="quay.io/tsuedbroecker/multi-tenancy-frontend:v1"
 
 # App ID
 export APPID_SERVICE_INSTANCE_NAME_A="multi-tenancy-serverless-appid-a"
-export APPID_SERVICE_KEY_NAME_A="multi-tenancy-serverless-appid-key-b"
+export APPID_SERVICE_KEY_NAME_A="multi-tenancy-serverless-appid-key-a"
 
 export APPID_SERVICE_INSTANCE_NAME_B="multi-tenancy-serverless-appid-b"
 export APPID_SERVICE_KEY_NAME_B="multi-tenancy-serverless-appid-key-b"
@@ -74,10 +74,10 @@ echo " Tenant B"
 echo "************************************"
 
 bash ./temp-database-ce-install-application-ibmcr.sh $PROJECT_NAME_B \
-                                                     $APPID_SERVICE_INSTANCE_NAME_A \
-                                                     $APPID_SERVICE_KEY_NAME_A \
-                                                     $SERVICE_CATALOG_NAME_A \
-                                                     $FRONTEND_NAME_A \
+                                                     $APPID_SERVICE_INSTANCE_NAME_B \
+                                                     $APPID_SERVICE_KEY_NAME_B \
+                                                     $SERVICE_CATALOG_NAME_B \
+                                                     $FRONTEND_NAME_B \
                                                      $SERVICE_CATALOG_IMAGE \
                                                      $FRONTEND_IMAGE \
-                                                     $CATEGORY_A
+                                                     $CATEGORY_B
