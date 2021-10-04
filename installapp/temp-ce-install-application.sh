@@ -206,67 +206,64 @@ function setupPostgres () {
     POSTGRES_INSTANCE_ID=$(ibmcloud resource service-instance $POSTGRES_SERVICE_INSTANCE --id | tail -1 | awk '{print $1;}')
     echo "Postgres instance ID: $POSTGRES_INSTANCE_ID"
 
-    # ***** create user 
+    # **** Create service key and get the postgres connection
     echo ""
     echo "-------------------------"
-    echo "Create user for postgres instance"
+    echo "Create service key and get the postgres connection"
     echo "-------------------------"
     echo ""
-    #POSTGRES_USER=$(ibmcloud cdb deployment-user-create $POSTGRES_INSTANCE_ID $POSTGRES_USER $POSTGRES_PASSWORD) 
-    #echo "Postgres user: $POSTGRES_USER"
-
-    # **** Create Service Credentials
+    ibmcloud resource service-key $POSTGRES_SERVICE_KEY_NAME --output JSON > ./postgres-config/postgres-key.json
+    POSTGRES_CONNECTION_TEMP=$(cat ./postgres-config/postgres-key.json | jq '.[].credentials.connection.cli.composed[]' | sed 's/"//g' | sed '$ s/.$//' )
     echo ""
     echo "-------------------------"
-    echo "Create service credentials"
+    echo "Temp 1 : $POSTGRES_CONNECTION_TEMP"
     echo "-------------------------"
+    export POSTGRES_CONNECTION="$POSTGRES_CONNECTION_TEMP' -a -f create-populate-tenant-a.sql"
     echo ""
-    # https://cloud.ibm.com/docs/databases-for-postgresql?topic=databases-for-postgresql-user-management#adding-users-to-_service-credentials_
-    #OAUTHTOKEN=$(ibmcloud iam oauth-tokens | awk '{print $4;}')
-    #echo "Region: $REGION"
-    #echo "Postgres Service ID: $POSTGRES_INSTANCE_ID"
-    #echo "Postgres API version: $POSTGRES_API_VERSION"
-    #echo "URL: https://api.$REGION.databases.cloud.ibm.com/$POSTGRES_API_VERSION/ibm/deployments/$POSTGRES_INSTANCE_ID/users"
-    ibmcloud resource service-key-create $POSTGRES_SERVICE_KEY_NAME --instance-id $POSTGRES_INSTANCE_ID
-    ibmcloud resource service-key $POSTGRES_SERVICE_KEY_NAME --outpout JSON > ./postgres-config/postgres-key.json
+    echo "-------------------------"
+    echo "Result: $POSTGRES_CONNECTION" 
+    echo "-------------------------"
     
-    #https://api.us-south.databases.cloud.ibm.com/v5/ibm
-    #curl -v -X POST "https://api.$REGION.databases.cloud.ibm.com/$POSTGRES_API_VERSION/ibm/deployments/$POSTGRES_INSTANCE_ID/users" \
-    #                    -H "Authorization: Bearer $OAUTHTOKEN" \
-    #                    -H "Content-Type: application/json" \
-    #                    -d '{"existing_credentials":{"username":"$POSTGRES_USER","password":"$POSTGRES_PASSWORD"}}'
-
-    echo ""
-    echo "-------------------------"
-    echo "Create cert"
-    echo "-------------------------"
-    echo ""
     # **** Get cert
-    #ibmcloud cdb deployment-cacert $POSTGRES_SERVICE_INSTANCE \
-    #                               --user $POSTGRES_USER \
-    #                               --save \
-    #                               --certroot .
+    echo ""
+    echo "-------------------------"
+    echo "Get cert"
+    echo "-------------------------"
+    echo ""  
+    cd postgres
+    # **** we will delete this 'postgres_cert' folder later
+    mkdir postgres_cert
+    cd postgres_cert
     ibmcloud cdb deployment-cacert $POSTGRES_SERVICE_INSTANCE \
                                     --save \
                                     --certroot .
 
-    # **** Get connection
+    # **** Get connection to db with cert
     echo "-------------------------"
-    echo "Get connection"
+    echo "Get connection to db with cert"
     echo "-------------------------"
     echo ""
-    #ibmcloud cdb deployment-connections $POSTGRES_SERVICE_INSTANCE \
-    #                                    --user $POSTGRES_USER \
-    #                                    --password $POSTGRES_PASSWORD \
-    #                                    --certroot .
     ibmcloud cdb deployment-connections $POSTGRES_SERVICE_INSTANCE \
                                         --certroot .
+    
+    echo "-------------------------"
+    echo "Get connection to db with cert"
+    echo "-------------------------"    
+    # Copy need sql script
+    cp "../../postgres-config/create-populate-tenant-a.sql" "create-populate-tenant-a.sql"
+    # Create bash script
+    sed "s+COMMAND_INSERT+$POSTGRES_CONNECTION+g" "../../postgres-config/insert-template.sh" > ./insert.sh
+    bash insert.sh
+    cd ..
+    rm -f -r ./postgres_cert
 }
 
 function databaseSetupPostgres () {
     
     # *** run create-pg.sql to create tables and insert data
+
     echo "hello"
+    psql 
     # PGPASSWORD=$PASSWORD 
     # PGSSLROOTCERT=./2b11af40-8aa6-4b13-a424-1a9109624264 
     # psql 'host=5e6b66a4-70b6-4caf-be8b-23cd2d1ed26b.c00no9sd0hobi6kj68i0.dn.cloud port=30266 dbname=ibmclouddb user=admin sslmode=verify-full -f -a create-populate-tenant-a.sql' 
