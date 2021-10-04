@@ -49,7 +49,11 @@ export POSTGRES_SERVICE_INSTANCE_B=multi-tenant-pg-b
 # Functions definition
 # **********************************************************************************
 
-#TBD
+function createAndPushContainer () {
+    bash ./ce-build-images-quay-docker.sh $SERVICE_CATALOG_IMAGE \
+                                          $FRONTEND_IMAGE
+
+}
 
 # **********************************************************************************
 # Execution
