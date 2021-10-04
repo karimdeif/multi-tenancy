@@ -43,16 +43,16 @@ These are the main objectives for this sprint.
 
 #### 3 **Used CLIs and APIs**
 
-    * [AppID REST API](https://us-south.appid.cloud.ibm.com/swagger-ui)
-    * [IBM Cloud CLI](https://cloud.ibm.com/docs/cli?topic=cli-getting-started)
-    * [Code Engine CLI](https://cloud.ibm.com/docs/codeengine?topic=codeengine-cli)
-    * [Cloud databases CLI](https://cloud.ibm.com/docs/databases-cli-plugin?topic=databases-cli-plugin-cdb-reference)
+  * [AppID REST API](https://us-south.appid.cloud.ibm.com/swagger-ui)
+  * [IBM Cloud CLI](https://cloud.ibm.com/docs/cli?topic=cli-getting-started)
+  * [Code Engine CLI](https://cloud.ibm.com/docs/codeengine?topic=codeengine-cli)
+  * [Cloud databases CLI](https://cloud.ibm.com/docs/databases-cli-plugin?topic=databases-cli-plugin-cdb-reference)
 
 #### 4  **Documenation of the setup**
 
-   * Manual setup **(pending)**
-   * Automation setup **(in progress)**
-   * Workshop **(pending)**
+  * Manual setup **(pending)**
+  * Automation setup **(in progress)**
+  * Workshop **(pending)**
 
 ### Table of tasks
 

@@ -55,14 +55,16 @@ Prerequiste:
 
 The `ce-create-two-tenantcies.sh` script has following default parameters for **Code Engine**, **Applications**, **container registry**, **AppID** and **Postgres**.
 
-```sh
-# **************** Global variables
+*  Code Engine
 
-# Code Engine
+```sh
 export PROJECT_NAME_A=multi-tenancy-serverless-a
 export PROJECT_NAME_B=multi-tenancy-serverless-b
+```
 
-# Applications
+* Applications
+
+```sh
 export SERVICE_CATALOG_NAME_A="service-catalog-movies"
 export FRONTEND_NAME_A="frontend-movies"
 
@@ -71,19 +73,28 @@ export FRONTEND_NAME_B="frontend-fantasy"
 
 export CATEGORY_A=Movies
 export CATEGORY_B=Fantasy
+```
 
-# IBM CLoud container registry
+* IBM CLoud container registry
+
+```sh
 export SERVICE_CATALOG_IMAGE="us.icr.io/multi-tenancy-cr/service-catalog:latest"
 export FRONTEND_IMAGE="us.icr.io/multi-tenancy-cr/frontend:latest"
+```
 
-# App ID
+* App ID
+
+```sh
 export APPID_SERVICE_INSTANCE_NAME_A="multi-tenancy-serverless-appid-a"
 export APPID_SERVICE_KEY_NAME_A="multi-tenancy-serverless-appid-key-a"
 
 export APPID_SERVICE_INSTANCE_NAME_B="multi-tenancy-serverless-appid-b"
 export APPID_SERVICE_KEY_NAME_B="multi-tenancy-serverless-appid-key-b"
+```
 
-# Postgres
+* Postgres
+
+```sh
 export POSTGRES_SERVICE_INSTANCE_A=multi-tenant-pg-a
 export POSTGRES_SERVICE_INSTANCE_B=multi-tenant-pg-b
 ```
