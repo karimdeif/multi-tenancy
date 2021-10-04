@@ -77,6 +77,41 @@ export MYPROJECT=multi-tenancy-[YOUR-EXTENTION]
 > Prerequiste the container images for the applications need to be 
 > Don't worry, this script may take several minutes (10 - 15 min).
 
+The `ce-create-two-tenantcies.sh` script has following default parameters for **Code Engine**, **Applications**, **container registry**, **AppID** and **Postgres**.
+
+```sh
+# **************** Global variables
+
+# Code Engine
+export PROJECT_NAME_A=multi-tenancy-serverless-a
+export PROJECT_NAME_B=multi-tenancy-serverless-b
+
+# Applications
+export SERVICE_CATALOG_NAME_A="service-catalog-movies"
+export FRONTEND_NAME_A="frontend-movies"
+
+export SERVICE_CATALOG_NAME_B="service-catalog-fantasy"
+export FRONTEND_NAME_B="frontend-fantasy"
+
+export CATEGORY_A=Movies
+export CATEGORY_B=Fantasy
+
+# IBM CLoud container registry
+export SERVICE_CATALOG_IMAGE="us.icr.io/multi-tenancy-cr/service-catalog:latest"
+export FRONTEND_IMAGE="us.icr.io/multi-tenancy-cr/frontend:latest"
+
+# App ID
+export APPID_SERVICE_INSTANCE_NAME_A="multi-tenancy-serverless-appid-a"
+export APPID_SERVICE_KEY_NAME_A="multi-tenancy-serverless-appid-key-a"
+
+export APPID_SERVICE_INSTANCE_NAME_B="multi-tenancy-serverless-appid-b"
+export APPID_SERVICE_KEY_NAME_B="multi-tenancy-serverless-appid-key-b"
+
+# Postgres
+export POSTGRES_SERVICE_INSTANCE_A=multi-tenant-pg-a
+export POSTGRES_SERVICE_INSTANCE_B=multi-tenant-pg-b
+```
+
 * Use of IBM Cloud container registry 
 
 ```sh
@@ -84,7 +119,7 @@ cd $ROOT_FOLDER/installapp
 bash ce-create-two-tenantcies.sh
 ```
 
-The `ce-create-two-tenantcies.sh` invokes twice the bash scipt `ce-install-application-ibmcr.sh` with the needed parameter to create two seperated tenant applications.
+The `ce-create-two-tenantcies.sh` invokes **twice** the bash scipt `ce-install-application-ibmcr.sh` with the needed parameter to create two seperated tenant applications.
 
 For a better understanding here are the simplified steps that are carried out in the script `ce-install-application-ibmcr.sh` does:
 
@@ -92,7 +127,7 @@ For a better understanding here are the simplified steps that are carried out in
  2. Configure container the IBM Cloud container registry access in the Code Engine project
  3. Create Postgres instance and database
  4. Create an [`App ID`](https://cloud.ibm.com/docs/appid) service instance
- 5. Configure the AppID service instance and use the [App ID REST API](https://cloud.ibm.com/apidocs/app-id/management#introduction) to configure: **application**, **scope**, **roles**, **users** and **login**
+ 5. Configure the AppID service instance and use the [App ID REST API](https://cloud.ibm.com/apidocs/app-id/management#introduction) to configure: **application**, **scope**, **roles**, **users**, **login** and **logo**.
  6. Create `service catalog` application in the Code Engine project
  7. Create `frontend` application in the Code Engine project
  8. Add redirect URI for the Frontend to AppID
