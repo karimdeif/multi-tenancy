@@ -48,7 +48,7 @@ These are the main objectives for this sprint.
   * [Code Engine CLI](https://cloud.ibm.com/docs/codeengine?topic=codeengine-cli)
   * [Cloud databases CLI](https://cloud.ibm.com/docs/databases-cli-plugin?topic=databases-cli-plugin-cdb-reference)
 
-#### 4  **Documenation of the setup**
+#### 3  **Documenation of the setup**
 
   * Manual setup **(pending)**
   * Automation setup **(in progress)**
