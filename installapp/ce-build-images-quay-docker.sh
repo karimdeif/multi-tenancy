@@ -1,9 +1,20 @@
 #!/bin/bash
 
+echo "************************************"
+echo " Display parameter"
+echo "************************************"
+echo ""
+echo "Parameter count : $@"
+echo "Parameter zero 'name of the script': $0"
+echo "---------------------------------"
+echo "Service catalog image        : $1"
+echo "Frontend image               : $2"
+echo "---------------------------------"
+echo ""
+
 # **************** Global variables
-export REPOSITORY=tsuedbroecker
-export SERVICE_CATALOG="multi-tenancy-service-catalog:v1"
-export FRONTEND="multi-tenancy-frontend:v1"
+export SERVICE_CATALOG_IMAGE=$1
+export FRONTEND_IMAGE=$1
 
 # **********************************************************************************
 # Execution
@@ -16,33 +27,25 @@ echo "Path: $ROOT_PATH"
 echo "************************************"
 echo " Clean up container if needed"
 echo "************************************"
-unalias docker
-docker image list
-docker container list
-#docker container stop -f  "TBD"
-#docker container rm -f "TBD"
-docker image prune -a -f
-docker version
-#docker image rm -f "docker.io/adoptopenjdk/maven-openjdk11"
-docker image rm -f "$SERVICE_CATALOG"
-docker image rm -f "$FRONTEND"
+docker image rm -f "$SERVICE_CATALOG_IMAGE"
+docker image rm -f "$FRONTEND_IMAGE"
 
 echo "************************************"
-echo " Service catalog $SERVICE_CATALOG"
+echo " Service catalog $SERVICE_CATALOG_IMAGE"
 echo "************************************"
 cd $ROOT_PATH/code/service-catalog
 pwd
 docker login quay.io
-docker build -t "quay.io/$REPOSITORY/$SERVICE_CATALOG" -f Dockerfile .
-docker push "quay.io/$REPOSITORY/$SERVICE_CATALOG"
+docker build -t "$SERVICE_CATALOG_IMAGE" -f Dockerfile .
+docker push "$SERVICE_CATALOG_IMAGE"
 
 echo ""
 
 echo "************************************"
-echo " Frontend $FRONTEND"
+echo " Frontend $FRONTEND_IMAGE"
 echo "************************************"
 cd $ROOT_PATH/code/frontend
 
 docker login quay.io
-docker build -t "quay.io/$REPOSITORY/$FRONTEND" -f Dockerfile.os4-webapp .
-docker push "quay.io/$REPOSITORY/$FRONTEND"
+docker build -t "$FRONTEND_IMAGE" -f Dockerfile.os4-webapp .
+docker push "$FRONTEND_IMAGED"
