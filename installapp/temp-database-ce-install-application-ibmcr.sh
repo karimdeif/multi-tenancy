@@ -29,6 +29,7 @@ echo "Application Service Catalog name : $4"
 echo "Application Frontend name        : $5"
 echo "Application Service Catalog image: $6"
 echo "Application Frontend image       : $7"
+echo "Application Frontend category    : $8"
 echo "---------------------------------"
 echo ""
 
@@ -42,6 +43,7 @@ export APPID_SERVICE_KEY_NAME=$3
 # ecommerce application names
 export SERVICE_CATALOG_NAME=$4
 export FRONTEND_NAME=$5
+export FRONTEND_CATEGORY=$8
 
 # **************** Global variables set as default values
 
@@ -304,7 +306,7 @@ function configureAppIDInformation(){
     OAUTHTOKEN=$(ibmcloud iam oauth-tokens | awk '{print $4;}')
     #echo $OAUTHTOKEN
     result=$(curl -d @./$ADD_ROLE -H "Content-Type: application/json" -X POST -H "Authorization: Bearer $OAUTHTOKEN" $MANAGEMENTURL/roles)
-    rm -f ./$ADD_ROLE
+    #rm -f ./$ADD_ROLE
     echo "-------------------------"
     echo "Result role: $result"
     echo "-------------------------"
@@ -331,8 +333,9 @@ function configureAppIDInformation(){
     echo ""
     sed "s+FRONTENDNAME+$FRONTEND_NAME+g" ./appid-configs/add-ui-text-template.json > ./$ADD_UI_TEXT
     OAUTHTOKEN=$(ibmcloud iam oauth-tokens | awk '{print $4;}')
-    result=$(curl -d @./$ADD_UI_TEXT -H "Content-Type: application/json" -X PUT -H "Authorization: Bearer $OAUTHTOKEN" $MANAGEMENTURL/config/ui/theme_txt)
-    rm -f $ADD_UI_TEXT
+    echo "PUT url: $MANAGEMENTURL/config/ui/theme_txt"
+    result=$(curl -d @./$ADD_UI_TEXT -H "Content-Type: application/json" -X PUT -v -H "Authorization: Bearer $OAUTHTOKEN" $MANAGEMENTURL/config/ui/theme_text)
+    #rm -f $ADD_UI_TEXT
     echo "-------------------------"
     echo "Result import: $result"
     echo "-------------------------"
@@ -348,10 +351,11 @@ function addRedirectURIAppIDInformation(){
     echo "-------------------------"
     echo ""
     OAUTHTOKEN=$(ibmcloud iam oauth-tokens | awk '{print $4;}')
+    echo "Redirect URL: $FRONTEND_URL"
     #Create file from template
     sed "s+APPLICATION_REDIRECT_URL+$FRONTEND_URL+g" ./appid-configs/add-redirecturis-template.json > ./$ADD_REDIRECT_URIS
     result=$(curl -d @./$ADD_REDIRECT_URIS -H "Content-Type: application/json" -X PUT -H "Authorization: Bearer $OAUTHTOKEN" $MANAGEMENTURL/config/redirect_uris)
-    rm -f ./$ADD_REDIRECT_URIS
+    # rm -f ./$ADD_REDIRECT_URIS
     echo "-------------------------"
     echo "Result redirect uris: $result"
     echo "-------------------------"
@@ -361,7 +365,7 @@ function addRedirectURIAppIDInformation(){
 # **** application and microservices ****
 
 function deployServiceCatalog(){
-
+    OUTPUTFILE=./ce-get-application-outpout.json
     ibmcloud ce application create --name "$SERVICE_CATALOG_NAME" \
                                    --image "$SERVICE_CATALOG_IMAGE" \
                                    --cpu "1" \
@@ -371,9 +375,8 @@ function deployServiceCatalog(){
                                    --max-scale 1 \
                                    --min-scale 1 \
                                        
-    ibmcloud ce application get --name "$SERVICE_CATALOG_NAME"
-
-    SERVICE_CATALOG_URL=$(ibmcloud ce application get --name "$SERVICE_CATALOG_NAME" | grep "https://"$SERVICE_CATALOG_NAME"." |  awk '/"$SERVICE_CATALOG_NAME"/ {print $2}')
+    #ibmcloud ce application get --name "$SERVICE_CATALOG_NAME"  --output json > $OUTPUTFILE
+    SERVICE_CATALOG_URL=$(ibmcloud ce application get --name "$SERVICE_CATALOG_NAME" -o url)
     echo "Set SERVICE CATALOG URL: $SERVICE_CATALOG_URL"
 }
 
@@ -388,7 +391,7 @@ function deployFrontend(){
                                    --env VUE_APP_API_URL_PRODUCTS="$SERVICE_CATALOG_URL/base/category/" \
                                    --env VUE_APP_API_URL_ORDERS="$SERVICE_CATALOG_URL/base/Customer/Orders" \
                                    --env VUE_APP_API_URL_CATEGORIES="$SERVICE_CATALOG_URL/base/category" \
-                                   --env VUE_APP_CATEGORY_NAME="Movies" \
+                                   --env VUE_APP_CATEGORY_NAME="$FRONTEND_CATEGORY" \
                                    --env VUE_APP_HEADLINE="$FRONTEND_NAME" \
                                    --env VUE_APP_ROOT="/" \
                                    --registry-secret "$SECRET_NAME" \
@@ -397,7 +400,8 @@ function deployFrontend(){
                                    --port 8081 
 
     ibmcloud ce application get --name $FRONTEND_NAME
-    FRONTEND_URL=$(ibmcloud ce application get --name "$FRONTEND_NAME" | grep "https://$FRONTEND_NAME." |  awk '/$FRONTEND_NAME/ {print $2}')
+    #FRONTEND_URL=$(ibmcloud ce application get --name "$FRONTEND_NAME" | grep "https://$FRONTEND_NAME." |  awk '/$FRONTEND_NAME/ {print $2}')
+    FRONTEND_URL=$(ibmcloud ce application get --name "$FRONTEND_NAME" -o url)
     echo "Set FRONTEND URL: $FRONTEND_URL"
 }
 

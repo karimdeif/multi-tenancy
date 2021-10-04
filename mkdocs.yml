@@ -28,6 +28,7 @@ nav:
     - Postgres: 
        - IBM Cloud "Cloud databases" CLI: https://cloud.ibm.com/docs/databases-cli-plugin?topic=databases-cli-plugin-cdb-reference
     - IBM Cloud App ID:
+       - AppID API documentation: https://cloud.ibm.com/apidocs/app-id/management
        - AppID REST API (swagger-ui): https://us-south.appid.cloud.ibm.com/swagger-ui
 
 ## DO NOT CHANGE BELOW THIS LINE

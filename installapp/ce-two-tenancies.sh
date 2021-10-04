@@ -4,19 +4,26 @@
 # ================
 # command documentation: https://cloud.ibm.com/docs/codeengine?topic=codeengine-cli#cli-application-create
 
+# Install jq to extract json in bash on mac
+# ===============
+# brew install jq
+
 # **************** Global variables
 
 # Code Engine
 #export PROJECT_NAME_A=multi-tenancy-serverless-a
-export PROJECT_NAME_A=multi-tenancy-serverless-tmp-v2
-export PROJECT_NAME_B=multi-tenancy-serverless-b
+export PROJECT_NAME_A=multi-tenancy-serverless-tmp-a
+export PROJECT_NAME_B=multi-tenancy-serverless-tmp-b
 
 # Applications
-export SERVICE_CATALOG_NAME_A="service-catalog-a"
-export FRONTEND_NAME_A="frontend-a"
+export SERVICE_CATALOG_NAME_A="service-catalog-movies"
+export FRONTEND_NAME_A="frontend-movies"
 
-export SERVICE_CATALOG_NAME_B="service-catalog-b"
-export FRONTEND_NAME_B="frontend-b"
+export SERVICE_CATALOG_NAME_B="service-catalog-fantasy"
+export FRONTEND_NAME_B="frontend-fantasy"
+
+export CATEGORY_A=Movies
+export CATEGORY_B=Fantasy
 
 # IBM CLoud CR
 #export SERVICE_CATALOG_IMAGE="us.icr.io/multi-tenancy-cr/service-catalog:latest"
@@ -59,10 +66,18 @@ bash ./temp-database-ce-install-application-ibmcr.sh $PROJECT_NAME_A \
                                                      $SERVICE_CATALOG_NAME_A \
                                                      $FRONTEND_NAME_A \
                                                      $SERVICE_CATALOG_IMAGE \
-                                                     $FRONTEND_IMAGE
+                                                     $FRONTEND_IMAGE \
+                                                     $CATEGORY_A
 
 echo "************************************"
 echo " Tenant B"
 echo "************************************"
 
-# bash ./temp-database-ce-install-application-ibmcr.sh $PROJECT_NAME_A
+bash ./temp-database-ce-install-application-ibmcr.sh $PROJECT_NAME_B \
+                                                     $APPID_SERVICE_INSTANCE_NAME_A \
+                                                     $APPID_SERVICE_KEY_NAME_A \
+                                                     $SERVICE_CATALOG_NAME_A \
+                                                     $FRONTEND_NAME_A \
+                                                     $SERVICE_CATALOG_IMAGE \
+                                                     $FRONTEND_IMAGE \
+                                                     $CATEGORY_A
