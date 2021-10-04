@@ -60,24 +60,24 @@ echo "************************************"
 echo " Tenant A"
 echo "************************************"
 
-bash ./temp-database-ce-install-application-ibmcr.sh $PROJECT_NAME_A \
-                                                     $APPID_SERVICE_INSTANCE_NAME_A \
-                                                     $APPID_SERVICE_KEY_NAME_A \
-                                                     $SERVICE_CATALOG_NAME_A \
-                                                     $FRONTEND_NAME_A \
-                                                     $SERVICE_CATALOG_IMAGE \
-                                                     $FRONTEND_IMAGE \
-                                                     $CATEGORY_A
+bash ./ce-install-application.sh $PROJECT_NAME_A \
+                                 $APPID_SERVICE_INSTANCE_NAME_A \
+                                 $APPID_SERVICE_KEY_NAME_A \
+                                 $SERVICE_CATALOG_NAME_A \
+                                 $FRONTEND_NAME_A \
+                                 $SERVICE_CATALOG_IMAGE \
+                                 $FRONTEND_IMAGE \
+                                 $CATEGORY_A
 
 echo "************************************"
 echo " Tenant B"
 echo "************************************"
 
-bash ./temp-database-ce-install-application-ibmcr.sh $PROJECT_NAME_B \
-                                                     $APPID_SERVICE_INSTANCE_NAME_B \
-                                                     $APPID_SERVICE_KEY_NAME_B \
-                                                     $SERVICE_CATALOG_NAME_B \
-                                                     $FRONTEND_NAME_B \
-                                                     $SERVICE_CATALOG_IMAGE \
-                                                     $FRONTEND_IMAGE \
-                                                     $CATEGORY_B
+bash ./ce-install-application-ibmcr.sh $PROJECT_NAME_B \
+                                       $APPID_SERVICE_INSTANCE_NAME_B \
+                                       $APPID_SERVICE_KEY_NAME_B \
+                                       $SERVICE_CATALOG_NAME_B \
+                                       $FRONTEND_NAME_B \
+                                       $SERVICE_CATALOG_IMAGE \
+                                       $FRONTEND_IMAGE \
+                                       $CATEGORY_B
