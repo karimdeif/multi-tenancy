@@ -122,7 +122,7 @@ The bash script `ce-create-two-tenantcies.sh` invokes **twice** the bash script 
 
 Now you should see following in you IBM Cloud Account:
 
-![](images/Mulit-Tenancy-automatic-creation-01.png)
+![](images/Mulit-Tenancy-automatic-creation-02.png)
 
 
 
