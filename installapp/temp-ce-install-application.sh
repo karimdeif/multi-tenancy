@@ -160,7 +160,6 @@ function setupPostgres () {
     POSTGRES_PASSWORD=testPostgres998
     POSTGRES_API_VERSION=v5
     POSTGRES_SERVICE_KEY_NAME=postgres-service-key
-    POSTGRES_SERVICE_KEY_ROLE=Manager
     
     echo ""
     echo "-------------------------"
@@ -216,7 +215,7 @@ function setupPostgres () {
     POSTGRES_CONNECTION_TEMP=$(cat ./postgres-config/postgres-key.json | jq '.[].credentials.connection.cli.composed[]' | sed 's/"//g' | sed '$ s/.$//' )
     echo ""
     echo "-------------------------"
-    echo "Temp 1 : $POSTGRES_CONNECTION_TEMP"
+    echo "Build command step 1 : $POSTGRES_CONNECTION_TEMP"
     echo "-------------------------"
     export POSTGRES_CONNECTION="$POSTGRES_CONNECTION_TEMP' -a -f create-populate-tenant-a.sql"
     echo ""

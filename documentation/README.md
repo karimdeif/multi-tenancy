@@ -37,22 +37,18 @@ These are the main objectives for this sprint.
   * Installation and setup is about **creation** **(IN PROGRESS)**
   * CI/CD is about **update** **(IN PROGRESS)**
 
-  * Differences creation and update
+  Differences creation and update.
 
-  ![](images/Mulit-Tenancy-installation-cicd.png)
+  ![](images/Mulit-Tenancy-automatic-creation-01.png)
 
-  * Dependencies creation and update [Toolchain](https://cloud.ibm.com/devops/toolchains/92bb1c04-7f8a-4984-ab8a-2da143a96476?env_id=ibm:yp:us-south)
-
-  ![](images/Mulit-Tenancy-installation-cicd-02.png)
-
-  * Used CLIs and APIs
+#### 3 **Used CLIs and APIs**
 
     * [AppID REST API](https://us-south.appid.cloud.ibm.com/swagger-ui)
     * [IBM Cloud CLI](https://cloud.ibm.com/docs/cli?topic=cli-getting-started)
     * [Code Engine CLI](https://cloud.ibm.com/docs/codeengine?topic=codeengine-cli)
     * [Cloud databases CLI](https://cloud.ibm.com/docs/databases-cli-plugin?topic=databases-cli-plugin-cdb-reference)
 
-#### 3  **Documenation of the setup**
+#### 4  **Documenation of the setup**
 
    * Manual setup **(pending)**
    * Automation setup **(in progress)**
