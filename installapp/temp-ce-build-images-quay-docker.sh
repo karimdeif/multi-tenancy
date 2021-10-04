@@ -1,9 +1,20 @@
 #!/bin/bash
 
+echo "************************************"
+echo " Display parameter"
+echo "************************************"
+echo ""
+echo "Parameter count : $@"
+echo "Parameter zero 'name of the script': $0"
+echo "---------------------------------"
+echo "Service catalog image        : $1"
+echo "Frontend image               : $2"
+echo "---------------------------------"
+echo ""
+
 # **************** Global variables
-export REPOSITORY=tsuedbroecker
-export SERVICE_CATALOG="multi-tenancy-service-catalog:v1"
-export FRONTEND="multi-tenancy-frontend:v1"
+export SERVICE_CATALOG_IMAGE=$1
+export FRONTEND_IMAGE=$2
 
 # **********************************************************************************
 # Execution

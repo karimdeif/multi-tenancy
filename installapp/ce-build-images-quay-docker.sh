@@ -14,7 +14,7 @@ echo ""
 
 # **************** Global variables
 export SERVICE_CATALOG_IMAGE=$1
-export FRONTEND_IMAGE=$1
+export FRONTEND_IMAGE=$2
 
 # **********************************************************************************
 # Execution
