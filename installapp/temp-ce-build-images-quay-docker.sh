@@ -41,8 +41,8 @@ echo "************************************"
 cd $ROOT_PATH/code/service-catalog
 pwd
 docker login quay.io
-docker build -t "quay.io/$REPOSITORY/$SERVICE_CATALOG" -f Dockerfile .
-docker push "quay.io/$REPOSITORY/$SERVICE_CATALOG"
+docker build -t "$SERVICE_CATALOG_IMAGE" -f Dockerfile .
+docker push "$SERVICE_CATALOG_IMAGE"
 
 echo ""
 
@@ -52,5 +52,5 @@ echo "************************************"
 cd $ROOT_PATH/code/frontend
 
 docker login quay.io
-docker build -t "quay.io/$REPOSITORY/$FRONTEND" -f Dockerfile.os4-webapp .
-docker push "quay.io/$REPOSITORY/$FRONTEND"
+docker build -t "$FRONTEND_IMAGE" -f Dockerfile.os4-webapp .
+docker push "$FRONTEND_IMAGE"
