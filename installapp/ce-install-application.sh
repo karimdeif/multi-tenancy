@@ -350,7 +350,7 @@ function configureAppIDInformation(){
     echo "-------------------------"
     echo ""
     OAUTHTOKEN=$(ibmcloud iam oauth-tokens | awk '{print $4;}')
-    echo "POST url: $MANAGEMENTURL/config/ui/mediamedia?mediaType=logo"
+    echo "POST url: $MANAGEMENTURL/config/ui/media?mediaType=logo"
     result=$(curl -F "file=@./$ADD_IMAGE" -H "Content-Type: multipart/form-data" -X POST -v -H "Authorization: Bearer $OAUTHTOKEN" "$MANAGEMENTURL/config/ui/mediamedia?mediaType=logo")
     echo "-------------------------"
     echo "Result import: $result"

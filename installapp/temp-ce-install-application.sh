@@ -9,6 +9,11 @@
 # - code engine 
 # - cloud databases (ibmcloud plugin install cloud-databases)
 
+# Needed tools (https://www.compose.com/articles/postgresql-tips-installing-the-postgresql-client/?_ga=2.31285695.124869551.1633324536-496882334.1633002728)
+# ============
+# brew install libpq
+# brew link --force libpq   
+
 # **********************************************************************************
 # Set global variables using parameters
 # **********************************************************************************
@@ -44,6 +49,8 @@ export APPID_SERVICE_KEY_NAME=$3
 export SERVICE_CATALOG_NAME=$4
 export FRONTEND_NAME=$5
 export FRONTEND_CATEGORY=$8
+# Postgres database configuration
+export POSTGRES_SERVICE_INSTANCE=multi-tenant-a-pg
 
 # **************** Global variables set as default values
 
@@ -85,9 +92,6 @@ export ADD_IMAGE="appid-images/logo.png"
 export APPLICATION_CLIENTID=""
 export APPLICATION_TENANTID=""
 export APPLICATION_OAUTHSERVERURL=""
-
-# Postgres database configuration
-export POSTGRES_SERVICE_INSTANCE=multi-tenant-a-pg-temp
 
 # **********************************************************************************
 # Functions definition
@@ -152,40 +156,55 @@ function setupPostgres () {
 
     POSTGRES_SERVICE_NAME=databases-for-postgresql
     POSTGRES_PLAN=standard
-    POSTGRES_USER=tenant
+    POSTGRES_USER=tenant_01
     POSTGRES_PASSWORD=testPostgres998
+    POSTGRES_API_VERSION=v5
+    POSTGRES_SERVICE_KEY_NAME=postgres-service-key
+    POSTGRES_SERVICE_KEY_ROLE=Manager
     
     echo ""
     echo "-------------------------"
     echo "Create postgres service $POSTGRES_SERVICE_INSTANCE"
     echo "-------------------------"
     echo "" 
-    ibmcloud resource service-instance-create $POSTGRES_SERVICE_INSTANCE $POSTGRES_SERVICE_NAME $POSTGRES_PLAN $REGION \
-                                              -g $RESOURCE_GROUP
+#    ibmcloud resource service-instance-create $POSTGRES_SERVICE_INSTANCE \ 
+#                                              $POSTGRES_SERVICE_NAME \ 
+#                                              $POSTGRES_PLAN \ 
+#                                              $REGION \
+#                                              -g $RESOURCE_GROUP | 
     
     #Loop
+#    echo ""
+#    echo "-------------------------"
+#    echo "Wait for postgres instance, it can take up to 10 minutes"
+#    echo "-------------------------"
+#    echo ""
+#    export STATUS_POSTGRES="succeeded"
+#    while :
+#        do
+#            FIND="Postgres database"
+#            STATUS_CHECK=$(ibmcloud resource service-instance $POSTGRES_SERVICE_INSTANCE --output json | grep '"state":' | awk '{print $2;}' | sed 's/"//g' | sed 's/,//g')
+#            echo "Status: $STATUS_CHECK" 
+#            STATUS_VERIFICATION=$(echo  "$STATUS_CHECK" | grep "succeeded")
+#            if [ "$STATUS_POSTGRES" = "$STATUS_VERIFICATION" ]; then
+#                echo "$(date +'%F %H:%M:%S') Status: $FIND is Ready"
+#                echo "------------------------------------------------------------------------"
+#                break
+#            else
+#                echo "$(date +'%F %H:%M:%S') Status: $FIND($STATUS_CHECK)"
+#                echo "------------------------------------------------------------------------"
+#            fi
+#            sleep 10
+#        done
+    
+    # ***** get instance ID
     echo ""
     echo "-------------------------"
-    echo "Wait for postgres instance, it can take up to 10 minutes"
+    echo "Get instance ID"
     echo "-------------------------"
     echo ""
-    export STATUS_POSTGRES="succeeded"
-    while :
-        do
-            FIND="Postgres database"
-            STATUS_CHECK=$(ibmcloud resource service-instance $POSTGRES_SERVICE_INSTANCE --output json | grep '"state":' | awk '{print $2;}' | sed 's/"//g' | sed 's/,//g')
-            echo "Status: $STATUS_CHECK" 
-            STATUS_VERIFICATION=$(echo  "$STATUS_CHECK" | grep "succeeded")
-            if [ "$STATUS_POSTGRES" = "$STATUS_VERIFICATION" ]; then
-                echo "$(date +'%F %H:%M:%S') Status: $FIND is Ready"
-                echo "------------------------------------------------------------------------"
-                break
-            else
-                echo "$(date +'%F %H:%M:%S') Status: $FIND($STATUS_CHECK)"
-                echo "------------------------------------------------------------------------"
-            fi
-            sleep 10
-        done
+    POSTGRES_INSTANCE_ID=$(ibmcloud resource service-instance $POSTGRES_SERVICE_INSTANCE --id | tail -1 | awk '{print $1;}')
+    echo "Postgres instance ID: $POSTGRES_INSTANCE_ID"
 
     # ***** create user 
     echo ""
@@ -193,45 +212,65 @@ function setupPostgres () {
     echo "Create user for postgres instance"
     echo "-------------------------"
     echo ""
-    POSTGRES_USER=$(ibmcloud cdb deployment-user-create $POSTGRES_SERVICE_INSTANCE $POSTGRES_USER $POSTGRES_PASSWORD) 
-    echo "Postgres user: $POSTGRES_USER"
+    #POSTGRES_USER=$(ibmcloud cdb deployment-user-create $POSTGRES_INSTANCE_ID $POSTGRES_USER $POSTGRES_PASSWORD) 
+    #echo "Postgres user: $POSTGRES_USER"
 
     # **** Create Service Credentials
-    # NEED OF SERVICE INSTANCE
+    echo ""
+    echo "-------------------------"
+    echo "Create service credentials"
+    echo "-------------------------"
+    echo ""
     # https://cloud.ibm.com/docs/databases-for-postgresql?topic=databases-for-postgresql-user-management#adding-users-to-_service-credentials_
-    curl -X POST 'https://api.$REGION.databases.cloud.ibm.com/v4/ibm/deployments/{id}/users' \
-                        -H "Authorization: Bearer $APIKEY" \
-                        -H "Content-Type: application/json" \
-                        -d '{"existing_credentials":{"username":"$POSTGRES_USER","password":"$POSTGRES_PASSWORD"}}'
-
-
-# Get cert
-ibmcloud cdb deployment-cacert multi-tenant-b-pg --user tenant --save --certroot .
-
-
-# Get connection
-ibmcloud cdb deployment-connections multi-tenant-a-pg --user tenant --password tenant --certroot .
-
-# run create-pg.sql to create tables and insert data
-
-CLI          PGPASSWORD=$PASSWORD PGSSLROOTCERT=./2b11af40-8aa6-4b13-a424-1a9109624264 psql 'host=5e6b66a4-70b6-4caf-be8b-23cd2d1ed26b.c00no9sd0hobi6kj68i0.dn.cloud port=30266 dbname=ibmclouddb user=admin sslmode=verify-full -f -a create-populate-tenant-a.sql' 
-
-
+    #OAUTHTOKEN=$(ibmcloud iam oauth-tokens | awk '{print $4;}')
+    #echo "Region: $REGION"
+    #echo "Postgres Service ID: $POSTGRES_INSTANCE_ID"
+    #echo "Postgres API version: $POSTGRES_API_VERSION"
+    #echo "URL: https://api.$REGION.databases.cloud.ibm.com/$POSTGRES_API_VERSION/ibm/deployments/$POSTGRES_INSTANCE_ID/users"
+    ibmcloud resource service-key-create $POSTGRES_SERVICE_KEY_NAME --instance-id $POSTGRES_INSTANCE_ID
+    ibmcloud resource service-key $POSTGRES_SERVICE_KEY_NAME --outpout JSON > ./postgres-config/postgres-key.json
+    
+    #https://api.us-south.databases.cloud.ibm.com/v5/ibm
+    #curl -v -X POST "https://api.$REGION.databases.cloud.ibm.com/$POSTGRES_API_VERSION/ibm/deployments/$POSTGRES_INSTANCE_ID/users" \
+    #                    -H "Authorization: Bearer $OAUTHTOKEN" \
+    #                    -H "Content-Type: application/json" \
+    #                    -d '{"existing_credentials":{"username":"$POSTGRES_USER","password":"$POSTGRES_PASSWORD"}}'
 
     echo ""
     echo "-------------------------"
     echo "Create cert"
     echo "-------------------------"
     echo ""
+    # **** Get cert
+    #ibmcloud cdb deployment-cacert $POSTGRES_SERVICE_INSTANCE \
+    #                               --user $POSTGRES_USER \
+    #                               --save \
+    #                               --certroot .
     ibmcloud cdb deployment-cacert $POSTGRES_SERVICE_INSTANCE \
-                                    --user $POSTGRES_USER \
                                     --save \
                                     --certroot .
-    
-    #ibmcloud cdb deployment-connections multi-tenant-a-pg \
-    #                                    --user tenant \
-    #                                    --password testPostgres998 \
+
+    # **** Get connection
+    echo "-------------------------"
+    echo "Get connection"
+    echo "-------------------------"
+    echo ""
+    #ibmcloud cdb deployment-connections $POSTGRES_SERVICE_INSTANCE \
+    #                                    --user $POSTGRES_USER \
+    #                                    --password $POSTGRES_PASSWORD \
     #                                    --certroot .
+    ibmcloud cdb deployment-connections $POSTGRES_SERVICE_INSTANCE \
+                                        --certroot .
+}
+
+function databaseSetupPostgres () {
+    
+    # *** run create-pg.sql to create tables and insert data
+    echo "hello"
+    # PGPASSWORD=$PASSWORD 
+    # PGSSLROOTCERT=./2b11af40-8aa6-4b13-a424-1a9109624264 
+    # psql 'host=5e6b66a4-70b6-4caf-be8b-23cd2d1ed26b.c00no9sd0hobi6kj68i0.dn.cloud port=30266 dbname=ibmclouddb user=admin sslmode=verify-full -f -a create-populate-tenant-a.sql' 
+
 }
 
 # **** AppID ****
@@ -373,7 +412,7 @@ function configureAppIDInformation(){
     echo "-------------------------"
     echo ""
     OAUTHTOKEN=$(ibmcloud iam oauth-tokens | awk '{print $4;}')
-    echo "POST url: $MANAGEMENTURL/config/ui/mediamedia?mediaType=logo"
+    echo "POST url: $MANAGEMENTURL/config/ui/media?mediaType=logo"
     result=$(curl -F "file=@./$ADD_IMAGE" -H "Content-Type: multipart/form-data" -X POST -v -H "Authorization: Bearer $OAUTHTOKEN" "$MANAGEMENTURL/config/ui/mediamedia?mediaType=logo")
     echo "-------------------------"
     echo "Result import: $result"
@@ -527,7 +566,7 @@ echo "************************************"
 echo " Create Postgres instance and database"
 echo "************************************"
 
-#setupPostgres
+setupPostgres
 
 echo "************************************"
 echo " AppID creation"

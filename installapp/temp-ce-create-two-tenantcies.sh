@@ -12,7 +12,7 @@
 
 # Code Engine
 #export PROJECT_NAME_A=multi-tenancy-serverless-a
-export PROJECT_NAME_A=multi-tenancy-serverless-tmp-a
+export PROJECT_NAME_A=multi-tenancy-serverless
 export PROJECT_NAME_B=multi-tenancy-serverless-tmp-b
 
 # Applications
