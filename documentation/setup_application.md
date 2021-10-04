@@ -54,6 +54,8 @@ Now you are logged on with your IBM Cloud account.
 
 ![](images/cns-ce-cloud-shell-02.png)
 
+### Run automated setup
+
 #### Step 1: Clone the GitHub project to the `IBM Cloud Shell`
 
 Insert these commands to clone the GitHub project to the `IBM Cloud Shell`.
@@ -64,18 +66,12 @@ cd multi-tenancy
 export ROOT_FOLDER=$(pwd)
 ```
 
-#### Step 2: Now set the environment variable for later usage
+#### Step 2: Execute following bash automation
 
-> REMEMBER! Your Code Engine project name `multi-tenancy-[YOUR-EXTENTION]`
+Prerequiste:
 
-```sh
-export MYPROJECT=multi-tenancy-[YOUR-EXTENTION]
-```
-
-#### Step 3: Execute following bash automation
-
-> Prerequiste the container images for the applications need to be 
-> Don't worry, this script may take several minutes (10 - 15 min).
+* The container images for the applications need to be available.
+* Verify the default setting for the script execution.
 
 The `ce-create-two-tenantcies.sh` script has following default parameters for **Code Engine**, **Applications**, **container registry**, **AppID** and **Postgres**.
 
@@ -112,14 +108,16 @@ export POSTGRES_SERVICE_INSTANCE_A=multi-tenant-pg-a
 export POSTGRES_SERVICE_INSTANCE_B=multi-tenant-pg-b
 ```
 
-* Use of IBM Cloud container registry 
+> Don't worry, this script may take several minutes (10 - 15 min).
+
+Execute following bash script:
 
 ```sh
 cd $ROOT_FOLDER/installapp
 bash ce-create-two-tenantcies.sh
 ```
 
-The `ce-create-two-tenantcies.sh` invokes **twice** the bash scipt `ce-install-application-ibmcr.sh` with the needed parameter to create two seperated tenant applications.
+The `ce-create-two-tenantcies.sh` invokes **twice** the bash scipt `ce-install-application.sh` with the needed parameter to create two seperated tenant applications.
 
 For a better understanding here are the simplified steps that are carried out in the script `ce-install-application-ibmcr.sh` does:
 
