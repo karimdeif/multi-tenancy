@@ -41,7 +41,7 @@ These are the main objectives for this sprint.
 
   ![](images/Mulit-Tenancy-automatic-creation-01.png)
 
-#### 3 **Used CLIs and APIs**
+##### **Used CLIs and APIs for the automation**
 
   * [AppID REST API](https://us-south.appid.cloud.ibm.com/swagger-ui)
   * [IBM Cloud CLI](https://cloud.ibm.com/docs/cli?topic=cli-getting-started)
