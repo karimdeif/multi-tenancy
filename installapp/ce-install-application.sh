@@ -43,6 +43,9 @@ export APPID_SERVICE_KEY_NAME=$3
 # ecommerce application names
 export SERVICE_CATALOG_NAME=$4
 export FRONTEND_NAME=$5
+# ecommerce application container registry
+export SERVICE_CATALOG_IMAGE=$6
+export FRONTEND_IMAGE=$7
 export FRONTEND_CATEGORY=$8
 
 # **************** Global variables set as default values
@@ -53,10 +56,6 @@ export NAMESPACE=""
 export STATUS="Running"
 export SECRET_NAME="multi.tenancy.cr.sec"
 export EMAIL=thomas@example.com
-
-# ecommerce application container registry
-export FRONTEND_IMAGE=$7
-export SERVICE_CATALOG_IMAGE=$6
 
 # ecommerce application URLs
 export FRONTEND_URL=""
@@ -351,7 +350,8 @@ function configureAppIDInformation(){
     echo ""
     OAUTHTOKEN=$(ibmcloud iam oauth-tokens | awk '{print $4;}')
     echo "POST url: $MANAGEMENTURL/config/ui/media?mediaType=logo"
-    result=$(curl -F "file=@./$ADD_IMAGE" -H "Content-Type: multipart/form-data" -X POST -v -H "Authorization: Bearer $OAUTHTOKEN" "$MANAGEMENTURL/config/ui/mediamedia?mediaType=logo")
+    # result=$(curl -F "file=@./$ADD_IMAGE" -H "Content-Type: multipart/form-data" -X POST -v -H "Authorization: Bearer $OAUTHTOKEN" "$MANAGEMENTURL/config/ui/mediamedia?mediaType=logo")
+    result=$(curl -F "file=@./$ADD_IMAGE" -X POST -v -H "Authorization: Bearer $OAUTHTOKEN" "$MANAGEMENTURL/config/ui/media?mediaType=logo")
     echo "-------------------------"
     echo "Result import: $result"
     echo "-------------------------"

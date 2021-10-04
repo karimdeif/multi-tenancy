@@ -11,8 +11,8 @@
 # **************** Global variables
 
 # Code Engine
-export PROJECT_NAME_A=multi-tenancy-serverless-tmp-a
-export PROJECT_NAME_B=multi-tenancy-serverless-tmp-b
+export PROJECT_NAME_A="multi-tenancy-serverless-tmp-a"
+export PROJECT_NAME_B="multi-tenancy-serverless-tmp-b"
 
 # Applications
 export SERVICE_CATALOG_NAME_A="service-catalog-movies"

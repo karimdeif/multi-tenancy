@@ -11,9 +11,7 @@ export STATUS="Running"
 
 # CE IBM Cloud CR
 export SECRET_NAME="multi.tenancy.cr.sec"
-export EMAIL=thomas.suedbroecker@de.ibm.com
 export IBMCLOUDCLI_KEY_NAME=cliapikey_for_multi_tenant
-export SECRET_NAME="multi.tenancy.cr.sec"
 
 # CE applications
 
