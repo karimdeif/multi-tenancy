@@ -135,6 +135,19 @@ For a better understanding here are the simplified steps that are carried out in
  10. Show container logs of the applications
  11. Showing the URLs
 
+ After the exection of the script you find:
+
+ - Two **App ID service instances** which do include an user with the **username** `thomas@example.com` and **password** `thomas4appid`
+ - Two **Code Engine projects** with a fontend and a backend application and an configure access to IBM Cloud container registry of your account.
+
+### Verify the setup
+
+#### Step 1: Open following url `https://cloud.ibm.com/resources`
+
+Now you should see following in you IBM Cloud Account:
+
+![](images/Mulit-Tenancy-automatic-creation-01.png)
+
 
 
 
