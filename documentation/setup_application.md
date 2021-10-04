@@ -12,26 +12,6 @@ Open this [link](https://ibm.biz/BdfXAn) and follow the guided steps.
 
 `Code Engine` has a `free tier` per month and we expect, if you haven't used that `free tier` in current month, you can execute the workshop without creating any additional costs. Here you find the actual [`Code Engine` pricing](https://www.ibm.com/cloud/code-engine/pricing).
 
-### Create `Code Engine` project
-
-#### Step 1: Logon to IBM Cloud and navigate to the Code Engine projects
-
-Use following link to directly navigate to the Code Engine projects in IBM Cloud.
-
-<https://cloud.ibm.com/codeengine/projects>
-
-#### Step 2: Navigate to Code Engine projects in IBM Cloud and press `Create`
-
-![](images/cns-ce-create-project-01.png)
-
-#### Step 3: Create a `Code Engine` project called `multi-tenancy-[YOUR-EXTENTION]`
-
-Enter following values and select create and wait until your project is created.
-
-* Location      : `Dallas`
-* Name          : `multi-tenancy-[YOUR-EXTENTION]` (The name must be unique in the in Cloud Location `Dallas`)
-* Resource group: `default`
-
 ### `IBM Cloud Shell`
 
 #### Step 1: Open the `IBM Cloud Shell`
