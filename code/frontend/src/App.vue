@@ -3,25 +3,23 @@
   <div style="display: flex;flex-direction: row;">
     <div id="app" style="order: 1;flex-grow: 2;max-width: 300px;width:300px">
     <!-- Headerline -->
-    <mwc-top-app-bar-fixed>
-       <!-- <div slot="title">Electronic and Movie Depot <md-icon class="md-size-x">verified_user</md-icon></div> -->  
-       
-       <div slot="title">
-        <md-menu md-size="big">
-            <md-button md-size="big" md-menu-trigger style="color:white;">{{ headline }}</md-button>
-        </md-menu>
-        
-        <md-menu md-size="small" v-if="isAuthenticated == true">
-            <md-button md-size="small" md-menu-trigger style="color:white;">{{ getUserName() }}<md-icon class="md-size-x">verified_user</md-icon></md-button>
-            <md-menu-content>
-              <md-menu-item v-on:click="onCheckTokenClicked()">Check token</md-menu-item>
-              <md-menu-item v-on:click="onLogoutClicked()">Logout</md-menu-item>
-            </md-menu-content>
-        </md-menu>
-    
-       </div>
-              
-    </mwc-top-app-bar-fixed>
+    <header class="mdc-top-app-bar mdc-top-app-bar--fixed">
+        <div class="mdc-top-app-bar__row" style="background: DarkCyan;">
+          <section class="mdc-top-app-bar__section mdc-top-app-bar__section--align-start">
+            <span class="mdc-top-app-bar__title" style="color:white;">{{ headline }}</span>
+          </section>
+          <section class="mdc-top-app-bar__section mdc-top-app-bar__section--align-end" role="toolbar">
+            <button class="material-icons mdc-top-app-bar__action-item mdc-icon-button" aria-label="Your Account" v-on:click="onLoginClicked()">
+              <span class="material-icons">account_circle</span>
+            </button>
+            <div v-if="isAuthenticated == true">{{ getUserName() }}</div>
+            <button class="material-icons mdc-top-app-bar__action-item mdc-icon-button" aria-label="Logout" v-on:click="onLogoutClicked()">logout</button>
+          </section>
+        </div>
+    </header>
+    <main class="mdc-top-app-bar--dense-fixed-adjust">
+    </main>
+
     
     <!-- Content -->
     <md-app>
@@ -81,7 +79,6 @@
 import Messaging from "./messaging.js";
 import Catalog from "./Catalog.vue";
 import "@material/mwc-top-app-bar-fixed";
-import axios from "axios";
 
 export default {
   name: "app",
@@ -134,30 +131,8 @@ export default {
       });
   },
   methods: {
-    onCheckTokenClicked(){
-      const axiosService = axios.create({
-      timeout: 30000, // because of Code Engine response can be up to 18,29 sec in Postman
-      headers: {
-          "Content-Type": "application/json",
-          Authorization: "Bearer " + this.$store.state.user.accessToken
-        }
-      });
-      let that = this;
-      let url = "http://localhost:8084/articlesA";
-      console.log("--> log: readArticles URL : " + url);
-      axiosService
-        .get(url)
-        .then(function(response) {
-          that.articles = response.data;
-          console.log("--> log: readArticles data : " + that.articles);
-          that.loading = false;
-          that.error = "";
-        })
-        .catch(function(error) {
-          console.log("--> log: readArticles error: " + error);
-          that.loading = false;
-          that.error = error;
-        });      
+    onLoginClicked(){
+      this.$router.push('/').catch()    
     },
     onLogoutClicked(){
       this.$store.commit("logout");
