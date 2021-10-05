@@ -1,6 +1,6 @@
-# Vue using accesstoken invoke Quarkus endpoint
+# Vue.js using accesstoken to invoke Quarkus endpoints
 
-Currently I only the invokation:
+Here is one example invokation:
 
 ```html      
         <md-menu md-size="small" v-if="isAuthenticated == true">

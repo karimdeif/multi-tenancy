@@ -16,6 +16,10 @@ echo ""
 export SERVICE_CATALOG_IMAGE=$1
 export FRONTEND_IMAGE=$2
 
+#Verify new ui
+#export FRONTEND_IMAGE="quay.io/tsuedbroecker/multi-tenancy-frontend:v2"
+
+
 # **********************************************************************************
 # Execution
 # **********************************************************************************
@@ -48,4 +52,4 @@ cd $ROOT_PATH/code/frontend
 
 docker login quay.io
 docker build -t "$FRONTEND_IMAGE" -f Dockerfile.os4-webapp .
-docker push "$FRONTEND_IMAGED"
+docker push "$FRONTEND_IMAGE"

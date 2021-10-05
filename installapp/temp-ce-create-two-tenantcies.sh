@@ -31,7 +31,7 @@ export CATEGORY_B=Fantasy
 
 # Quay and Docker
 export SERVICE_CATALOG_IMAGE="quay.io/tsuedbroecker/multi-tenancy-service-catalog:v1"
-export FRONTEND_IMAGE="quay.io/tsuedbroecker/multi-tenancy-frontend:v1"
+export FRONTEND_IMAGE="quay.io/tsuedbroecker/multi-tenancy-frontend:v2"
 #export SERVICE_CATALOG_IMAGE="docker.io/karimdeif/service-catalog-quarkus-reactive:1.0.0-SNAPSHOT"
 #export FRONTEND_IMAGE="quay.io/kdeif/frontend:v0.0"
 
@@ -43,10 +43,10 @@ export APPID_SERVICE_INSTANCE_NAME_B="multi-tenancy-serverless-appid-b"
 export APPID_SERVICE_KEY_NAME_B="multi-tenancy-serverless-appid-key-b"
 
 # Postgres
-export POSTGRES_SERVICE_INSTANCE_A="multi-tenant-pg-a1"
+export POSTGRES_SERVICE_INSTANCE_A="multi-tenant-pg-a"
 export POSTGRES_SERVICE_INSTANCE_B="multi-tenant-pg-b"
 
-export POSTGRES_SERVICE_KEY_NAME_A="multi-tenant-pg-service-key-a1"
+export POSTGRES_SERVICE_KEY_NAME_A="multi-tenant-pg-service-key-a"
 export POSTGRES_SERVICE_KEY_NAME_B="multi-tenant-pg-service-key-b"
 
 # **********************************************************************************

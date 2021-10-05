@@ -18,7 +18,8 @@ nav:
     - 2. Setup continuous delivery: ./TBD.md
     - 3. TBD: ./TBD.md
   - Optional Labs: 
-    - 1. TBD: ./TBD.md
+    - 1. Using App ID in a Vue.js frontend: ./vue-appid-frontend.md
+    - 2. Vue.js using accesstoken to invoke Quarkus endpoints: ./vue-using-access-token-quarkus-endpoint.md
   - Additional Resources:
     - IBM Cloud Code Engine:
        - Examples on GitHub: https://github.com/IBM/CodeEngine
