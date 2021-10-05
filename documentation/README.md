@@ -51,18 +51,18 @@ These are the main objectives for this sprint.
 
 * IBM Cloud Services
 
-  * [IBM AppID REST API](https://us-south.appid.cloud.ibm.com/swagger-ui)
-  * [IBM Cloud CLI](https://cloud.ibm.com/docs/cli?topic=cli-getting-started)
-  * [IBM Code Engine CLI](https://cloud.ibm.com/docs/codeengine?topic=codeengine-cli)
-  * [IBM Cloud databases CLI](https://cloud.ibm.com/docs/databases-cli-plugin?topic=databases-cli-plugin-cdb-reference)
-  * [IBM Cloud Container Registry CLI](https://cloud.ibm.com/docs/Registry?topic=container-registry-cli-plugin-containerregcli&locale=de)
+    * [IBM AppID REST API](https://us-south.appid.cloud.ibm.com/swagger-ui)
+    * [IBM Cloud CLI](https://cloud.ibm.com/docs/cli?topic=cli-getting-started)
+    * [IBM Code Engine CLI](https://cloud.ibm.com/docs/codeengine?topic=codeengine-cli)
+    * [IBM Cloud databases CLI](https://cloud.ibm.com/docs/databases-cli-plugin?topic=databases-cli-plugin-cdb-reference)
+    * [IBM Cloud Container Registry CLI](https://cloud.ibm.com/docs/Registry?topic=container-registry-cli-plugin-containerregcli&locale=de)
 
 * Bash automation
 
-  * [Bash](https://en.wikipedia.org/wiki/Bash_(Unix_shell))
-  * [jq](https://lzone.de/cheat-sheet/jq)
-  * [sed](https://en.wikipedia.org/wiki/Sed)
-  * [grep](https://en.wikipedia.org/wiki/Grep)
+    * [Bash](https://en.wikipedia.org/wiki/Bash_(Unix_shell))
+    * [jq](https://lzone.de/cheat-sheet/jq)
+    * [sed](https://en.wikipedia.org/wiki/Sed)
+    * [grep](https://en.wikipedia.org/wiki/Grep)
 
 #### 3  **Documenation of the setup**
 
