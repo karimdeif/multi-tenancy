@@ -112,7 +112,7 @@ bash ce-create-two-tenantcies.sh
 
 * What happens behind the curtain?
 
-The bash script `ce-create-two-tenantcies.sh` invokes **twice** the bash script `ce-install-application.sh` with the needed parameter to create two seperated tenant applications. Here is a short simplified discription which steps are carried out in the script `ce-install-application-ibmcr.sh`:
+The bash script `ce-create-two-tenantcies.sh` invokes **twice** the bash script `ce-install-application.sh` with the needed parameter to create two seperated tenant applications. Here is a short simplified description which steps are carried out in the script `ce-install-application-ibmcr.sh`:
 
  1. Configure CLI config and create an [Code Engine CLI](https://cloud.ibm.com/docs/codeengine?topic=codeengine-cli) project
  2. Configure container the IBM Cloud container registry access in the Code Engine project
