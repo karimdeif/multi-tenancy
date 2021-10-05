@@ -145,9 +145,11 @@ In resource list of in the IBM Cloud UI, insert as filter for **name** the value
 
 #### Step 3: Open Code Engine project for `tenant a` and inspect the configuration
 
-#### Step 4: Open the frontend application for `tenant a`
+#### Step 4: Open the frontend application for `tenant a` in the Code Engine project
 
-#### Step 5: Logon to the application using **username** `thomas@example.com` and **password** `thomas4appid`
+#### Step 5: Click on URL and logon to the frontend application using **username** `thomas@example.com` and **password** `thomas4appid`
+
+![](images/Mulit-Tenancy-automatic-running-example-02.gif)
 
 #### Step 6: Repeat the steps for `tenant b`
 
