@@ -12,11 +12,11 @@
 
 ### Target architecture `serverless`:
 
-* One frontend per tenant, one business logic per tenant.
+* One frontend per tenant, one business logic per tenant. This is a simplified diagram containing the used elements and dependencies.
 
 ![](images/Mulit-Tenancy-architecture-codeengine-serverless.png)
 
-* Just a single tenant.
+* Just a single tenant. This is a simplified diagram containing the used elements and dependencies.
 
 ![](images/Multi-tenancy-serverless.png)
 
@@ -39,11 +39,11 @@ These are the main objectives for this sprint.
 
 ##### 2.1 **Differences between creation and update**
 
-  * Creation ([link to the bash script for initial creation](https://github.com/karimdeif/multi-tenancy/blob/main/installapp/ce-create-two-tenantcies.sh))
+  * Creation ([link to the bash script for initial creation](https://github.com/karimdeif/multi-tenancy/blob/main/installapp/ce-create-two-tenantcies.sh)) This is a simplified diagram containing the used elements and dependencies.
  
   ![](images/Mulit-Tenancy-installation-cicd-02.png)
 
-  * Update ([link to the Toolchain with the tekton pipeline](https://cloud.ibm.com/devops/toolchains/92bb1c04-7f8a-4984-ab8a-2da143a96476?env_id=ibm:yp:us-south))
+  * Update ([link to the Toolchain with the tekton pipeline](https://cloud.ibm.com/devops/toolchains/92bb1c04-7f8a-4984-ab8a-2da143a96476?env_id=ibm:yp:us-south)) This is a simplified diagram containing the used elements and dependencies.
 
   ![](images/Mulit-Tenancy-installation-cicd-01.png)
 
