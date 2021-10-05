@@ -43,11 +43,11 @@ export APPID_SERVICE_INSTANCE_NAME_B="multi-tenancy-serverless-appid-b"
 export APPID_SERVICE_KEY_NAME_B="multi-tenancy-serverless-appid-key-b"
 
 # Postgres
-export POSTGRES_SERVICE_INSTANCE_A="multi-tenant-pg-a"
+export POSTGRES_SERVICE_INSTANCE_A="multi-tenant-pg-a1"
 export POSTGRES_SERVICE_INSTANCE_B="multi-tenant-pg-b"
 
-export POSTGRES_SERVICE_KEY_NAME_A="multi-tenant-postgres-service-key-a"
-export POSTGRES_SERVICE_KEY_NAME_B="multi-tenant-postgres-service-key-b"
+export POSTGRES_SERVICE_KEY_NAME_A="multi-tenant-pg-service-key-a1"
+export POSTGRES_SERVICE_KEY_NAME_B="multi-tenant-pg-service-key-b"
 
 # **********************************************************************************
 # Functions definition

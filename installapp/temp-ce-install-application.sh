@@ -170,10 +170,7 @@ function setupPostgres () {
     echo "Create postgres service $POSTGRES_SERVICE_INSTANCE"
     echo "-------------------------"
     echo "" 
-   ibmcloud resource service-instance-create $POSTGRES_SERVICE_INSTANCE \ 
-                                             $POSTGRES_SERVICE_NAME \ 
-                                             $POSTGRES_PLAN \ 
-                                             $REGION \
+    ibmcloud resource service-instance-create $POSTGRES_SERVICE_INSTANCE $POSTGRES_SERVICE_NAME $POSTGRES_PLAN $REGION \
                                              -g $RESOURCE_GROUP
     # ***** Wait for postgres instance
     echo ""
@@ -182,13 +179,20 @@ function setupPostgres () {
     echo "-------------------------"
     echo ""
     export STATUS_POSTGRES="succeeded"
+    export TMP_STATUS="FAILED"
     while :
         do
             FIND="Postgres database"
             STATUS_CHECK=$(ibmcloud resource service-instance $POSTGRES_SERVICE_INSTANCE --output json | grep '"state":' | awk '{print $2;}' | sed 's/"//g' | sed 's/,//g')
-            echo "Status: $STATUS_CHECK" 
-            STATUS_VERIFICATION=$(echo  "$STATUS_CHECK" | grep "succeeded")
-            if [ "$STATUS_POSTGRES" = "$STATUS_VERIFICATION" ]; then
+            echo "Status: $STATUS_CHECK"
+            STATUS_VERIFICATION=$(echo "$STATUS_CHECK" | grep "FAILED")
+            if [ "$STATUS_VERIFICATION" = "$TMP_STATUS" ]; then
+                echo "$(date +'%F %H:%M:%S') Status: $FIND not found, I will stop the script"
+                echo "------------------------------------------------------------------------"
+                break
+            fi
+            STATUS_VERIFICATION=$(echo "$STATUS_CHECK" | grep "succeeded")
+            if [ "$STATUS_VERIFICATION" = "$STATUS_POSTGRES" ]; then
                 echo "$(date +'%F %H:%M:%S') Status: $FIND is Ready"
                 echo "------------------------------------------------------------------------"
                 break
@@ -217,8 +221,9 @@ function setupPostgres () {
     # **** Create a service key for the service
     ibmcloud resource service-key-create $POSTGRES_SERVICE_KEY_NAME --instance-id $POSTGRES_INSTANCE_ID
     # ***** Get service key of the service
-    ibmcloud resource service-key $POSTGRES_SERVICE_KEY_NAME --output JSON > ./postgres-config/postgres-key.json
+    ibmcloud resource service-key $POSTGRES_SERVICE_KEY_NAME --output JSON > ./postgres-config/postgres-key-temp.json
     POSTGRES_CONNECTION_TEMP=$(cat ./postgres-config/postgres-key.json | jq '.[].credentials.connection.cli.composed[]' | sed 's/"//g' | sed '$ s/.$//' )
+    rm -f ./postgres-config/postgres-key-temp.json
     echo ""
     echo "-------------------------"
     echo "Build command step 1 : $POSTGRES_CONNECTION_TEMP"
