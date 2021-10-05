@@ -170,11 +170,11 @@ function setupPostgres () {
     echo "Create postgres service $POSTGRES_SERVICE_INSTANCE"
     echo "-------------------------"
     echo "" 
-     ibmcloud resource service-instance-create $POSTGRES_SERVICE_INSTANCE \ 
-                                               $POSTGRES_SERVICE_NAME \ 
-                                               $POSTGRES_PLAN \ 
-                                               $REGION \
-                                               -g $RESOURCE_GROUP | 
+   ibmcloud resource service-instance-create $POSTGRES_SERVICE_INSTANCE \ 
+                                             $POSTGRES_SERVICE_NAME \ 
+                                             $POSTGRES_PLAN \ 
+                                             $REGION \
+                                             -g $RESOURCE_GROUP
     # ***** Wait for postgres instance
     echo ""
     echo "-------------------------"
