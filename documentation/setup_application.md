@@ -139,6 +139,16 @@ Now you should see following in you IBM Cloud Account:
 
 ![](images/Mulit-Tenancy-automatic-creation-02.png)
 
+#### Step 2: Open App ID instance for `tenant a` and inspect the configuration
+
+#### Step 3: Open Code Engine project for `tenant a` and inspect the configuration
+
+#### Step 4: Open the frontend application for `tenant a`
+
+#### Step 5: Logon to the application using **username** `thomas@example.com` and **password** `thomas4appid`
+
+#### Step 6: Repeat the steps for `tenant b`
+
 
 
 
