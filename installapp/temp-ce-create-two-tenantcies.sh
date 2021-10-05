@@ -43,8 +43,11 @@ export APPID_SERVICE_INSTANCE_NAME_B="multi-tenancy-serverless-appid-b"
 export APPID_SERVICE_KEY_NAME_B="multi-tenancy-serverless-appid-key-b"
 
 # Postgres
-export POSTGRES_SERVICE_INSTANCE_A=multi-tenant-pg-a
-export POSTGRES_SERVICE_INSTANCE_B=multi-tenant-pg-b
+export POSTGRES_SERVICE_INSTANCE_A="multi-tenant-pg-a"
+export POSTGRES_SERVICE_INSTANCE_B="multi-tenant-pg-b"
+
+export POSTGRES_SERVICE_KEY_NAME_A="multi-tenant-postgres-service-key-a"
+export POSTGRES_SERVICE_KEY_NAME_B="multi-tenant-postgres-service-key-b"
 
 # **********************************************************************************
 # Functions definition
@@ -77,7 +80,9 @@ bash ./temp-ce-install-application.sh $PROJECT_NAME_A \
                                  $FRONTEND_NAME_A \
                                  $SERVICE_CATALOG_IMAGE \
                                  $FRONTEND_IMAGE \
-                                 $CATEGORY_A
+                                 $CATEGORY_A \
+                                 $POSTGRES_SERVICE_INSTANCE_A \
+                                 $POSTGRES_SERVICE_KEY_NAME_A
 
 echo "************************************"
 echo " Tenant B"
@@ -90,4 +95,6 @@ echo "************************************"
 #                                       $FRONTEND_NAME_B \
 #                                       $SERVICE_CATALOG_IMAGE \
 #                                       $FRONTEND_IMAGE \
-#                                       $CATEGORY_B
+#                                       $CATEGORY_B \
+#                                       $POSTGRES_SERVICE_INSTANCE_B \
+#                                       $POSTGRES_SERVICE_KEY_NAME_A

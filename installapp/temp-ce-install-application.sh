@@ -36,6 +36,9 @@ echo "Application Service Catalog image: $6"
 echo "Application Frontend image       : $7"
 echo "Application Frontend category    : $8"
 echo "---------------------------------"
+echo "Postgres instance name           : $9"
+echo "Postgres  service key name       : $10"
+echo "---------------------------------"
 echo ""
 
 # **************** Global variables set by parameters
@@ -50,7 +53,8 @@ export SERVICE_CATALOG_NAME=$4
 export FRONTEND_NAME=$5
 export FRONTEND_CATEGORY=$8
 # Postgres database configuration
-export POSTGRES_SERVICE_INSTANCE=multi-tenant-a-pg
+export POSTGRES_SERVICE_INSTANCE=$9
+export POSTGRES_SERVICE_KEY_NAME=$10
 
 # **************** Global variables set as default values
 
@@ -92,6 +96,10 @@ export ADD_IMAGE="appid-images/logo.png"
 export APPLICATION_CLIENTID=""
 export APPLICATION_TENANTID=""
 export APPLICATION_OAUTHSERVERURL=""
+
+# Postgres Service
+export POSTGRES_SERVICE_NAME=databases-for-postgresql
+export POSTGRES_PLAN=standard
 
 # **********************************************************************************
 # Functions definition
@@ -154,49 +162,44 @@ function setupCRenvCE() {
 
 function setupPostgres () {
 
-    POSTGRES_SERVICE_NAME=databases-for-postgresql
-    POSTGRES_PLAN=standard
-    POSTGRES_USER=tenant_01
-    POSTGRES_PASSWORD=testPostgres998
-    POSTGRES_API_VERSION=v5
-    POSTGRES_SERVICE_KEY_NAME=postgres-service-key
+    # POSTGRES_USER=tenant_01
+    # POSTGRES_PASSWORD=testPostgres998
     
     echo ""
     echo "-------------------------"
     echo "Create postgres service $POSTGRES_SERVICE_INSTANCE"
     echo "-------------------------"
     echo "" 
-#    ibmcloud resource service-instance-create $POSTGRES_SERVICE_INSTANCE \ 
-#                                              $POSTGRES_SERVICE_NAME \ 
-#                                              $POSTGRES_PLAN \ 
-#                                              $REGION \
-#                                              -g $RESOURCE_GROUP | 
+     ibmcloud resource service-instance-create $POSTGRES_SERVICE_INSTANCE \ 
+                                               $POSTGRES_SERVICE_NAME \ 
+                                               $POSTGRES_PLAN \ 
+                                               $REGION \
+                                               -g $RESOURCE_GROUP | 
+    # ***** Wait for postgres instance
+    echo ""
+    echo "-------------------------"
+    echo "Wait for postgres instance, it can take up to 10 minutes"
+    echo "-------------------------"
+    echo ""
+    export STATUS_POSTGRES="succeeded"
+    while :
+        do
+            FIND="Postgres database"
+            STATUS_CHECK=$(ibmcloud resource service-instance $POSTGRES_SERVICE_INSTANCE --output json | grep '"state":' | awk '{print $2;}' | sed 's/"//g' | sed 's/,//g')
+            echo "Status: $STATUS_CHECK" 
+            STATUS_VERIFICATION=$(echo  "$STATUS_CHECK" | grep "succeeded")
+            if [ "$STATUS_POSTGRES" = "$STATUS_VERIFICATION" ]; then
+                echo "$(date +'%F %H:%M:%S') Status: $FIND is Ready"
+                echo "------------------------------------------------------------------------"
+                break
+            else
+                echo "$(date +'%F %H:%M:%S') Status: $FIND($STATUS_CHECK)"
+                echo "------------------------------------------------------------------------"
+            fi
+            sleep 10
+        done
     
-    #Loop
-#    echo ""
-#    echo "-------------------------"
-#    echo "Wait for postgres instance, it can take up to 10 minutes"
-#    echo "-------------------------"
-#    echo ""
-#    export STATUS_POSTGRES="succeeded"
-#    while :
-#        do
-#            FIND="Postgres database"
-#            STATUS_CHECK=$(ibmcloud resource service-instance $POSTGRES_SERVICE_INSTANCE --output json | grep '"state":' | awk '{print $2;}' | sed 's/"//g' | sed 's/,//g')
-#            echo "Status: $STATUS_CHECK" 
-#            STATUS_VERIFICATION=$(echo  "$STATUS_CHECK" | grep "succeeded")
-#            if [ "$STATUS_POSTGRES" = "$STATUS_VERIFICATION" ]; then
-#                echo "$(date +'%F %H:%M:%S') Status: $FIND is Ready"
-#                echo "------------------------------------------------------------------------"
-#                break
-#            else
-#                echo "$(date +'%F %H:%M:%S') Status: $FIND($STATUS_CHECK)"
-#                echo "------------------------------------------------------------------------"
-#            fi
-#            sleep 10
-#        done
-    
-    # ***** get instance ID
+    # ***** Get instance ID
     echo ""
     echo "-------------------------"
     echo "Get instance ID"
@@ -211,6 +214,9 @@ function setupPostgres () {
     echo "Create service key and get the postgres connection"
     echo "-------------------------"
     echo ""
+    # **** Create a service key for the service
+    ibmcloud resource service-key-create $POSTGRES_SERVICE_KEY_NAME --instance-id $POSTGRES_INSTANCE_ID
+    # ***** Get service key of the service
     ibmcloud resource service-key $POSTGRES_SERVICE_KEY_NAME --output JSON > ./postgres-config/postgres-key.json
     POSTGRES_CONNECTION_TEMP=$(cat ./postgres-config/postgres-key.json | jq '.[].credentials.connection.cli.composed[]' | sed 's/"//g' | sed '$ s/.$//' )
     echo ""
@@ -230,7 +236,7 @@ function setupPostgres () {
     echo "-------------------------"
     echo ""  
     cd postgres
-    # **** we will delete this 'postgres_cert' folder later
+    # **** We will delete this 'postgres_cert' folder later
     mkdir postgres_cert
     cd postgres_cert
     ibmcloud cdb deployment-cacert $POSTGRES_SERVICE_INSTANCE \
@@ -248,8 +254,10 @@ function setupPostgres () {
     cp "../../postgres-config/create-populate-tenant-a.sql" "create-populate-tenant-a.sql"
     # **** Create bash script
     sed "s+COMMAND_INSERT+$POSTGRES_CONNECTION+g" "../../postgres-config/insert-template.sh" > ./insert.sh
+    # **** Execute the bash script with the extracted format
     bash insert.sh
     cd ..
+    # **** Clean-up the temp folder and content
     rm -f -r ./postgres_cert
 }
 
