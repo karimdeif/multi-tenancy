@@ -12,7 +12,7 @@ docs_dir: documentation
 # Navigation
 nav:
   - Introduction:
-     - overview: ./README.md
+     - Overview: ./README.md
   - Labs: 
     - 1. Setup e-commerce example application on IBM Cloud: ./setup_application.md
     - 2. Setup continuous delivery: ./TBD.md
