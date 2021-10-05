@@ -51,7 +51,7 @@ export ROOT_FOLDER=$(pwd)
 Prerequiste to run the bash scripts for the setup:
 
 * The container images for the applications need to be available.
-* Verify the default setting for the script execution.
+* Verify the default settings for the script execution.
 
 The `ce-create-two-tenantcies.sh` script has following default parameters for **Code Engine**, **Applications**, **container registry**, **AppID** and **Postgres**.
 
@@ -135,11 +135,13 @@ The bash script `ce-create-two-tenantcies.sh` invokes **twice** the bash script 
 
 #### Step 1: Open following url `https://cloud.ibm.com/resources`
 
-Now you should see following in you IBM Cloud Account:
+In resource list of in the IBM Cloud UI, insert as filter for **name** the value `multi`. Now you should see following in your IBM Cloud Account:
 
 ![](images/Mulit-Tenancy-automatic-creation-02.png)
 
 #### Step 2: Open App ID instance for `tenant a` and inspect the configuration
+
+![](images/Mulit-Tenancy-automatic-running-example-01.gif)
 
 #### Step 3: Open Code Engine project for `tenant a` and inspect the configuration
 
