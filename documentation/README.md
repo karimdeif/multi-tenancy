@@ -28,8 +28,13 @@ These are the main objectives for this sprint.
 
   * App ID is configured **(DONE)**
   * Frontend is integrated with AppID **(DONE)**
+      * Externalize configuration for Service Catalog **(DONE)**
+      * Externalize configuration for AppID **(DONE)**
   * Backend is integrated with AppID **(PENDING)**
-  * Backend is integrated postgres **(DONE)**
+      * Externalize configuration for AppID **(PENDING)**
+  * Backend is integrated postgres **(IN PROGRES)**
+      * Externalize configuration for Postgress **(IN PROGRES)**
+      * Externalize configuration for AppID **(PENDING)**
   * Postgres is setup **(DONE)**
 
 #### 2  **Automation of the deployment**
