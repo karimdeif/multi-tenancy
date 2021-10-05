@@ -14,7 +14,7 @@
 
 * One frontend per tenant, one business logic per tenant.
 
-![](images/Mulit-Tenancy-architecture-codeengine-serverless.jpg)
+![](images/Mulit-Tenancy-architecture-codeengine-serverless.png)
 
 * Just a single tenant.
 
@@ -34,10 +34,16 @@ These are the main objectives for this sprint.
 
 #### 2  **Automation of the deployment**
       
-  * Installation and setup is about **creation** **(IN PROGRESS)**
-  * CI/CD is about **update** **(IN PROGRESS)**
+  * Installation and setup is more about **creation** **(IN PROGRESS)**
+  * CI/CD is more about **update** **(IN PROGRESS)**
 
-  Differences creation and update.
+#### **Differences between creation and update**
+
+  * Creation
+ 
+  ![](images/Mulit-Tenancy-automatic-creation-02.png)
+
+  * Update
 
   ![](images/Mulit-Tenancy-automatic-creation-01.png)
 
