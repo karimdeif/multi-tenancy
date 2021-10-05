@@ -46,9 +46,9 @@ cd multi-tenancy
 export ROOT_FOLDER=$(pwd)
 ```
 
-#### Step 2: Execute following bash automation
+#### Step 2: Inspect the default configuration of the setup bash scripts
 
-Prerequiste:
+Prerequiste to run the bash scripts for the setup:
 
 * The container images for the applications need to be available.
 * Verify the default setting for the script execution.
@@ -99,14 +99,18 @@ export POSTGRES_SERVICE_INSTANCE_A=multi-tenant-pg-a
 export POSTGRES_SERVICE_INSTANCE_B=multi-tenant-pg-b
 ```
 
-> Don't worry, this script may take several minutes (10 - 15 min) without portgres. With postgres it will take up 30 mins.
+#### Step 3: Execute following bash automation
 
-Execute following bash script:
+> Don't worry, this script may take several minutes (10 - 15 min) without portgres. With postgres it will take up to 30 mins.
+
+* Execute following bash script:
 
 ```sh
 cd $ROOT_FOLDER/installapp
 bash ce-create-two-tenantcies.sh
 ```
+
+* What happens behind the curtain?
 
 The bash script `ce-create-two-tenantcies.sh` invokes **twice** the bash script `ce-install-application.sh` with the needed parameter to create two seperated tenant applications. Here is a short simplified discription which steps are carried out in the script `ce-install-application-ibmcr.sh`:
 
