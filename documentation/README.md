@@ -37,7 +37,7 @@ These are the main objectives for this sprint.
   * Installation and setup is more about **creation** **(IN PROGRESS)** ([link to the bash script for initial creation](https://github.com/karimdeif/multi-tenancy/blob/main/installapp/ce-create-two-tenantcies.sh))
   * CI/CD is more about **update** **(IN PROGRESS)** ([link to the Toolchain with the tekton pipeline](https://cloud.ibm.com/devops/toolchains/92bb1c04-7f8a-4984-ab8a-2da143a96476?env_id=ibm:yp:us-south))
 
-#### **Differences between creation and update**
+##### 2.1 **Differences between creation and update**
 
   * Creation ([link to the bash script for initial creation](https://github.com/karimdeif/multi-tenancy/blob/main/installapp/ce-create-two-tenantcies.sh))
  
@@ -47,7 +47,7 @@ These are the main objectives for this sprint.
 
   ![](images/Mulit-Tenancy-installation-cicd-01.png)
 
-##### **Used CLIs and APIs for the automation**
+##### 2.2 **Used CLIs and APIs for the automation**
 
 * IBM Cloud Services
 
