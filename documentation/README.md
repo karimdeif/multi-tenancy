@@ -32,8 +32,8 @@ These are the main objectives for this sprint.
       * Externalize configuration for AppID **(DONE)**
   * Backend is integrated with AppID **(PENDING)**
       * Externalize configuration for AppID **(PENDING)**
-  * Backend is integrated postgres **(IN PROGRES)**
-      * Externalize configuration for Postgress **(IN PROGRES)**
+  * Backend is integrated postgres **(IN PROGRESS)**
+      * Externalize configuration for Postgress **(IN PROGRESS)**
       * Externalize configuration for AppID **(PENDING)**
   * Postgres is setup **(DONE)**
 
