@@ -41,11 +41,11 @@ These are the main objectives for this sprint.
 
   * Creation
  
-  ![](images/Mulit-Tenancy-automatic-creation-02.png)
+  ![](images/Mulit-Tenancy-installation-cicd-02.png)
 
   * Update
 
-  ![](images/Mulit-Tenancy-automatic-creation-01.png)
+  ![](images/Mulit-Tenancy-installation-cicd-01.png)
 
 ##### **Used CLIs and APIs for the automation**
 
