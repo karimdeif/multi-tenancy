@@ -1,37 +1,47 @@
 #!/bin/bash
 
+echo ""
+echo "Parameter count : $@"
+echo "Parameter zero 'name of the script': $0"
+echo "---------------------------------"
+echo "Code Engine project name         : $1"
+echo "---------------------------------"
+echo "App ID service instance name     : $2"
+echo "App ID service key name          : $3"
+echo "---------------------------------"
+echo "Application Service Catalog name : $4"
+echo "Application Frontend name        : $5"
+echo "---------------------------------"
+echo "Postgres instance name           : $6"
+echo "Postgres service key name        : $7"
+echo "---------------------------------"
+echo ""
+
+# **************** Global variables set by parameters
+# Code Engine
+export PROJECT_NAME=$1
+
+# App ID
+export APPID_INSTANCE_NAME=$2
+export APPID_SERVICE_KEY_NAME=$3
+
+# CE applications
+export SERVICE_CATALOG=$4
+export FRONTEND=$5
+
+# Postgres
+export POSTGRES_SERVICE_INSTANCE=$6
+export POSTGRES_SERVICE_KEY_NAME=$7
+
 # **************** Global variables
 
-#export PROJECT_NAME=$MYPROJECT
-export PROJECT_NAME=multi-tenancy-serverless-tmp
 export RESOURCE_GROUP=default
 export REGION="us-south"
 export NAMESPACE=""
-export STATUS="Running"
 
-# CE IBM Cloud CR
+# CE for IBM Cloud Container Registry access
 export SECRET_NAME="multi.tenancy.cr.sec"
 export IBMCLOUDCLI_KEY_NAME=cliapikey_for_multi_tenant
-
-# CE applications
-
-export FRONTEND_A=frontend-a
-export FRONTEND_B=frontend
-export SERVICE_CATALOG_A=service-catalog-a
-
-# AppID
-
-# IBM Cloud CR option
-export YOUR_SERVICE_FOR_IBMCR_APPID="multi-tenancy-AppID-ibmcr-automated-serverless"
-export APPID_SERVICE_IBMCR_KEY_NAME="multi-tenancy-AppID-ibmcr-automated-serverless-service-key"
-
-# IBM Quay / Docker option
-export YOUR_SERVICE_FOR_QUAY_APPID="multi-tenancy-AppID-quay-automated-serverless"
-export APPID_SERVICE_QUAY_KEY_NAME="multi-tenancy-AppID-quay-automated-serverless-service-key"
-
-# Postgres
-export POSTGRES_SERVICE_INSTANCE=multi-tenant-a-pg-temp
-export POSTGRES_USER=tenant
 
 # **********************************************************************************
 # Functions definition
@@ -56,53 +66,45 @@ function setupCLIenvCE() {
   kubectl get pods -n $NAMESPACE
 }
 
-cleanCEapplications () {
-    ibmcloud ce application delete --name $FRONTEND_A  --force
-    ibmcloud ce application delete --name $FRONTEND_B  --force
-    ibmcloud ce application delete --name $SERVICE_CATALOG_A  --force
-    ibmcloud ce application delete --name $SERVICE_CATALOG_B  --force
+function cleanCEapplications () {
+    ibmcloud ce application delete --name $FRONTEND  --force
+    ibmcloud ce application delete --name $SERVICE_CATALOG  --force
 }
 
-cleanCEregistry(){
+function cleanCEregistry(){
     ibmcloud ce registry delete --name $SECRET_NAME
 }
 
-cleanKEYS () {
-   echo $IBMCLOUDCLI_KEY_NAME
+function cleanKEYS () {
+   echo "IBM Cloud Key: $IBMCLOUDCLI_KEY_NAME"
    #List api-keys
    ibmcloud iam api-keys | grep $IBMCLOUDCLI_KEY_NAME
    #Delete api-key
    ibmcloud iam api-key-delete $IBMCLOUDCLI_KEY_NAME -f
    
-   #List service-keys
-   
-   #ibmcr
-   ibmcloud resource service-keys | grep $APPID_SERVICE_IBMCR_KEY_NAME
-   ibmcloud resource service-keys --instance-name $YOUR_SERVICE_FOR_IBMCR_APPID
-   ibmcloud resource service-key-delete $APPID_SERVICE_IBMCR_KEY_NAME -f
+   #AppID
+   ibmcloud resource service-keys | grep $APPID_SERVICE_KEY_NAME
+   ibmcloud resource service-keys --instance-name $APPID_INSTANCE_NAME
+   ibmcloud resource service-key-delete $APPID_SERVICE_KEY_NAME -f
 
-   #quay
-   ibmcloud resource service-keys | grep $APPID_SERVICE_QUAY_KEY_NAME
-   ibmcloud resource service-keys --instance-name $YOUR_SERVICE_FOR_QUAY_APPID
-   ibmcloud resource service-key-delete $APPID_SERVICE_QUAY_KEY_NAME -f
+   #Postgres
+   ibmcloud resource service-keys | grep $POSTGRES_SERVICE_NAME
+   ibmcloud resource service-keys --instance-name $POSTGRES_SERVICE_NAME
+   ibmcloud resource service-key-delete $POSTGRES_SERVICE_KEY_NAME -f
 }
 
-cleanAppIDservice (){ 
-    #ibmcr
-    ibmcloud resource service-instance $YOUR_SERVICE_FOR_IBMCR_APPID
-    ibmcloud resource service-instance-delete $YOUR_SERVICE_FOR_IBMCR_APPID -f
- 
-    #quay
-    ibmcloud resource service-instance $YOUR_SERVICE_FOR_QUAY_APPID
-    ibmcloud resource service-instance-delete $YOUR_SERVICE_FOR_QUAY_APPID -f
+function cleanAppIDservice (){ 
+    ibmcloud resource service-instance $APPID_INSTANCE_NAME
+    ibmcloud resource service-instance-delete $APPID_INSTANCE_NAME -f
 }
 
-cleanPostgresService (){
-
+function cleanPostgresService (){ 
     ibmcloud resource service-instance $POSTGRES_SERVICE_INSTANCE
-
-    ibmcloud cdb deployment-user-delete $POSTGRES_SERVICE_INSTANCE $POSTGRES_USER
     ibmcloud resource service-instance-delete $POSTGRES_SERVICE_INSTANCE -f
+}
+
+function cleanCodeEngineProject (){ 
+   ibmcloud ce project delete --name $PROJECT_NAME
 }
 
 # **********************************************************************************
@@ -128,19 +130,27 @@ echo "************************************"
 cleanCEregistry
 
 echo "************************************"
-echo " Clean keys"
+echo " Clean keys "
+echo " - $IBMCLOUDCLI_KEY_NAME"
+echo " - $APPID_SERVICE_KEY_NAME"
+echo " - $POSTGRES_SERVICE_KEY_NAME"
 echo "************************************"
 
 cleanKEYS
 
 echo "************************************"
-echo " Clean AppID service"
+echo " Clean AppID service $APPID_INSTANCE_NAME"
 echo "************************************"
 
 cleanAppIDservice
 
 echo "************************************"
-echo " Clean Postgres service"
+echo " Clean Postgres service $POSTGRES_SERVICE_INSTANCE"
 echo "************************************"
 
 cleanPostgresService
+
+echo "************************************"
+echo " Clean Code Engine Project $PROJECT_NAME"
+echo "************************************"
+cleanCodeEngineProject
