@@ -18,9 +18,9 @@ export ROOT_FOLDER=$(pwd)
 
 #### Step 2: Inspect the default configuration of the setup bash scripts
 
-Prerequiste to run the bash scripts for the setup:
+Prerequiste to run the bash scripts ([`ce-create-two-tenantcies.sh`](https://github.com/karimdeif/multi-tenancy/blob/main/installapp/ce-create-two-tenantcies.sh) and [`ce-install-application.sh`](https://github.com/karimdeif/multi-tenancy/blob/main/installapp/ce-install-application.sh) for the setup:
 
-* The container images for the applications need to be available. (in default uses Quay)
+* The container images for the applications need to be available.(in default uses Quay)
 * Verify the default settings for the script execution.
 
 The `ce-create-two-tenantcies.sh` script has following default parameters for **Code Engine**, **Applications**, **container registry**, **AppID** and **Postgres**.
@@ -82,7 +82,7 @@ bash ce-create-two-tenantcies.sh
 
 * What happens behind the curtain?
 
-The bash script `ce-create-two-tenantcies.sh` invokes **twice** the bash script `ce-install-application.sh` with the needed parameter to create two seperated tenant applications. Here is a short simplified description which steps are carried out currently in the script `ce-install-application-ibmcr.sh`:
+The bash script [`ce-create-two-tenantcies.sh`](https://github.com/karimdeif/multi-tenancy/blob/main/installapp/ce-create-two-tenantcies.sh) invokes **twice** the bash script [`ce-install-application.sh`](https://github.com/karimdeif/multi-tenancy/blob/main/installapp/ce-install-application.sh) with the needed parameter to create two seperated tenant applications. Here is a short simplified description which steps are carried out currently in the script [`ce-install-application.sh`](https://github.com/karimdeif/multi-tenancy/blob/main/installapp/ce-install-application.sh):
 
  1. Configure IBM Cloud configuration for targets like $REGION and create an [Code Engine CLI](https://cloud.ibm.com/docs/codeengine?topic=codeengine-cli) project
  2. Configure container the IBM Cloud container registry access in the Code Engine project
