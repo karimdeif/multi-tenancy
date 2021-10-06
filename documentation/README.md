@@ -22,7 +22,11 @@
 
 ### Objectives for sprint in week 41 `serverless`
 
-These are the main objectives for this sprint.
+These are the main three objectives for this sprint.
+
+* **Running simple ecommerce application on Code Engine**
+* **Automation of the deployment**
+* **Documenation of the setup**
 
 #### 1 **Running simple ecommerce application on Code Engine**
 

@@ -1,40 +1,10 @@
-# Lab 1: Setup e-commerce example application on IBM Cloud
+# Lab 3: Setup e-commerce example application on IBM Cloud
 
 **------------------**
 **UNDER CONSTRUCTION**
 **------------------**
 
-### IBM Cloud Account
-
-#### Step 1: Create a `PayAsYouGo` IBM Cloud Account
-
-Open this [link](https://ibm.biz/BdfXAn) and follow the guided steps.
-
-`Code Engine` has a `free tier` per month and we expect, if you haven't used that `free tier` in current month, you can execute the workshop without creating any additional costs. Here you find the actual [`Code Engine` pricing](https://www.ibm.com/cloud/code-engine/pricing).
-
-### `IBM Cloud Shell`
-
-#### Step 1: Open the `IBM Cloud Shell`
-
-When using the IBM Cloud Shell, no client-side setup is required for this workshop, it comes with all necessary CLIs (command line tools).
-
-Use following link to directly open the `IBM Cloud Shell`.
-
-<https://cloud.ibm.com/shell>
-
-In your browser, login to the [IBM Cloud](https://cloud.ibm.com) Dashboard and open the IBM Cloud Shell from here:
-
-![](images/cns-ce-cloud-shell-01.png)
-
-_Note:_ Your workspace includes 500 MB of temporary storage. This session will close after an hour of inactivity. If you don't have any active sessions for an hour or you reach the 50-hour weekly usage limit, your workspace data is removed.
-
-#### Step 2: `IBM Cloud Shell`
-
-Now you are logged on with your IBM Cloud account.
-
-![](images/cns-ce-cloud-shell-02.png)
-
-### Run automated setup
+### Run automated first time installation setup
 
 #### Step 1: Clone the GitHub project to the `IBM Cloud Shell`
 
@@ -50,7 +20,7 @@ export ROOT_FOLDER=$(pwd)
 
 Prerequiste to run the bash scripts for the setup:
 
-* The container images for the applications need to be available.
+* The container images for the applications need to be available. (in default uses Quay)
 * Verify the default settings for the script execution.
 
 The `ce-create-two-tenantcies.sh` script has following default parameters for **Code Engine**, **Applications**, **container registry**, **AppID** and **Postgres**.
