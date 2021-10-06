@@ -93,6 +93,7 @@ export ADD_ROLE="appid-configs/add-roles.json"
 export ADD_REDIRECT_URIS="appid-configs/add-redirecturis.json"
 export ADD_UI_TEXT="appid-configs/add-ui-text.json"
 export ADD_IMAGE="appid-images/logo.png"
+export ADD_COLOR="appid-configs/add-ui-color.json"
 export APPLICATION_CLIENTID=""
 export APPLICATION_TENANTID=""
 export APPLICATION_OAUTHSERVERURL=""
@@ -393,6 +394,20 @@ function configureAppIDInformation(){
     #result=$(curl -d @./$ADD_UI_TEXT -H "Content-Type: application/json" -X PUT -v -H "Authorization: Bearer $OAUTHTOKEN" $MANAGEMENTURL/config/ui/theme_text)
     result=$(curl -d @./$ADD_UI_TEXT -H "Content-Type: application/json" -X PUT -H "Authorization: Bearer $OAUTHTOKEN" $MANAGEMENTURL/config/ui/theme_text)
     rm -f $ADD_UI_TEXT
+    echo "-------------------------"
+    echo "Result import: $result"
+    echo "-------------------------"
+    echo ""
+
+    #******* Configure ui color  ******
+    echo ""
+    echo "-------------------------"
+    echo " Configure ui color"
+    echo "-------------------------"
+    echo ""
+    OAUTHTOKEN=$(ibmcloud iam oauth-tokens | awk '{print $4;}')
+    echo "PUT url: $MANAGEMENTURL/config/ui/theme_color"
+    result=$(curl -d @./$ADD_COLOR -H "Content-Type: application/json" -X PUT -H "Authorization: Bearer $OAUTHTOKEN" $MANAGEMENTURL/config/ui/theme_color)
     echo "-------------------------"
     echo "Result import: $result"
     echo "-------------------------"

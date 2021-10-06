@@ -81,6 +81,7 @@ export ADD_ROLE="appid-configs/add-roles.json"
 export ADD_REDIRECT_URIS="appid-configs/add-redirecturis.json"
 export ADD_UI_TEXT="appid-configs/add-ui-text.json"
 export ADD_IMAGE="appid-images/logo.png"
+export ADD_COLOR="appid-configs/add-ui-color.json"
 export APPLICATION_CLIENTID=""
 export APPLICATION_TENANTID=""
 export APPLICATION_OAUTHSERVERURL=""
@@ -333,10 +334,24 @@ function configureAppIDInformation(){
     echo ""
     sed "s+FRONTENDNAME+$FRONTEND_NAME+g" ./appid-configs/add-ui-text-template.json > ./$ADD_UI_TEXT
     OAUTHTOKEN=$(ibmcloud iam oauth-tokens | awk '{print $4;}')
-    echo "PUT url: $MANAGEMENTURL/config/ui/theme_txt"
+    echo "PUT url: $MANAGEMENTURL/config/ui/theme_text"
     #result=$(curl -d @./$ADD_UI_TEXT -H "Content-Type: application/json" -X PUT -v -H "Authorization: Bearer $OAUTHTOKEN" $MANAGEMENTURL/config/ui/theme_text)
     result=$(curl -d @./$ADD_UI_TEXT -H "Content-Type: application/json" -X PUT -H "Authorization: Bearer $OAUTHTOKEN" $MANAGEMENTURL/config/ui/theme_text)
     rm -f $ADD_UI_TEXT
+    echo "-------------------------"
+    echo "Result import: $result"
+    echo "-------------------------"
+    echo ""
+
+    #******* Configure ui color  ******
+    echo ""
+    echo "-------------------------"
+    echo " Configure ui color"
+    echo "-------------------------"
+    echo ""
+    OAUTHTOKEN=$(ibmcloud iam oauth-tokens | awk '{print $4;}')
+    echo "PUT url: $MANAGEMENTURL/config/ui/theme_color"
+    result=$(curl -d @./$ADD_COLOR -H "Content-Type: application/json" -X PUT -H "Authorization: Bearer $OAUTHTOKEN" $MANAGEMENTURL/config/ui/theme_color)
     echo "-------------------------"
     echo "Result import: $result"
     echo "-------------------------"
@@ -350,7 +365,6 @@ function configureAppIDInformation(){
     echo ""
     OAUTHTOKEN=$(ibmcloud iam oauth-tokens | awk '{print $4;}')
     echo "POST url: $MANAGEMENTURL/config/ui/media?mediaType=logo"
-    # result=$(curl -F "file=@./$ADD_IMAGE" -H "Content-Type: multipart/form-data" -X POST -v -H "Authorization: Bearer $OAUTHTOKEN" "$MANAGEMENTURL/config/ui/mediamedia?mediaType=logo")
     result=$(curl -F "file=@./$ADD_IMAGE" -X POST -v -H "Authorization: Bearer $OAUTHTOKEN" "$MANAGEMENTURL/config/ui/media?mediaType=logo")
     echo "-------------------------"
     echo "Result import: $result"
