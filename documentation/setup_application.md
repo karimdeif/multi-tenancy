@@ -101,11 +101,11 @@ The bash script [`ce-create-two-tenantcies.sh`](https://github.com/karimdeif/mul
  - Two **App ID service instances** which do include an user with the **username** `thomas@example.com` and **password** `thomas4appid`
  - Two **Code Engine projects** with a fontend and a backend application and an configured access for the IBM Cloud container registry of your account.
 
- > Note: We using at the moment a preconfigured **Postgres database** running on IBM Cloud, which is maybe not in your cloud account.
+ > Note: We are using at the moment a preconfigured **Postgres database** running on IBM Cloud, which is maybe not in your cloud account.
 
 ### Verify the setup
 
-#### Step 1: Open following url `https://cloud.ibm.com/resources`
+#### Step 1: Open following url [`https://cloud.ibm.com/resources`](https://cloud.ibm.com/resources)
 
 In resource list of in the IBM Cloud UI, insert as filter for **name** the value `multi`. Now you should see following in your IBM Cloud Account:
 
