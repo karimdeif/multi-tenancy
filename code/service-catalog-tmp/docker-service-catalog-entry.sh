@@ -15,7 +15,7 @@ echo ""
 echo "**********************************"
 echo "Step 2"
 echo "**********************************"
-echo " Set cerifications related variables"
+echo " Set certifications related variables"
 echo "**********************************"
 export CERT_FILE_NAME=./real_cert
 export CERT_CONTENT=$default_datasource_certs

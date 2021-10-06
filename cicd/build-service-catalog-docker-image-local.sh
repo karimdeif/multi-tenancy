@@ -27,6 +27,7 @@ docker image rm -f "$REGISTRY/$IMAGE_NAME:$IMAGE_TAG"
 docker build  --file Dockerfile \
               --tag "$REGISTRY/$IMAGE_NAME:$IMAGE_TAG" .
 
+# Run the container
 docker run --name="service-catalog-verification" \
            -it \
            --env default_datasource_certs=${default_datasource_base_certs} \
