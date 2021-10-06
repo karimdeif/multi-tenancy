@@ -28,6 +28,8 @@ COPY --from=BUILD --chown=1001 /usr/src/app/target/quarkus-app/quarkus/ /deploym
 
 # Get environment variables and create needed configruation
 COPY ./docker-service-catalog-entry.sh ./docker-service-catalog-entry.sh
+COPY ./create-service-catalog-cert.sh ./create-service-catalog-cert.sh
+COPY ./cert-template ./cert-template
 # Configure script to execute
 RUN chmod 777 docker-service-catalog-entry.sh
 

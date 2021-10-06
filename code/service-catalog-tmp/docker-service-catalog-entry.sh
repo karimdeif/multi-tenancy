@@ -3,21 +3,53 @@
 export info=$(pwd)
 
 echo "**********************************"
-echo "-> Log: Root path: '$info'"
-echo "-> Log: Check env variables:" 
-echo " '$default.datasource.certs'"
-echo " '$default.datasource.certs.data'"
-echo " '$POSTGRES_cert_content'"
+echo "Step 1"
+echo "**********************************"
+echo "  -> Log: Root path: '$info'"
+echo "  -> Log: Check env variables:" 
+echo "    - $default_datasource_certs"
+echo "    - $default_datasource_certs_data"
+echo "    - $POSTGRES_cert_content"
+echo "**********************************"
+echo ""
+echo "**********************************"
+echo "Step 2"
+echo "**********************************"
+echo " Set cerifications related variables"
+echo "**********************************"
+export CERT_FILE_NAME=./real_cert
+export CERT_CONTENT=$default_datasource_certs
 
-export CERT_FILE_NAME=./outside_location/mycert
+echo "CERT_FILE_NAME: $CERT_FILE_NAME"
+echo "CERT_CONTENT: $CERT_CONTENT"
+
+echo ""
+echo "**********************************"
+echo "Step 3"
+echo "**********************************"
+echo " Verify that the copied file exists"
+echo "**********************************"
+ls
+
 "/bin/sh" ./create-service-catalog-cert.sh
-more ./create-service-catalog-cert.sh
-more ./outside_location/mycert
 
+echo ""
+echo "**********************************"
+echo "Step 4"
+echo "**********************************"
+echo " Verify that the create file exists"
+echo "**********************************"
+ls
 
+more ./real_cert
+
+echo ""
+echo "**********************************"
+echo "Step 5"
 echo "**********************************"
 echo "Execute java command "
 echo "**********************************"
+echo ""
 
 java -Xmx128m \
      -Xscmaxaot100m \

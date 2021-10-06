@@ -26,13 +26,16 @@ set -x
 cd ../code/service-catalog-tmp
 
 # Build the image
-#docker build  --file Dockerfile \
-#              --tag "$REGISTRY/$IMAGE_NAME:$IMAGE_TAG" .
+docker container stop -f  "service-catalog-verification"
+docker container rm -f "service-catalog-verification"
+docker image rm -f "$REGISTRY/$IMAGE_NAME:$IMAGE_TAG"
+docker build  --file Dockerfile \
+              --tag "$REGISTRY/$IMAGE_NAME:$IMAGE_TAG" .
 
 docker run --name="service-catalog-verification" \
            -it \
-           --env default.datasource.certs=${default_datasource_certs} \
-           --env default.datasource.certs.data=${default_datasource_certs_data} \
+           --env default_datasource_certs=${default_datasource_base_certs} \
+           --env default_datasource_certs_data=${default_datasource_certs_data} \
            --env default.datasource.username=${default_datasource_username} \
            --env default.datasource.password=${default_datasource_password} \
            --env default.datasource.jdbc.url=${default_datasource_jdbc_url} \
