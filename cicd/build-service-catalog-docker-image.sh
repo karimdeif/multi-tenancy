@@ -125,13 +125,13 @@ echo "ibmcloud cr build   --file Dockerfile \
                           --build-arg default.datasource.mycompany.certs.data=\"${default_datasource_mycompany_certs_data}\" \
                           --tag ${REGISTRY_URL}/${REGISTRY_NAMESPACE}/${IMAGE_NAME}:latest ."
                  
-echo  ibmcloud cr build   --file Dockerfile \
-                          --build-arg default.datasource.base.certs=\"${default_datasource_base_certs}\" \
-                          --build-arg default.datasource.mycompany.certs=\"${default_datasource_mycompany_certs}\" \
-                          --build-arg default.datasource.certs.data=\"${default_datasource_certs_data}\" \
-                          --build-arg default.datasource.base.certs.data=\"${default_datasource_base_certs_data}\" \
-                          --build-arg default.datasource.mycompany.certs.data=\"${default_datasource_mycompany_certs_data}\" \
-                          --tag ${REGISTRY_URL}/${REGISTRY_NAMESPACE}/${IMAGE_NAME}:latest .
+ibmcloud cr build   --file Dockerfile \
+                    --build-arg default.datasource.base.certs=\"${default_datasource_base_certs}\" \
+                    --build-arg default.datasource.mycompany.certs=\"${default_datasource_mycompany_certs}\" \
+                    --build-arg default.datasource.certs.data=\"${default_datasource_certs_data}\" \
+                    --build-arg default.datasource.base.certs.data=\"${default_datasource_base_certs_data}\" \
+                    --build-arg default.datasource.mycompany.certs.data=\"${default_datasource_mycompany_certs_data}\" \
+                    --tag ${REGISTRY_URL}/${REGISTRY_NAMESPACE}/${IMAGE_NAME}:latest .
                           
 set +x
 
