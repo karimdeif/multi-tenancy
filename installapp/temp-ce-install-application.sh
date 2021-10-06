@@ -292,7 +292,7 @@ function extractPostgresConfiguration () {
     DEFAULT_DATASOURCE_CERT_CONTENT=$(cat ./postgres-config/postgres-key-temp.json | jq '.[].credentials.connection.cli.certificate.certificate_base64' | sed 's/"//g' | sed '$ s/.$//' )
     DEFAULT_DATASOURCE_USERNAME=$(cat ./postgres-config/postgres-key-temp.json | jq '.[].credentials.connection.postgres.authentication.username' | sed 's/"//g' | sed '$ s/.$//' )
     DEFAULT_DATASOURCE_PASSWORD=$(cat ./postgres-config/postgres-key-temp.json | jq '.[].credentials.connection.postgres.authentication.password' | sed 's/"//g' | sed '$ s/.$//' )
-    DEFAULT_DATASOURCE_JDBC_URL=$(cat ./postgres-config/postgres-key-temp.json | jq '.[].credentials.connection.postgres.composed[]' | sed 's/"//g' | sed '$ s/.$//' )
+    DEFAULT_DATASOURCE_JDBC_URL=$(cat ./postgres-config/postgres-key-temp.json | jq '.[].credentials.connection.postgres.composed[]' | sed 's/"//g' )
     
     # ***** Delete temp file    
     rm -f ./postgres-config/postgres-key-temp.json
@@ -301,7 +301,7 @@ function extractPostgresConfiguration () {
     #echo "Cert Content:  $DEFAULT_DATASOURCE_CERT_CONTENT"
     #echo "Username:      $DEFAULT_DATASOURCE_USERNAME"
     #echo "Password:      $DEFAULT_DATASOURCE_PASSWORD"
-    #echo "JDBL    :      $DEFAULT_DATASOURCE_JDBC_URL"
+    #echo "JDBC    :      $DEFAULT_DATASOURCE_JDBC_URL"
 
 }
 
