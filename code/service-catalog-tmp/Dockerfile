@@ -27,12 +27,12 @@ COPY --from=BUILD --chown=1001 /usr/src/app/target/quarkus-app/app/ /deployments
 COPY --from=BUILD --chown=1001 /usr/src/app/target/quarkus-app/quarkus/ /deployments/quarkus/
 
 # Get environment variables and create needed configruation
-COPY ../../cicd/docker-entry.sh ./docker-entry.sh
+COPY ../../cicd/docker-service-catalog-entry.sh ./docker-service-catalog-entry.sh
 # Configure script to execute
-RUN chmod 777 docker-entry.sh
+RUN chmod 777 docker-service-catalog-entry.sh
 
 EXPOSE 8080
 
-CMD ["/bin/sh","docker_entrypoint_start-quarkus.sh"]
+CMD ["/bin/sh","docker-service-catalog-entry.sh"]
 
 
