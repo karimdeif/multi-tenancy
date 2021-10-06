@@ -132,10 +132,12 @@ export default {
   },
   methods: {
     onLoginClicked(){
-      this.$router.push('/').catch()    
+      this.$router.push('/').catch();
+      window.location.reload(); 
     },
     onLogoutClicked(){
       this.$store.commit("logout");
+      window.location.reload();
     },
     getUserName() {
       return this.$store.state.user.name;
