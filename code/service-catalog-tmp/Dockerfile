@@ -10,7 +10,7 @@ RUN mvn clean package
 ##############################
 #           PRODUCTION
 ##############################
-FROM docker.io/adoptopenjdk/openjdk11-openj9:ubi-minimal
+FROM fabric8/java-alpine-openjdk11-jre
 
 ENV JAVA_OPTIONS="-Dquarkus.http.host=0.0.0.0 -Djava.util.logging.manager=org.jboss.logmanager.LogManager"
 ENV AB_ENABLED=jmx_exporter
@@ -27,7 +27,7 @@ COPY --from=BUILD --chown=1001 /usr/src/app/target/quarkus-app/app/ /deployments
 COPY --from=BUILD --chown=1001 /usr/src/app/target/quarkus-app/quarkus/ /deployments/quarkus/
 
 # Get environment variables and create needed configruation
-COPY ../../cicd/docker-service-catalog-entry.sh ./docker-service-catalog-entry.sh
+COPY ./docker-service-catalog-entry.sh ./docker-service-catalog-entry.sh
 # Configure script to execute
 RUN chmod 777 docker-service-catalog-entry.sh
 
