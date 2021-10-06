@@ -14,28 +14,22 @@ echo "REGISTRY_URL=${REGISTRY_URL}"
 echo "REGISTRY_NAMESPACE=${REGISTRY_NAMESPACE}"
 echo "DEPLOYMENT_FILE=${DEPLOYMENT_FILE}"
 
-#View build properties
-# cat build.properties
-# also run 'env' command to find all available env variables
-# or learn more about the available environment variables at:
-# https://console.bluemix.net/docs/services/ContinuousDelivery/pipeline_deploy_var.html#deliverypipeline_environment
 
-# Input env variables from pipeline job
-#echo "PIPELINE_KUBERNETES_CLUSTER_NAME=${PIPELINE_KUBERNETES_CLUSTER_NAME}"
-#if [ -z "${CLUSTER_NAMESPACE}" ]; then CLUSTER_NAMESPACE=default ; fi
-#echo "CLUSTER_NAMESPACE=${CLUSTER_NAMESPACE}"
+echo "default.datasource.certs=${default.datasource.certs:5df929c2-b76a-11e9-b3dd-4acf6c229d45}"
+echo "default.datasource.username=${default.datasource.username:ibm_cloud_a66ff784_d8a6_4545_bb4c_b24dec4e02b8}"
+echo "default.datasource.password=${default.datasource.password:7f5dfe3c8d3eabcf52d15a7b81ce845a013e681ed753e063a4be3276a4461530}"
+echo "default.datasource.jdbc.url=${default.datasource.jdbc.url:jdbc:postgresql://3bd53622-20ce-426b-8232-cf6a3d0c52ce.bkvfv1ld0bj2bdbncbeg.databases.appdomain.cloud:30143/ibmclouddb}"
 
-#echo "=========================================================="
-#echo "DEPLOYING using manifest"
-#echo -e "Updating ${DEPLOYMENT_FILE} with image name: ${REGISTRY_URL}/${REGISTRY_NAMESPACE}/${IMAGE_NAME}:${IMAGE_TAG}"
-#if [ -z "${DEPLOYMENT_FILE}" ]; then DEPLOYMENT_FILE=deployment.yml ; fi
-#if [ -f ${DEPLOYMENT_FILE} ]; then
-#    sed -i "s~^\([[:blank:]]*\)image:.*$~\1image: ${REGISTRY_URL}/${REGISTRY_NAMESPACE}/${IMAGE_NAME}:${IMAGE_TAG}~" ${DEPLOYMENT_FILE}
-#    cat ${DEPLOYMENT_FILE}
-#else 
-#    echo -e "${red}Kubernetes deployment file '${DEPLOYMENT_FILE}' not found${no_color}"
-#    exit 1
-#fi    
+echo "default.datasource.base.certs=${default.datasource.base.certs:5df929c2-b76a-11e9-b3dd-4acf6c229d45}"
+echo "default.datasource.base.username=${default.datasource.base.username:ibm_cloud_a66ff784_d8a6_4545_bb4c_b24dec4e02b8}"
+echo "default.datasource.base.password=${default.datasource.base.password:7f5dfe3c8d3eabcf52d15a7b81ce845a013e681ed753e063a4be3276a4461530}"
+echo "default.datasource.base.jdbc.url=${default.datasource.base.jdbc.url:jdbc:postgresql://3bd53622-20ce-426b-8232-cf6a3d0c52ce.bkvfv1ld0bj2bdbncbeg.databases.appdomain.cloud:30143/ibmclouddb}"
+
+echo "default.datasource.mycompany.certs=${default.datasource.mycompany.certs:2b11af40-8aa6-4b13-a424-1a9109624264}"
+echo "default.datasource.mycompany.username=${default.datasource.mycompany.username:ibm_cloud_27df2776_ca1d_4e5d_acc8_79e557a60482}"
+echo "default.datasource.mycompany.password=${default.datasource.mycompany.password:1381b9739602be4254a0dedd56a5093f1d641414b3714643c3a8003b10efe146}"
+echo "default.datasource.mycompany.jdbc.url=${default.datasource.mycompany.jdbc.url:jdbc:postgresql://5e6b66a4-70b6-4caf-be8b-23cd2d1ed26b.c00no9sd0hobi6kj68i0.databases.appdomain.cloud:30266/ibmclouddb}"
+
 set -x
 #kubectl apply --namespace ${CLUSTER_NAMESPACE} -f ${DEPLOYMENT_FILE} 
 
@@ -45,7 +39,21 @@ ibmcloud target -g Default
 ibmcloud ce project select --name multi-tenant
 #ibmcloud ce registry create --name ibm-container-registry --server us.icr.io --username iamapikey --password $API
 
-ibmcloud ce application create --name service-catalog-a --image us.icr.io/multi-tenancy-cr/service-catalog:latest --port 8081 --rs test
+ibmcloud ce application create --name service-catalog-a --image us.icr.io/multi-tenancy-cr/service-catalog:latest \
+                                                        --port 8081 --rs test \
+                                                        --env default.datasource.certs=${default.datasource.certs} \
+                                                        --env default.datasource.username=${default.datasource.username} \
+                                                        --env default.datasource.password=${default.datasource.password} \
+                                                        --env default.datasource.jdbc.url=${default.datasource.jdbc.url} \
+                                                        --env default.datasource.base.certs=${default.datasource.base.certs} \
+                                                        --env default.datasource.base.username=${default.datasource.base.username} \
+                                                        --env default.datasource.base.password=${default.datasource.base.password} \
+                                                        --env default.datasource.base.jdbc.url=${default.datasource.base.jdbc.url} \
+                                                        --env default.datasource.mycompany.certs=${default.datasource.mycompany.certs} \
+                                                        --env default.datasource.mycompany.username=${default.datasource.mycompany.username} \
+                                                        --env default.datasource.mycompany.password=${default.datasource.mycompany.password} \
+                                                        --env default.datasource.mycompany.jdbc.url=${default.datasource.mycompany.jdbc.url}
+
 set +x
 
 echo ""
