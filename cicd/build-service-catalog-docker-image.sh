@@ -21,10 +21,10 @@ echo "DOCKER_ROOT=${DOCKER_ROOT}"
 echo "DOCKER_FILE=${DOCKER_FILE}"
 
 export default_datasource_base_certs="${default_datasource_base_certs:=5df929c2-b76a-11e9-b3dd-4acf6c229d45}"
-echo "default_datasource_base_certs=${default_datasource_base_certs}"
+#echo "default_datasource_base_certs=${default_datasource_base_certs}"
 
 export default_datasource_mycompany_certs="${default_datasource_mycompany_certs:=2b11af40-8aa6-4b13-a424-1a9109624264}"
-echo "default_datasource_mycompany_certs=${default_datasource_mycompany_certs}"
+#echo "default_datasource_mycompany_certs=${default_datasource_mycompany_certs}"
 
 export default_datasource_certs_data="${default_datasource_certs_data:=-----BEGIN CERTIFICATE-----
                                                                     MIIDDzCCAfegAwIBAgIJANEH58y2/kzHMA0GCSqGSIb3DQEBCwUAMB4xHDAaBgNV
@@ -47,7 +47,7 @@ export default_datasource_certs_data="${default_datasource_certs_data:=-----BEGI
                                                                     -----END CERTIFICATE-----
                                         }"
 
-echo "default_datasource_certs_data=${default_datasource_certs_data}"
+#echo "default_datasource_certs_data=${default_datasource_certs_data}"
 
 export default_datasource_base_certs_data="${default_datasource_base_certs_data:-----BEGIN CERTIFICATE-----
                                                                     MIIDDzCCAfegAwIBAgIJANEH58y2/kzHMA0GCSqGSIb3DQEBCwUAMB4xHDAaBgNV
@@ -70,7 +70,7 @@ export default_datasource_base_certs_data="${default_datasource_base_certs_data:
                                                                     -----END CERTIFICATE-----
                                         }"
 
-echo "default_datasource_base_certs_data=${default_datasource_base_certs_data}"
+#echo "default_datasource_base_certs_data=${default_datasource_base_certs_data}"
 
 
 export "default_datasource_mycompany_certs_data=${default_datasource_mycompany_certs_data:-----BEGIN CERTIFICATE-----
@@ -95,7 +95,7 @@ export "default_datasource_mycompany_certs_data=${default_datasource_mycompany_c
 
                                         }"
 
-echo "default_datasource_mycompany_certs_data=${default_datasource_mycompany_certs_data}"
+#echo "default_datasource_mycompany_certs_data=${default_datasource_mycompany_certs_data}"
 
 # also run 'env' command to find all available env variables
 # or learn more about the available environment variables at:
@@ -117,19 +117,22 @@ set -x
 
 #ibmcloud cr build --file Dockerfile --tag ${REGISTRY_URL}/${REGISTRY_NAMESPACE}/${IMAGE_NAME}:${IMAGE_TAG} .
 
-echo "ibmcloud cr build   --build-arg default.datasource.base.certs=${default_datasource_base_certs} \
-                          --build-arg default.datasource.mycompany.certs=${default_datasource_mycompany_certs} \
-                          --build-arg default.datasource.certs.data=${default_datasource_certs_data} \
-                          --build-arg default.datasource.base.certs.data=${default_datasource_base_certs_data} \
-                          --build-arg default.datasource.mycompany.certs.data=${default_datasource_mycompany_certs_data} \
-                          --tag ${REGISTRY_URL}/${REGISTRY_NAMESPACE}/${IMAGE_NAME}:latest"
+echo "ibmcloud cr build   --file Dockerfile \
+                          --build-arg default.datasource.base.certs=\"${default_datasource_base_certs}\" \
+                          --build-arg default.datasource.mycompany.certs=\"${default_datasource_mycompany_certs}\" \
+                          --build-arg default.datasource.certs.data=\"${default_datasource_certs_data}\" \
+                          --build-arg default.datasource.base.certs.data=\"${default_datasource_base_certs_data}\" \
+                          --build-arg default.datasource.mycompany.certs.data=\"${default_datasource_mycompany_certs_data}\" \
+                          --tag ${REGISTRY_URL}/${REGISTRY_NAMESPACE}/${IMAGE_NAME}:latest ."
                  
-ibmcloud cr build  --build-arg default.datasource.base.certs=${default_datasource_base_certs} \
-                   --build-arg default.datasource.mycompany.certs=${default_datasource_mycompany_certs} \
-                   --build-arg default.datasource.certs.data=${default_datasource_certs_data} \
-                   --build-arg default.datasource.base.certs.data=${default_datasource_base_certs_data} \
-                   --build-arg default.datasource.mycompany.certs.data=${default_datasource_mycompany_certs_data} \
-                   --tag ${REGISTRY_URL}/${REGISTRY_NAMESPACE}/${IMAGE_NAME}:latest
+echo  ibmcloud cr build   --file Dockerfile \
+                          --build-arg default.datasource.base.certs=\"${default_datasource_base_certs}\" \
+                          --build-arg default.datasource.mycompany.certs=\"${default_datasource_mycompany_certs}\" \
+                          --build-arg default.datasource.certs.data=\"${default_datasource_certs_data}\" \
+                          --build-arg default.datasource.base.certs.data=\"${default_datasource_base_certs_data}\" \
+                          --build-arg default.datasource.mycompany.certs.data=\"${default_datasource_mycompany_certs_data}\" \
+                          --tag ${REGISTRY_URL}/${REGISTRY_NAMESPACE}/${IMAGE_NAME}:latest .
+                          
 set +x
 
 ibmcloud cr image-inspect ${REGISTRY_URL}/${REGISTRY_NAMESPACE}/${IMAGE_NAME}:latest
