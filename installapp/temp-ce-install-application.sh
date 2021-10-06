@@ -102,6 +102,12 @@ export APPLICATION_OAUTHSERVERURL=""
 export POSTGRES_SERVICE_NAME=databases-for-postgresql
 export POSTGRES_PLAN=standard
 
+# Postgres database defaults
+export DEFAULT_DATASOURCE_CERT_CONTENT=""
+export DEFAULT_DATASOURCE_USERNAME=""
+export DEFAULT_DATASOURCE_PASSWORD=""
+export DEFAULT_DATASOURCE_JDBC_URL=""
+
 # **********************************************************************************
 # Functions definition
 # **********************************************************************************
@@ -221,9 +227,18 @@ function setupPostgres () {
     echo ""
     # **** Create a service key for the service
     ibmcloud resource service-key-create $POSTGRES_SERVICE_KEY_NAME --instance-id $POSTGRES_INSTANCE_ID
+}
+
+function createTablesPostgress () {
+
+    echo ""
+    echo "-------------------------"
+    echo "Get the postgres connection statement"
+    echo "-------------------------"
+    echo ""   
     # ***** Get service key of the service
     ibmcloud resource service-key $POSTGRES_SERVICE_KEY_NAME --output JSON > ./postgres-config/postgres-key-temp.json
-    POSTGRES_CONNECTION_TEMP=$(cat ./postgres-config/postgres-key.json | jq '.[].credentials.connection.cli.composed[]' | sed 's/"//g' | sed '$ s/.$//' )
+    POSTGRES_CONNECTION_TEMP=$(cat ./postgres-config/postgres-key-temp.json | jq '.[].credentials.connection.cli.composed[]' | sed 's/"//g' | sed '$ s/.$//' )
     rm -f ./postgres-config/postgres-key-temp.json
     echo ""
     echo "-------------------------"
@@ -232,7 +247,7 @@ function setupPostgres () {
     export POSTGRES_CONNECTION="$POSTGRES_CONNECTION_TEMP' -a -f create-populate-tenant-a.sql"
     echo ""
     echo "-------------------------"
-    echo "Result: $POSTGRES_CONNECTION" 
+    echo "Result: [$POSTGRES_CONNECTION]" 
     echo "-------------------------"
     
     # **** Get cert
@@ -265,6 +280,29 @@ function setupPostgres () {
     cd ..
     # **** Clean-up the temp folder and content
     rm -f -r ./postgres_cert
+}
+
+function extractPostgresConfiguration () {
+
+    # ***** Get service key of the service
+    ibmcloud resource service-key $POSTGRES_SERVICE_KEY_NAME --output JSON > ./postgres-config/postgres-key-temp.json
+
+
+    # ***** Extract needed configuration of the service key
+    DEFAULT_DATASOURCE_CERT_CONTENT=$(cat ./postgres-config/postgres-key-temp.json | jq '.[].credentials.connection.cli.certificate.certificate_base64' | sed 's/"//g' | sed '$ s/.$//' )
+    DEFAULT_DATASOURCE_USERNAME=$(cat ./postgres-config/postgres-key-temp.json | jq '.[].credentials.connection.postgres.authentication.username' | sed 's/"//g' | sed '$ s/.$//' )
+    DEFAULT_DATASOURCE_PASSWORD=$(cat ./postgres-config/postgres-key-temp.json | jq '.[].credentials.connection.postgres.authentication.password' | sed 's/"//g' | sed '$ s/.$//' )
+    DEFAULT_DATASOURCE_JDBC_URL=$(cat ./postgres-config/postgres-key-temp.json | jq '.[].credentials.connection.postgres.composed[]' | sed 's/"//g' | sed '$ s/.$//' )
+    
+    # ***** Delete temp file    
+    rm -f ./postgres-config/postgres-key-temp.json
+    
+    # ***** Display variables
+    #echo "Cert Content:  $DEFAULT_DATASOURCE_CERT_CONTENT"
+    #echo "Username:      $DEFAULT_DATASOURCE_USERNAME"
+    #echo "Password:      $DEFAULT_DATASOURCE_PASSWORD"
+    #echo "JDBL    :      $DEFAULT_DATASOURCE_JDBC_URL"
+
 }
 
 # **** AppID ****
@@ -574,7 +612,9 @@ echo "************************************"
 echo " Create Postgres instance and database"
 echo "************************************"
 
-setupPostgres
+#setupPostgres
+#createTablesPostgress
+extractPostgresConfiguration
 
 echo "************************************"
 echo " AppID creation"

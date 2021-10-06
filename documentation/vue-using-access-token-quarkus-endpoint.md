@@ -1,4 +1,4 @@
-# Vue.js using accesstoken to invoke Quarkus endpoints
+# Vue.js using an `accesstoken` to invoke Quarkus endpoints
 
 Here is one example invokation:
 
