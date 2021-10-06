@@ -32,7 +32,7 @@ echo "DOCKER_FILE=${DOCKER_FILE}"
 
 set -x
 
-#cd /workspace/code/service-catalog-tmp/
+cd /workspace/code/service-catalog-tmp/
 
 #cat ${default.datasource.certs.data} > src/main/resources/${default.datasource.base.certs}
 #cat ${default.datasource.mycompany.certs.data} > src/main/resources/${default.datasource.mycompany.certs}
