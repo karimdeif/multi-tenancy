@@ -112,13 +112,13 @@ bash ce-create-two-tenantcies.sh
 
 * What happens behind the curtain?
 
-The bash script `ce-create-two-tenantcies.sh` invokes **twice** the bash script `ce-install-application.sh` with the needed parameter to create two seperated tenant applications. Here is a short simplified description which steps are carried out in the script `ce-install-application-ibmcr.sh`:
+The bash script `ce-create-two-tenantcies.sh` invokes **twice** the bash script `ce-install-application.sh` with the needed parameter to create two seperated tenant applications. Here is a short simplified description which steps are carried out currently in the script `ce-install-application-ibmcr.sh`:
 
- 1. Configure CLI config and create an [Code Engine CLI](https://cloud.ibm.com/docs/codeengine?topic=codeengine-cli) project
+ 1. Configure IBM Cloud configuration for targets like $REGION and create an [Code Engine CLI](https://cloud.ibm.com/docs/codeengine?topic=codeengine-cli) project
  2. Configure container the IBM Cloud container registry access in the Code Engine project
  3. Create Postgres instance and database
  4. Create an [`App ID`](https://cloud.ibm.com/docs/appid) service instance
- 5. Configure the AppID service instance and use the [App ID REST API](https://cloud.ibm.com/apidocs/app-id/management#introduction) to configure: **application**, **scope**, **roles**, **users**, **login** and **logo**.
+ 5. Configure the AppID service instance and use the [App ID REST API](https://cloud.ibm.com/apidocs/app-id/management#introduction) to configure: **application**, **scope**, **roles**, **users**, **login**,  **logo** and **color**.
  6. Create `service catalog` application in the **Code Engine** project
  7. Create `frontend` application in the **Code Engine** project
  8. Add `redirect URI` for the Frontend to **AppID**
@@ -130,6 +130,8 @@ The bash script `ce-create-two-tenantcies.sh` invokes **twice** the bash script 
 
  - Two **App ID service instances** which do include an user with the **username** `thomas@example.com` and **password** `thomas4appid`
  - Two **Code Engine projects** with a fontend and a backend application and an configured access for the IBM Cloud container registry of your account.
+
+ > Note: We using at the moment a preconfigured **Postgres database** running on IBM Cloud, which is maybe not in your cloud account.
 
 ### Verify the setup
 
