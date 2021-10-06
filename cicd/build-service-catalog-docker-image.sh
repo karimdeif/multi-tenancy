@@ -21,7 +21,10 @@ echo "DOCKER_ROOT=${DOCKER_ROOT}"
 echo "DOCKER_FILE=${DOCKER_FILE}"
 
 echo "default_datasource_base_certs=${CERT-TEST}"
-default.datasource.base.certs="${default_datasource_base_certs:=5df929c2-b76a-11e9-b3dd-4acf6c229d45}"
+export default_datasource_base_certs="${default_datasource_base_certs:=5df929c2-b76a-11e9-b3dd-4acf6c229d45}"
+
+echo "default_datasource_base_certs=${default_datasource_base_certs}"
+
 
 echo "default.datasource.base.certs=${default.datasource.base.certs}"
 
