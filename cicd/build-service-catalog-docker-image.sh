@@ -95,7 +95,7 @@ export "default_datasource_mycompany_certs_data=${default_datasource_mycompany_c
 
                                         }"
 
-export "default_datasource_mycompany_certs_data=${default_datasource_mycompany_certs_data}"
+echo "default_datasource_mycompany_certs_data=${default_datasource_mycompany_certs_data}"
 
 # also run 'env' command to find all available env variables
 # or learn more about the available environment variables at:
@@ -106,17 +106,23 @@ export "default_datasource_mycompany_certs_data=${default_datasource_mycompany_c
 
 set -x
 
-cd /workspace/code/service-catalog-tmp/
+#cd /workspace/code/service-catalog-tmp/
 
 #cat ${default.datasource.certs.data} > src/main/resources/${default.datasource.base.certs}
 #cat ${default.datasource.mycompany.certs.data} > src/main/resources/${default.datasource.mycompany.certs}
 
-chmod 777 mvnw
+#chmod 777 mvnw
 
-./mvnw package
+#./mvnw package
 
 #ibmcloud cr build --file Dockerfile --tag ${REGISTRY_URL}/${REGISTRY_NAMESPACE}/${IMAGE_NAME}:${IMAGE_TAG} .
-ibmcloud cr build --file Dockerfile --tag ${REGISTRY_URL}/${REGISTRY_NAMESPACE}/${IMAGE_NAME}:latest .
+ibmcloud cr build --file Dockerfile \
+                  --build-arg default.datasource.base.certs=${default_datasource_base_certs} \
+                  --build-arg default.datasource.mycompany.certs=${default_datasource_mycompany_certs} \
+                  --build-arg default.datasource.certs.data=${default_datasource_certs_data} \
+                  --build-arg default.datasource.base.certs.data=${default_datasource_base_certs_data} \
+                  --build-arg default.datasource.mycompany.certs.data=${default_datasource_mycompany_certs_data} \
+                  --tag ${REGISTRY_URL}/${REGISTRY_NAMESPACE}/${IMAGE_NAME}:latest .
 set +x
 
 ibmcloud cr image-inspect ${REGISTRY_URL}/${REGISTRY_NAMESPACE}/${IMAGE_NAME}:latest
