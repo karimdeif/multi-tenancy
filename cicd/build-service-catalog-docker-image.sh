@@ -20,10 +20,10 @@ echo "GIT_COMMIT=${GIT_COMMIT}"
 echo "DOCKER_ROOT=${DOCKER_ROOT}"
 echo "DOCKER_FILE=${DOCKER_FILE}"
 
-echo "default.datasource.base.certs=${default_datasource_base_certs}"
-export default.datasource.base.certs="${default.datasource.base.certs:=5df929c2-b76a-11e9-b3dd-4acf6c229d45}"
+echo "default_datasource_base_certs=${default_datasource_base_certs}"
+export default_datasource_base_certs="${default_datasource_base_certs:=5df929c2-b76a-11e9-b3dd-4acf6c229d45}"
 
-echo "default.datasource.base.certs=${default.datasource.base.certs}"
+echo "default_datasource_base_certs=${default_datasource_base_certs}"
 
 
 echo "default.datasource.base.certs=${default.datasource.base.certs}"
