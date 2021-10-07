@@ -113,7 +113,7 @@ The bash script [`ce-create-two-tenantcies.sh`](https://github.com/karimdeif/mul
 
 #### Step 1: Open following url [`https://cloud.ibm.com/resources`](https://cloud.ibm.com/resources)
 
-In resource list of in the IBM Cloud UI, insert as filter for **name** the value `multi`. Now you should see following in your IBM Cloud Account:
+In resource list of the IBM Cloud UI, insert as filter for **name** the value `multi`. Now you should see following in your resource list:
 
 ![](images/Mulit-Tenancy-automatic-creation-02.png)
 
