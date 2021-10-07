@@ -4,7 +4,7 @@ These are the main three objectives for this sprint.
 
 * **Running simple ecommerce application on Code Engine**
 * **Automation of the deployment**
-* **Documenation of the setup**
+* **Documentation of the setup**
 
 #### 1 **Running simple ecommerce application on Code Engine**
 
@@ -50,7 +50,7 @@ These are the main three objectives for this sprint.
     * [sed](https://en.wikipedia.org/wiki/Sed)
     * [grep](https://en.wikipedia.org/wiki/Grep)
 
-#### 3  **Documenation of the setup**
+#### 3  **Documentation of the setup**
 
   * Automation setup **(in progress)**
   * Manual setup **(pending)**
