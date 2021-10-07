@@ -36,6 +36,10 @@ nav:
     - IBM Cloud App ID:
        - AppID API documentation: https://cloud.ibm.com/apidocs/app-id/management
        - AppID REST API (swagger-ui): https://us-south.appid.cloud.ibm.com/swagger-ui
+    - Blog Posts:
+       - Automated setup of AppID: https://suedbroecker.net/2021/10/06/automated-setup-of-an-ibm-cloud-app-id-instance-using-a-bash-script/
+       - Quarkus externalization of container application: https://suedbroecker.net/2021/05/31/how-to-use-environment-variables-to-make-a-containerized-quarkus-application-more-flexible/
+       - Vue.js externalization of container application: https://suedbroecker.net/2021/06/07/use-environment-variables-to-make-a-containerized-vue-js-frontend-application-more-flexible-and-deploy-it-to-code-engine/
 
 ## DO NOT CHANGE BELOW THIS LINE
 
