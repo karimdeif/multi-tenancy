@@ -6,9 +6,13 @@
 
 ### Run automated first time installation setup
 
-#### Step 1: Clone the GitHub project to the `IBM Cloud Shell`
+> Don't forget you need an **IBM Cloud PayAsYouGo Account**!
+> If you don't want to use the **IBM Cloud Shell** you need to install locally on your Mac:[jq](https://lzone.de/cheat-sheet/jq) (`brew install jq`), [IBM Cloud CLI](https://cloud.ibm.com/docs/cli?topic=cli-getting-started), [IBM Code Engine CLI - plugin](https://cloud.ibm.com/docs/codeengine?topic=codeengine-cli) and [IBM Cloud databases CLI - plugin](https://cloud.ibm.com/docs/databases-cli-plugin?topic=databases-cli-plugin-cdb-reference) and [IBM Cloud Container Registry CLI - plugin](https://cloud.ibm.com/docs/Registry?topic=container-registry-cli-plugin-containerregcli&locale=de).
 
-Insert these commands to clone the GitHub project to the `IBM Cloud Shell`.
+
+#### Step 1: Clone the GitHub project to the **`IBM Cloud Shell`**
+
+Insert these commands to clone the GitHub project to the **`IBM Cloud Shell`**.
 
 ```sh
 git clone https://github.com/karimdeif/multi-tenancy.git
