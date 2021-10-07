@@ -119,6 +119,8 @@ In resource list of in the IBM Cloud UI, insert as filter for **name** the value
 
 #### Step 2: Open App ID instance for `tenant a` and inspect the configuration
 
+Open following URL <https://cloud.ibm.com/resources>
+
 ![](images/Mulit-Tenancy-automatic-running-example-01.gif)
 
 #### Step 3: Open Code Engine project for `tenant a` and inspect the configuration
