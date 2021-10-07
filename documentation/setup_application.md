@@ -123,6 +123,8 @@ In resource list of in the IBM Cloud UI, insert as filter for **name** the value
 
 #### Step 4: Open the frontend application for `tenant a` in the Code Engine project
 
+![](images/Mulit-Tenancy-automatic-running-example-03.gif)
+
 #### Step 5: Click on URL and logon to the frontend application using **username** `thomas@example.com` and **password** `thomas4appid`
 
 ![](images/Mulit-Tenancy-automatic-running-example-02.gif)
