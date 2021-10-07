@@ -41,7 +41,7 @@ export NAMESPACE=""
 
 # CE for IBM Cloud Container Registry access
 export SECRET_NAME="multi.tenancy.cr.sec"
-export IBMCLOUDCLI_KEY_NAME=cliapikey_for_multi_tenant
+export IBMCLOUDCLI_KEY_NAME="cliapikey_for_multi_tenant_$PROJECT_NAME"
 
 # **********************************************************************************
 # Functions definition
@@ -153,4 +153,4 @@ cleanPostgresService
 echo "************************************"
 echo " Clean Code Engine Project $PROJECT_NAME"
 echo "************************************"
-cleanCodeEngineProject
+#cleanCodeEngineProject

@@ -128,8 +128,8 @@ function setupCLIenvCE() {
 
 function setupCRenvCE() {
    
-   IBMCLOUDCLI_KEY_NAME=cliapikey_for_multi_tenant
-   IBMCLOUDCLI_KEY_DESCRIPTION="CLI APIkey $cliapikey_for_multi_tenant"
+   IBMCLOUDCLI_KEY_NAME="cliapikey_for_multi_tenant_$PROJECT_NAME"
+   IBMCLOUDCLI_KEY_DESCRIPTION="CLI APIkey $IBMCLOUDCLI_KEY_NAME"
    CLIKEY_FILE="cli_key.json"
    CR_SERVER="us.icr.io"
    USERNAME="iamapikey"
@@ -403,7 +403,7 @@ function deployServiceCatalog(){
                                    --port 8081 \
                                    --registry-secret "$SECRET_NAME" \
                                    --max-scale 1 \
-                                   --min-scale 1 \
+                                   --min-scale 0
                                        
     #ibmcloud ce application get --name "$SERVICE_CATALOG_NAME"  --output json > $OUTPUTFILE
     SERVICE_CATALOG_URL=$(ibmcloud ce application get --name "$SERVICE_CATALOG_NAME" -o url)
@@ -426,7 +426,7 @@ function deployFrontend(){
                                    --env VUE_APP_ROOT="/" \
                                    --registry-secret "$SECRET_NAME" \
                                    --max-scale 1 \
-                                   --min-scale 1 \
+                                   --min-scale 0 \
                                    --port 8081 
 
     ibmcloud ce application get --name $FRONTEND_NAME

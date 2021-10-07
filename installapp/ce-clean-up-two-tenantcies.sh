@@ -12,7 +12,7 @@
 
 # Code Engine
 #export PROJECT_NAME_A=multi-tenancy-serverless-a
-export PROJECT_NAME_A=multi-tenancy-serverless
+export PROJECT_NAME_A=multi-tenancy-serverless-tmp-a
 export PROJECT_NAME_B=multi-tenancy-serverless-tmp-b
 
 # Applications
@@ -30,10 +30,10 @@ export APPID_SERVICE_INSTANCE_NAME_B="multi-tenancy-serverless-appid-b"
 export APPID_SERVICE_KEY_NAME_B="multi-tenancy-serverless-appid-key-b"
 
 # Postgres
-export POSTGRES_SERVICE_INSTANCE_A="multi-tenant-pg-a1"
+export POSTGRES_SERVICE_INSTANCE_A="multi-tenant-pg-a"
 export POSTGRES_SERVICE_INSTANCE_B="multi-tenant-pg-b"
 
-export POSTGRES_SERVICE_KEY_NAME_A="multi-tenant-pg-service-key-a1"
+export POSTGRES_SERVICE_KEY_NAME_A="multi-tenant-pg-service-key-a"
 export POSTGRES_SERVICE_KEY_NAME_B="multi-tenant-pg-service-key-b"
 
 # **********************************************************************************
@@ -58,10 +58,10 @@ bash ./ce-clean-up.sh $PROJECT_NAME_A \
                       $POSTGRES_SERVICE_INSTANCE_A \
                       $POSTGRES_SERVICE_KEY_NAME_A
 
-# bash ./ce-clean-up.sh $PROJECT_NAME_B \
-#                      $APPID_SERVICE_INSTANCE_NAME_B \
-#                      $APPID_SERVICE_KEY_NAME_B \
-#                      $SERVICE_CATALOG_NAME_B \
-#                      $FRONTEND_NAME_B \
-#                      $POSTGRES_SERVICE_INSTANCE_B \
-#                      $POSTGRES_SERVICE_KEY_NAME_B
+bash ./ce-clean-up.sh $PROJECT_NAME_B \
+                      $APPID_SERVICE_INSTANCE_NAME_B \
+                      $APPID_SERVICE_KEY_NAME_B \
+                      $SERVICE_CATALOG_NAME_B \
+                      $FRONTEND_NAME_B \
+                      $POSTGRES_SERVICE_INSTANCE_B \
+                      $POSTGRES_SERVICE_KEY_NAME_B
