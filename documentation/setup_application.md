@@ -86,6 +86,8 @@ bash ce-create-two-tenantcies.sh
 
 * What happens behind the curtain?
 
+![](images/Mulit-Tenancy-automatic-running-example-04.gif)
+
 The bash script [`ce-create-two-tenantcies.sh`](https://github.com/karimdeif/multi-tenancy/blob/main/installapp/ce-create-two-tenantcies.sh) invokes **twice** the bash script [`ce-install-application.sh`](https://github.com/karimdeif/multi-tenancy/blob/main/installapp/ce-install-application.sh) with the needed parameter to create two seperated tenant applications. Here is a short simplified description which steps are carried out currently in the script [`ce-install-application.sh`](https://github.com/karimdeif/multi-tenancy/blob/main/installapp/ce-install-application.sh):
 
  1. Configure IBM Cloud configuration for targets like $REGION and create an [Code Engine CLI](https://cloud.ibm.com/docs/codeengine?topic=codeengine-cli) project
