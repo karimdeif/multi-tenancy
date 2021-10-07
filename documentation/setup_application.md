@@ -131,9 +131,71 @@ In resource list of in the IBM Cloud UI, insert as filter for **name** the value
 
 ![](images/Mulit-Tenancy-automatic-running-example-02.gif)
 
-#### Step 6: Repeat the steps for `tenant b`
+#### Step 6: Repeat the all steps for `tenant b`
 
+### Optional Clean-up 
 
+#### Step 1: Inspect the default configuration of the clean-up bash scripts
+
+Prerequiste to run the bash scripts ([`ce-clean-up-two-tenantcies.sh`](https://github.com/karimdeif/multi-tenancy/blob/main/installapp/ce-clean-up-two-tenantcies.sh) and [`ce-clean-up.sh`](https://github.com/karimdeif/multi-tenancy/blob/main/installapp/ce-clean-up.sh) for the clean-up. These are the default values:
+
+* Code Engine
+
+```sh
+export PROJECT_NAME_A=multi-tenancy-serverless-tmp-a
+export PROJECT_NAME_B=multi-tenancy-serverless-tmp-b
+```
+
+* Applications
+
+```sh
+export SERVICE_CATALOG_NAME_A="service-catalog-movies"
+export FRONTEND_NAME_A="frontend-movies"
+
+export SERVICE_CATALOG_NAME_B="service-catalog-fantasy"
+export FRONTEND_NAME_B="frontend-fantasy"
+```
+
+* App ID
+
+```sh
+export APPID_SERVICE_INSTANCE_NAME_A="multi-tenancy-serverless-appid-a"
+export APPID_SERVICE_KEY_NAME_A="multi-tenancy-serverless-appid-key-a"
+
+export APPID_SERVICE_INSTANCE_NAME_B="multi-tenancy-serverless-appid-b"
+export APPID_SERVICE_KEY_NAME_B="multi-tenancy-serverless-appid-key-b"
+```
+
+* Postgres
+
+```sh
+export POSTGRES_SERVICE_INSTANCE_A="multi-tenant-pg-a"
+export POSTGRES_SERVICE_INSTANCE_B="multi-tenant-pg-b"
+
+export POSTGRES_SERVICE_KEY_NAME_A="multi-tenant-pg-service-key-a"
+export POSTGRES_SERVICE_KEY_NAME_B="multi-tenant-pg-service-key-b"
+```
+
+#### Step 2: Execute following bash automation in your IBM Cloud Shell
+
+* Execute following bash script:
+
+```sh
+cd $ROOT_FOLDER/installapp
+bash ce-create-two-tenantcies.sh
+```
+
+#### Step 3: Verify the App ID services are delete
+
+Open following URL <https://cloud.ibm.com/resources>
+
+#### Step 4: Verify the Code Engine projects are delete
+
+Open following URL <https://cloud.ibm.com/codeengine/projects>
+
+#### Step 4: Verify the IBM CLoud API key is deleted
+
+Open following URL <https://cloud.ibm.com/iam/apikeys>
 
 
 
