@@ -13,7 +13,7 @@ docs_dir: documentation
 nav:
   - Introduction:
      - Overview: ./README.md
-        - Sprint in week 41 `serverless`:
+        - Sprint in week 41 **serverless**:
             - Objectives: ./serverless_sprint_week_41_objectives.md
             - Tasks: ./serverless_sprint_week_41_tasks.md
   - Labs: 
