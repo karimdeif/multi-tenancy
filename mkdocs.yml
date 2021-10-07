@@ -13,6 +13,9 @@ docs_dir: documentation
 nav:
   - Introduction:
      - Overview: ./README.md
+        - Sprint in week 41 `serverless`:
+            - Objectives: serverless_sprint_week_41_objectives.md
+            - Tasks: serverless_sprint_week_41_tasks.md
   - Labs: 
     - 1. Create an IBM Cloud account: ./create_ibmcloud_account.md
     - 2. Open IBM Cloud Shell: ./open_ibmcloud_shell.md
