@@ -1,10 +1,10 @@
-# Multi tenancy
+# Multi tenancy - architecture and projects
 
 **------------------**
 **UNDER CONSTRUCTION**
 **------------------**
 
-### Multi-tenancy projects
+### Multi-tenancy projects 
 
 * [Serverless](https://github.com/karimdeif/multi-tenancy)
 * [OpenShift](https://github.com/kleniu/openshift-multi-tenancy)

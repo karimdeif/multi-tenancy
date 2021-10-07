@@ -12,7 +12,8 @@ docs_dir: documentation
 # Navigation
 nav:
   - Introduction:
-     - Overview: ./README.md
+     - Overview: 
+      - Architecture and projects: ./README.md
       - Sprint in week 41 serverless:
         - Objectives: ./serverless_sprint_week_41_objectives.md
         - Tasks: ./serverless_sprint_week_41_tasks.md
