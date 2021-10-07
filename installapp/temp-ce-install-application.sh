@@ -147,8 +147,8 @@ function setupCLIenvCE() {
 
 function setupCRenvCE() {
    
-   IBMCLOUDCLI_KEY_NAME=cliapikey_for_multi_tenant
-   IBMCLOUDCLI_KEY_DESCRIPTION="CLI APIkey $cliapikey_for_multi_tenant"
+   IBMCLOUDCLI_KEY_NAME="cliapikey_for_multi_tenant_$PROJECT_NAME"
+   IBMCLOUDCLI_KEY_DESCRIPTION="CLI APIkey $IBMCLOUDCLI_KEY_NAME"
    CLIKEY_FILE="cli_key.json"
    CR_SERVER="us.icr.io"
    USERNAME="iamapikey"
