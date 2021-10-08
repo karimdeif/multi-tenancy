@@ -184,7 +184,7 @@ export POSTGRES_SERVICE_KEY_NAME_B="multi-tenant-pg-service-key-b"
 
 ```sh
 cd $ROOT_FOLDER/installapp
-bash ce-create-two-tenantcies.sh
+bash ce-clean-up-two-tenantcies.sh
 ```
 
 #### Step 3: Verify the App ID services are delete
